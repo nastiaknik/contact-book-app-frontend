@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { register, login, logout, current } from "./operations";
+import { register, login, logout, refreshUser } from "./operations";
 
 const initialState = {
   user: { name: null, email: null },
@@ -27,37 +27,35 @@ const authSlice = createSlice({
         state.token = payload.token;
         state.isLoggedIn = true;
       })
-      .addCase(current.fulfilled, (state, { payload }) => {
+      /* .addCase(current.fulfilled, (state, { payload }) => {
         state.user = payload.user;
         state.isLoggedIn = true;
         state.loading = false;
         state.token = payload.token;
-      })
+      }) */
       .addCase(logout.fulfilled, (state) => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
         state.loading = false;
       })
-      .addCase(current.rejected, (state, { payload }) => {
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        state.loading = false;
+      })
+      /* .addCase(current.rejected, (state, { payload }) => {
         state.loading = false;
         state.token = "";
         state.error = payload;
-      })
-      .addMatcher(
-        isAnyOf(register.fulfilled, login.fulfilled),
-        (state, action) => {
-          state.user = action.payload.user;
-          state.token = action.payload.token;
-          state.isLoggedIn = true;
-        }
-      )
+      }) */
       .addMatcher(
         isAnyOf(
           register.pending,
           login.pending,
-          current.pending,
-          logout.pending
+          /* current.pending, */
+          logout.pending,
+          refreshUser.pending
         ),
         (state) => {
           state.loading = true;
@@ -65,7 +63,12 @@ const authSlice = createSlice({
         }
       )
       .addMatcher(
-        isAnyOf(register.rejected, login.rejected, logout.rejected),
+        isAnyOf(
+          register.rejected,
+          login.rejected,
+          logout.rejected,
+          /* current.rejected, */ refreshUser.rejected
+        ),
         (state, { payload }) => {
           state.loading = false;
           state.error = payload;

@@ -4,10 +4,12 @@ import { logout } from "../../redux/auth/operations";
 import { Button } from "@chakra-ui/react";
 import { FiLogOut } from "react-icons/fi";
 import { Wrapper, Username } from "./UserMenu.styled";
+import { selectIsLoading } from "../../redux/auth/selectors";
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const isLoading = useSelector(selectIsLoading);
 
   return (
     <Wrapper>
@@ -18,10 +20,10 @@ export const UserMenu = () => {
         rightIcon={<FiLogOut />}
         colorScheme="yellow"
         variant="solid"
-        onClick={() => dispatch(logout())}
-        /* isLoading={isLoading}
+        onClick={() => dispatch(logout(user._id))}
+        isLoading={isLoading}
         loadingText="Loading"
-        spinnerPlacement="start" */
+        spinnerPlacement="start"
       >
         Logout
       </Button>

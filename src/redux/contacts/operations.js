@@ -1,11 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL =
-  "https://goit-nodejs-homework-bnfs.onrender.com/api/contacts";
-
 export const getContacts = createAsyncThunk(
-  "/",
+  "/get",
   async (_, { rejectedWithValue }) => {
     try {
       const response = await axios.get("/contacts");

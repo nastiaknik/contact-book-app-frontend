@@ -1,40 +1,33 @@
-import { toast } from 'react-toastify';
-import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/operations';
-import { RiDeleteBinLine } from 'react-icons/ri';
-import { BsStar, BsStarFill } from 'react-icons/bs';
-import { Avatar } from '@chakra-ui/react';
-import { ContactEditForm } from '.././ContactEditForm/ContactEditForm';
-import {
+import { toast } from "react-toastify";
+import PropTypes from "prop-types";
+/* import { useState, useEffect } from 'react';
+ */ import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contacts/operations";
+import { RiDeleteBinLine } from "react-icons/ri";
+/* import { BsStar, BsStarFill } from 'react-icons/bs';
+ */ import { Avatar } from "@chakra-ui/react";
+/* import { ContactEditForm } from ".././ContactEditForm/ContactEditForm";
+ */ import {
   TableRow,
   Number,
   BtnWrapper,
   Button,
   ContactName,
-} from './ContactItem.styled';
+} from "./ContactItem.styled";
 
 export const ContactItem = ({ contacts }) => {
   const dispatch = useDispatch();
-  const [favourites, setFavourites] = useState(
-    () => JSON.parse(localStorage.getItem('favourites')) ?? []
-  );
 
-  useEffect(() => {
-    localStorage.setItem('favourites', JSON.stringify(favourites));
-  }, [favourites]);
-
-  const onDelete = contact => {
+  const onDelete = (contact) => {
     dispatch(deleteContact(contact.id));
     toast.success(
       <p>
-        Contact <span style={{ color: 'green' }}>{contact.name}</span> deleted!
+        Contact <span style={{ color: "green" }}>{contact.name}</span> deleted!
       </p>
     );
   };
 
-  const onFavorite = contact => {
+  /* const onFavorite = contact => {
     if (favourites.find(fav => fav.id === contact.id)) {
       setFavourites(favourites.filter(fav => fav.id !== contact.id));
       toast.success(
@@ -52,37 +45,37 @@ export const ContactItem = ({ contacts }) => {
         </p>
       );
     }
-  };
+  }; */
 
-  return contacts.map(contact => {
+  return contacts.map((contact) => {
     return (
-      <TableRow key={contact.id}>
+      <TableRow key={contact._id}>
         <ContactName>
           <Avatar
             src="https://bit.ly/broken-link"
             alt={contact.name}
             name={contact.name}
-            getInitials={name =>
+            getInitials={(name) =>
               name
-                .split(' ')
-                .map(name => name.slice(0, 1).toUpperCase())
+                .split(" ")
+                .map((name) => name.slice(0, 1).toUpperCase())
                 .slice(0, 2)
-                .join('')
+                .join("")
             }
           />
           {contact.name}
         </ContactName>
-        <Number>{contact.number}</Number>
+        <Number>{contact.phone}</Number>
         <BtnWrapper>
-          <Button type="button" onClick={() => onFavorite(contact)}>
+          {/* <Button type="button" onClick={() => onFavorite(contact)}>
             {favourites.find(fav => fav.id === contact.id) ? (
               <BsStarFill size={24} color="#ffd800" />
             ) : (
               <BsStar size={24} color="#ffd800" />
             )}
-          </Button>
+          </Button> */}
 
-          <ContactEditForm contact={contact} />
+          {/* <ContactEditForm contact={contact} /> */}
 
           <Button type="button" onClick={() => onDelete(contact)}>
             <RiDeleteBinLine size={24} color="red" />

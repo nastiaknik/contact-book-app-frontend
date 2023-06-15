@@ -1,23 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, /* Routes, Route */ } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./redux/store";
 import { ChakraProvider } from "@chakra-ui/react";
-import "./index.css";
 import App from "./App";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-  <BrowserRouter basename="/contact-book-app-frontend">
-    <Provider store={store}>
-      <ChakraProvider>
-        {/* <Routes>
-          <Route path="*" element={<App />}></Route>
-        </Routes> */}
-        <App />
-      </ChakraProvider>
-    </Provider>
-  </BrowserRouter>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter basename="/contact-book-app-frontend">
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ChakraProvider>
+            <App />
+          </ChakraProvider>
+        </PersistGate>
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>
 );

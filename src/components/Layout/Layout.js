@@ -1,7 +1,7 @@
 import { useLocation, Outlet } from "react-router-dom";
 import { Suspense } from "react";
 import { useSelector } from "react-redux";
-import { selectIsLoading } from "../../redux/auth/selectors";
+import { selectIsRefreshing } from "../../redux/auth/selectors";
 import { ToastContainer } from "react-toastify";
 import { Loader } from "../Skeleton";
 import { Container, Main } from "./Layout.styled";
@@ -10,11 +10,11 @@ import UserRoutes from "../../UserRoutes";
 
 export const Layout = () => {
   const location = useLocation();
-  const isLoading = useSelector(selectIsLoading);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   return (
     <Container>
-      {isLoading ? (
+      {isRefreshing ? (
         <Loader />
       ) : (
         <>
