@@ -18,8 +18,8 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(getContacts.fulfilled, (state, { payload }) => {
-        state.items = payload;
+      .addCase(getContacts.fulfilled, (state, action) => {
+        state.items = action.payload;
         state.loading = false;
         state.error = null;
       })

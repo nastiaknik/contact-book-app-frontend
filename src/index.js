@@ -9,15 +9,13 @@ import App from "./App";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter basename="/contact-book-app-frontend">
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ChakraProvider>
-            <App />
-          </ChakraProvider>
-        </PersistGate>
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter /* basename="/contact-book-app-frontend" */>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
+      </PersistGate>
+    </Provider>
+  </BrowserRouter>
 );

@@ -23,12 +23,12 @@ export function ContactEditForm({ contact }) {
   const handleEditWord = (event) => {
     event.preventDefault();
     const name = event.currentTarget.name.value;
-    const number = event.currentTarget.number.value;
+    const phone = event.currentTarget.number.value;
 
     const itemsWithoutContact = items.filter((item) => item !== contact);
 
     const isContactExist = itemsWithoutContact.some(
-      (contact) => contact.name === name || contact.number === number
+      (contact) => contact.name === name || contact.phone === phone
     );
     if (isContactExist) {
       toast.error(
@@ -39,7 +39,7 @@ export function ContactEditForm({ contact }) {
       return;
     }
 
-    if (contact.name === name && contact.number === number) {
+    if (contact.name === name && contact.phone === phone) {
       toast.warning(
         <p>
           You did not change contact{" "}
@@ -48,7 +48,7 @@ export function ContactEditForm({ contact }) {
       );
     }
 
-    dispatch(editContact({ id: contact.id, contact: { name, number } }));
+    dispatch(editContact({ id: contact._id, contact: { name, phone } }));
     event.currentTarget.reset();
     handleClose();
   };
@@ -98,7 +98,7 @@ export function ContactEditForm({ contact }) {
                 <Form.Control
                   type="text"
                   name="number"
-                  defaultValue={contact.number}
+                  defaultValue={contact.phone}
                   required
                   placeholder="+38 000 000 00 00"
                 />
@@ -122,7 +122,7 @@ export function ContactEditForm({ contact }) {
 ContactEditForm.propTypes = {
   contact: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
   }).isRequired,
 };

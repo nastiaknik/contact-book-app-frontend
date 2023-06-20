@@ -1,10 +1,10 @@
-import { Formik, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from '../../redux/contacts/selectors';
-import { addContact } from '../../redux/contacts/operations';
-import { BiErrorCircle } from 'react-icons/bi';
-import { toast } from 'react-toastify';
+import { Formik, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { selectContacts } from "../../redux/contacts/selectors";
+import { addContact } from "../../redux/contacts/operations";
+import { BiErrorCircle } from "react-icons/bi";
+import { toast } from "react-toastify";
 import {
   InputContainer,
   Button,
@@ -12,20 +12,20 @@ import {
   LabelContainer,
   Form,
   Error,
-} from './AddContactForm.styled';
+} from "./AddContactForm.styled";
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, 'Name is too short!')
-    .max(30, 'Name is too long!')
-    .required('Name is required!')
-    .label('Name'),
+    .min(3, "Name is too short!")
+    .max(30, "Name is too long!")
+    .required("Name is required!")
+    .label("Name"),
   number: Yup.string()
-    .required('Phone number is required!')
-    .label('Number')
+    .required("Phone number is required!")
+    .label("Number")
     .matches(
       /^(\+?\d{1,3}[- ]?)?\d{10}$/,
-      'Please provide a valid phone number!'
+      "Please provide a valid phone number!"
     ),
 });
 
@@ -33,31 +33,34 @@ export const AddContactForm = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
+  console.log(contacts);
+
   const handleSubmit = (values, actions) => {
     const contact = {
       name: values.name,
-      number: values.number,
+      phone: values.number,
+      email: `${values.name.toLowerCase().replace(/\s/g, ".")}@gmail.com`,
     };
 
-    const contactExists = contacts.some(item => {
+    const contactExists = contacts.some((item) => {
       return item.name === contact.name;
     });
     if (contactExists) {
       toast.warning(
         <p>
-          Contact <span style={{ color: 'orange' }}>{contact.name}</span>{' '}
+          Contact <span style={{ color: "orange" }}>{contact.name}</span>{" "}
           already exist!
         </p>
       );
       return;
     }
-    const numberExists = contacts.some(item => {
-      return item.number === contact.number;
+    const numberExists = contacts.some((item) => {
+      return item.phone === contact.phone;
     });
     if (numberExists) {
       toast.warning(
         <p>
-          Number <span style={{ color: 'orange' }}>{contact.number}</span> is
+          Number <span style={{ color: "orange" }}>{contact.phone}</span> is
           already in base!
         </p>
       );
@@ -68,7 +71,7 @@ export const AddContactForm = () => {
 
     toast.success(
       <p>
-        Contact <span style={{ color: 'green' }}>{contact.name}</span> added!
+        Contact <span style={{ color: "green" }}>{contact.name}</span> added!
       </p>
     );
     actions.resetForm();
@@ -76,21 +79,21 @@ export const AddContactForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={{ name: "", number: "" }}
       onSubmit={handleSubmit}
       validationSchema={ContactSchema}
     >
-      {props => {
+      {(props) => {
         return (
           <Form>
             <InputContainer>
               <LabelContainer>
                 <div
                   style={{
-                    display: 'flex',
-                    wtap: 'nowrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    display: "flex",
+                    wtap: "nowrap",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   <label htmlFor="name">Name</label>
@@ -103,12 +106,12 @@ export const AddContactForm = () => {
                     value={props.values.name}
                     onChange={props.handleChange}
                     className={
-                      props.touched.name && props.errors.name ? 'error' : ''
+                      props.touched.name && props.errors.name ? "error" : ""
                     }
                   />
                 </div>
                 <ErrorMessage name="name">
-                  {msg => (
+                  {(msg) => (
                     <Error>
                       <BiErrorCircle /> {msg}
                     </Error>
@@ -118,10 +121,10 @@ export const AddContactForm = () => {
               <LabelContainer>
                 <div
                   style={{
-                    display: 'flex',
-                    wtap: 'nowrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    display: "flex",
+                    wtap: "nowrap",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   <label htmlFor="number">Number</label>
@@ -134,12 +137,12 @@ export const AddContactForm = () => {
                     value={props.values.number}
                     onChange={props.handleChange}
                     className={
-                      props.touched.number && props.errors.number ? 'error' : ''
+                      props.touched.number && props.errors.number ? "error" : ""
                     }
                   />
                 </div>
                 <ErrorMessage name="number">
-                  {msg => (
+                  {(msg) => (
                     <Error>
                       <BiErrorCircle /> {msg}
                     </Error>

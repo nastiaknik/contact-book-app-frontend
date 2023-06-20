@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-/* import { useState, useEffect } from 'react';
- */ import { useDispatch } from "react-redux";
+/* import { useState, useEffect } from 'react';  */
+import { useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/contacts/operations";
 import { RiDeleteBinLine } from "react-icons/ri";
 /* import { BsStar, BsStarFill } from 'react-icons/bs';
@@ -19,7 +19,15 @@ export const ContactItem = ({ contacts }) => {
   const dispatch = useDispatch();
 
   const onDelete = (contact) => {
-    dispatch(deleteContact(contact.id));
+    if (!contact) {
+      toast.error(
+        <p>
+          Contact <span style={{ color: "red" }}>{contact.name}</span> was not
+          found!
+        </p>
+      );
+    }
+    dispatch(deleteContact(contact._id));
     toast.success(
       <p>
         Contact <span style={{ color: "green" }}>{contact.name}</span> deleted!
@@ -90,8 +98,8 @@ ContactItem.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
 };
