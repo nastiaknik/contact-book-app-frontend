@@ -6,7 +6,7 @@ import { Loader } from "./components/Skeleton";
 
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
-const HomePage = lazy(() => import("./pages/HomePage"));
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage/ContactsPage"));
 /* const FavoriteContactsPage = lazy(() =>
   import("./pages/FavoriteContactsPage/FavoriteContactsPage")

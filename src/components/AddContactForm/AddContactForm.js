@@ -33,8 +33,6 @@ export const AddContactForm = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
-  console.log(contacts);
-
   const handleSubmit = (values, actions) => {
     const contact = {
       name: values.name,
