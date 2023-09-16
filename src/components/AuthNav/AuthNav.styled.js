@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -21,26 +21,25 @@ export const Nav = styled.nav`
 `;
 
 export const StyledNavLink = styled(NavLink)`
-  text-align: start;
+  text-align: center;
   text-decoration: none;
   padding: 5px 10px;
-  color: #5736a3;
+  color: white;
   font-size: 16px;
   font-weight: 550;
   border-radius: 20px;
-  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color color opacity cubic-bezier(0.4, 0, 0.2, 1) 200ms;
 
+  &:hover,
+  :focus {
+    color: teal;
+  }
   &.active {
     color: white;
-    background-color: #5736a3;
+    background-color: teal;
     &:hover,
     :focus {
       opacity: 0.8;
-      color: white;
     }
-  }
-  &:hover,
-  :focus {
-    color: #5736a3;
   }
 `;

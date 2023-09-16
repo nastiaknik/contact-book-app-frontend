@@ -3,13 +3,23 @@ import { register } from "../../redux/auth/operations";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { BiErrorCircle } from "react-icons/bi";
+import { BsPersonFill } from "react-icons/bs";
+import { GrMail } from "react-icons/gr";
+import { RiLock2Fill } from "react-icons/ri";
+import registerImg from "../../assets/register.png";
 import {
-  InputContainer,
+  Container,
+  Title,
   Button,
   StyledField,
-  LabelContainer,
+  FieldContainer,
+  InputContainer,
+  IconFieldWrapper,
   Form,
   Error,
+  Label,
+  Wrapper,
+  Image,
 } from "./RegisterForm.styled";
 
 const registerSchema = Yup.object().shape({
@@ -34,115 +44,129 @@ export const RegisterForm = () => {
   };
 
   return (
-    <Formik
-      initialValues={{ name: "", email: "", password: "" }}
-      onSubmit={handleSubmit}
-      validationSchema={registerSchema}
-    >
-      {(props) => {
-        return (
-          <Form>
-            <InputContainer>
-              <LabelContainer>
-                <div
-                  style={{
-                    display: "flex",
-                    wtap: "nowrap",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <label htmlFor="name">Username</label>
-                  <StyledField
-                    id="name"
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="nugget"
-                    value={props.values.name}
-                    onChange={props.handleChange}
-                    className={
-                      props.touched.name && props.errors.name ? "error" : ""
-                    }
-                  />
-                </div>
-                <ErrorMessage name="name">
-                  {(msg) => (
-                    <Error>
-                      <BiErrorCircle /> {msg}
-                    </Error>
-                  )}
-                </ErrorMessage>
-              </LabelContainer>
-              <LabelContainer>
-                <div
-                  style={{
-                    display: "flex",
-                    wtap: "nowrap",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <label htmlFor="email">Email</label>
-                  <StyledField
-                    id="email"
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="nugget@gmail.com"
-                    value={props.values.number}
-                    onChange={props.handleChange}
-                    className={
-                      props.touched.email && props.errors.email ? "error" : ""
-                    }
-                  />
-                </div>
-                <ErrorMessage name="email">
-                  {(msg) => (
-                    <Error>
-                      <BiErrorCircle /> {msg}
-                    </Error>
-                  )}
-                </ErrorMessage>
-              </LabelContainer>
-              <LabelContainer>
-                <div
-                  style={{
-                    display: "flex",
-                    wtap: "nowrap",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <label htmlFor="password">Password</label>
-                  <StyledField
-                    id="password"
-                    type="password"
-                    name="password"
-                    required
-                    placeholder="******"
-                    value={props.values.password}
-                    onChange={props.handleChange}
-                    className={
-                      props.touched.password && props.errors.password
-                        ? "error"
-                        : ""
-                    }
-                  />
-                </div>
-                <ErrorMessage name="password">
-                  {(msg) => (
-                    <Error>
-                      <BiErrorCircle /> {msg}
-                    </Error>
-                  )}
-                </ErrorMessage>
-              </LabelContainer>
-              <Button type="submit">Register</Button>
-            </InputContainer>
-          </Form>
-        );
-      }}
-    </Formik>
+    <Container>
+      <Wrapper>
+        <Formik
+          initialValues={{ name: "", email: "", password: "" }}
+          onSubmit={handleSubmit}
+          validationSchema={registerSchema}
+        >
+          {(props) => {
+            return (
+              <Form>
+                <Title>Sign up</Title>
+                <FieldContainer>
+                  <IconFieldWrapper>
+                    <label htmlFor="name">
+                      <BsPersonFill size={25} />
+                    </label>
+                    <InputContainer>
+                      <StyledField
+                        placeholder="nugget"
+                        id="name"
+                        type="text"
+                        name="name"
+                        required
+                        value={props.values.name}
+                        onChange={props.handleChange}
+                        className={
+                          props.touched.name && props.errors.name
+                            ? "error"
+                            : props.touched.name && !props.errors.name
+                            ? "success"
+                            : ""
+                        }
+                      />
+                      <Label htmlFor="name">Username</Label>
+                    </InputContainer>
+                  </IconFieldWrapper>
+                  <ErrorMessage name="name">
+                    {(msg) => (
+                      <Error>
+                        <BiErrorCircle /> {msg}
+                      </Error>
+                    )}
+                  </ErrorMessage>
+                </FieldContainer>
+
+                <FieldContainer>
+                  <IconFieldWrapper>
+                    <label htmlFor="email">
+                      <GrMail size={25} />
+                    </label>
+                    <InputContainer>
+                      <StyledField
+                        id="email"
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="nugget@gmail.com"
+                        value={props.values.number}
+                        onChange={props.handleChange}
+                        className={
+                          props.touched.email && props.errors.email
+                            ? "error"
+                            : props.touched.email && !props.errors.email
+                            ? "success"
+                            : ""
+                        }
+                      />
+                      <Label htmlFor="email">Email</Label>
+                    </InputContainer>
+                  </IconFieldWrapper>
+                  <ErrorMessage name="email">
+                    {(msg) => (
+                      <Error>
+                        <BiErrorCircle /> {msg}
+                      </Error>
+                    )}
+                  </ErrorMessage>
+                </FieldContainer>
+
+                <FieldContainer>
+                  <IconFieldWrapper>
+                    <label htmlFor="password">
+                      <RiLock2Fill size={25} />
+                    </label>
+                    <InputContainer>
+                      <StyledField
+                        id="password"
+                        type="password"
+                        name="password"
+                        required
+                        placeholder="******"
+                        value={props.values.password}
+                        onChange={props.handleChange}
+                        className={
+                          props.touched.password && props.errors.password
+                            ? "error"
+                            : props.touched.password && !props.errors.password
+                            ? "success"
+                            : ""
+                        }
+                      />
+                      <Label htmlFor="password">Password</Label>
+                    </InputContainer>
+                  </IconFieldWrapper>
+                  <ErrorMessage name="password">
+                    {(msg) => (
+                      <Error>
+                        <BiErrorCircle /> {msg}
+                      </Error>
+                    )}
+                  </ErrorMessage>
+                </FieldContainer>
+
+                <Button type="submit">Register</Button>
+              </Form>
+            );
+          }}
+        </Formik>
+        <Image
+          src={registerImg}
+          alt="A drawing of a man entering the door to another world"
+        />
+      </Wrapper>
+    </Container>
   );
 };

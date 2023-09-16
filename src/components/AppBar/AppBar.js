@@ -20,6 +20,7 @@ export const AppBar = () => {
             style={{ marginRight: "10px" }}
           />
         </NavLink>
+        <StyledNavLink to="/">Home</StyledNavLink>
         {isLoggedIn && (
           <StyledNavLink to="/contacts">My Contacts</StyledNavLink>
         )}

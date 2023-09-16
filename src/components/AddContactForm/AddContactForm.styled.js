@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Field, Form as FormikForm } from 'formik';
+import styled from "styled-components";
+import { Field, Form as FormikForm } from "formik";
 
 export const Form = styled(FormikForm)`
   display: flex;
@@ -36,7 +36,7 @@ export const StyledField = styled(Field)`
   }
 
   &.error {
-    border-color: tomato;
+    border-color: #e74c3c;
   }
 `;
 
@@ -68,7 +68,7 @@ export const Error = styled.span`
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  color: tomato;
+  color: #e74c3c;
   text-align: start;
   width: 230px;
   font-size: 16px;
