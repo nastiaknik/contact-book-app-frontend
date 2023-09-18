@@ -1,4 +1,5 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoading } from "../../redux/auth/selectors";
 import { login } from "../../redux/auth/operations";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -19,7 +20,10 @@ import {
   Label,
   Wrapper,
   Image,
+  RegisterLink,
+  RegisterParagraph,
 } from "./LoginForm.styled";
+import { Loader } from "../Loader/Loader";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -30,6 +34,7 @@ const loginSchema = Yup.object().shape({
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
 
   const handleSubmit = (values) => {
     dispatch(login({ email: values.email, password: values.password }));
@@ -118,11 +123,16 @@ export const LoginForm = () => {
                   </ErrorMessage>
                 </FieldContainer>
                 <Button type="submit">Login</Button>
+                <RegisterParagraph>
+                  Don't have an account?{" "}
+                  <RegisterLink to="/auth/register">Register</RegisterLink>
+                </RegisterParagraph>
               </Form>
             );
           }}
         </Formik>
       </Wrapper>
+      {isLoading && <Loader />}
     </Container>
   );
 };

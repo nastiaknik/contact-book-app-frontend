@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { selectIsLoading } from "../../redux/auth/selectors";
 import { Helmet } from "react-helmet";
 import {
   Section,
@@ -28,8 +30,11 @@ import {
 } from "./HomePage.styled";
 import messageImage from "../../assets/message.jpg";
 import heartImage from "../../assets/heart.jpg";
+import { Loader } from "../../components/Loader/Loader";
 
 export default function HomePage() {
+  const isLoading = useSelector(selectIsLoading);
+
   return (
     <>
       <Helmet>
@@ -41,7 +46,7 @@ export default function HomePage() {
         <StyledNavLink to="/auth/login">Start</StyledNavLink>
       </Hero>
       <Section>
-        <SectionWrap>
+        <SectionWrap className="reverse">
           <Image
             src={messageImage}
             alt="A message symbol made of cards"
@@ -106,7 +111,7 @@ export default function HomePage() {
         </List>
       </Section>
       <Section>
-        <ListTitle>Stay Connected, Stay Organized</ListTitle>
+        <ListTitle>Stay Organized</ListTitle>
         <Paragraph>
           Contact Book is a reliable and efficient contact management
           application designed to simplify your life. Whether you need to store
@@ -161,6 +166,7 @@ export default function HomePage() {
           </SocialMediaItem>
         </SocialMedia>
       </Footer>
+      {isLoading && <Loader />}
     </>
   );
 }

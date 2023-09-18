@@ -14,8 +14,6 @@ export const Header = styled.header`
   height: 80px;
   padding: 8px;
   font-family: "Open Sans", sans-serif;
-  font-size: 18px;
-  font-weight: 600;
   background-color: #56a68d;
   color: #fff;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
@@ -28,6 +26,10 @@ export const Nav = styled.nav`
   margin-left: 20px;
   align-items: center;
   justify-content: baseline;
+
+  @media only screen and (max-width: 468px) {
+    margin-left: 10px;
+  }
 `;
 
 export const StyledNavLink = styled(NavLink)`
@@ -52,5 +54,18 @@ export const StyledNavLink = styled(NavLink)`
       opacity: 0.8;
       color: white;
     }
+  }
+
+  @media only screen and (max-width: 330px) {
+    font-size: 14px;
+  }
+`;
+
+export const Image = styled.img`
+  width: 50px;
+  margin-right: 10px;
+
+  @media only screen and (max-width: 468px) {
+    width: 40px;
   }
 `;

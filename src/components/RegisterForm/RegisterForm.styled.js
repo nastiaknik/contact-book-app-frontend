@@ -1,19 +1,23 @@
 import styled from "styled-components";
 import { Field, Form as FormikForm } from "formik";
+import { NavLink } from "react-router-dom";
 
 export const Container = styled.div`
   min-height: calc(100vh - 80px);
   background-color: #f9f8fb;
-  padding: 60px 50px;
+  padding: 40px 20px;
 
-  @media (min-width: 468px) {
-    padding: 60px;
+  @media only screen and (min-width: 350px) {
+    padding: 40px 25px;
   }
-  @media (min-width: 624px) {
-    padding: 60px;
+  @media only screen and (min-width: 468px) {
+    padding: 50px 30px;
   }
-  @media (min-width: 1020px) {
-    padding: 60px 100px;
+  @media only screen and (min-width: 624px) {
+    padding: 50px 50px;
+  }
+  @media only screen and (min-width: 1200px) {
+    padding: 50px 100px;
   }
 `;
 
@@ -37,7 +41,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 768px) {
+  @media only screen and (min-width: 768px) {
     padding: 30px;
     flex-direction: row;
   }
@@ -158,7 +162,7 @@ export const Button = styled.button`
   display: flex;
   align-items: center;
   padding: 10px 30px;
-  margin: 10px auto 0;
+  margin: 10px auto;
   font-size: 16px;
   font-family: inherit;
   font-weight: 500;
@@ -198,4 +202,12 @@ export const Image = styled.img`
   width: 100%;
   object-fit: contain;
   display: block;
+`;
+
+export const LoginParagraph = styled.p`
+  text-align: center;
+`;
+
+export const LoginLink = styled(NavLink)`
+  color: #54b4d3;
 `;

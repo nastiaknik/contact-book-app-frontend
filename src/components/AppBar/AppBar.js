@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { UserMenu } from "../UserMenu/UserMenu";
 import { AuthNav } from "../AuthNav/AuthNav";
-import { Header, Nav, StyledNavLink } from "./AppBar.styled";
+import { Header, Nav, StyledNavLink, Image } from "./AppBar.styled";
 import logo from "../../assets/logo.png";
 
 export const AppBar = () => {
@@ -13,12 +13,7 @@ export const AppBar = () => {
     <Header>
       <Nav>
         <NavLink to="/">
-          <img
-            src={logo}
-            alt="Contact Book logo"
-            width="50"
-            style={{ marginRight: "10px" }}
-          />
+          <Image src={logo} alt="Contact Book logo" />
         </NavLink>
         <StyledNavLink to="/">Home</StyledNavLink>
         {isLoggedIn && (

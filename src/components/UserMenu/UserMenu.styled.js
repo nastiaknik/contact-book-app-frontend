@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -15,7 +15,38 @@ export const Username = styled.p`
   padding: 0;
   margin: 0;
   margin-right: 10px;
+  user-select: none;
+
   span {
     color: teal;
+  }
+`;
+
+export const Button = styled.button`
+  display: flex;
+  text-align: center;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border: none;
+  border-radius: 0.375rem;
+  background-color: #fbc02d;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color cubic-bezier(0.4, 0, 1, 1) 200ms;
+  gap: 4px;
+  align-items: center;
+  padding: 10px 12px;
+
+  &:hover,
+  &:focus {
+    background-color: #fbc846;
+  }
+  &:active {
+    background-color: #fbc02d;
   }
 `;

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "https://goit-nodejs-homework-bnfs.onrender.com/api";
 
@@ -18,8 +19,12 @@ export const register = createAsyncThunk(
       const response = await axios.post("/users/register", credentials);
       const { token } = response.data;
       setAuthHeader(token);
+      toast.success(
+        "Registration Successful! Please check your email and verify your account."
+      );
       return response.data;
     } catch (error) {
+      toast.error(error.response.data.message);
       return rejectWithValue(error.message);
     }
   }
@@ -31,8 +36,10 @@ export const login = createAsyncThunk(
     try {
       const response = await axios.post("/users/login", credentials);
       setAuthHeader(response.data.token);
+      toast.success("Login success");
       return response.data;
     } catch (error) {
+      toast.error(error.response.data.message);
       return rejectWithValue(error.message);
     }
   }
@@ -44,8 +51,10 @@ export const logout = createAsyncThunk(
     try {
       const result = await axios.post("/users/logout", id);
       clearAuthHeader();
+      toast.success("Logout success");
       return result;
     } catch (error) {
+      toast.error(error.response.data.message);
       return rejectWithValue(error.message);
     }
   }
@@ -64,6 +73,7 @@ export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
     const response = await axios.get("/users/current");
     return response.data;
   } catch (error) {
+    toast.error(error.response.data.message);
     return thunkAPI.rejectWithValue(error.message);
   }
 });
@@ -76,6 +86,7 @@ export const current = createAsyncThunk(
       const result = await axios.get("users/current", auth.token);
       return result;
     } catch (error) {
+      toast.error(error.response.data.message);
       return rejectWithValue(error.message);
     }
   },

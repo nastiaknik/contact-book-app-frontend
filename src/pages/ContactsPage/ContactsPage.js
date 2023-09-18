@@ -1,16 +1,18 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { selectIsLoading } from "../../redux/auth/selectors";
 import { Helmet } from "react-helmet";
 import { ContactList } from "../../components/ContactList/ContactList";
 import { AddContactForm } from "../../components/AddContactForm/AddContactForm";
 import { ContactFilter } from "../../components/ContactFilter/ContactFilter";
 import { getContacts } from "../../redux/contacts/operations";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Container, Title } from "./ContactsPage.styled";
+import { Loader } from "../../components/Loader/Loader";
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
     dispatch(getContacts());
@@ -41,7 +43,7 @@ export default function ContactsPage() {
         </Title>
         <ContactList />
       </Container>
-      <ToastContainer />
+      {isLoading && <Loader />}
     </>
   );
 }

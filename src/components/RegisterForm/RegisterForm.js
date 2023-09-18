@@ -1,5 +1,6 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../redux/auth/operations";
+import { selectIsLoading } from "../../redux/auth/selectors";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { BiErrorCircle } from "react-icons/bi";
@@ -20,7 +21,10 @@ import {
   Label,
   Wrapper,
   Image,
+  LoginParagraph,
+  LoginLink,
 } from "./RegisterForm.styled";
+import { Loader } from "../Loader/Loader";
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().required("First name is required"),
@@ -32,6 +36,7 @@ const registerSchema = Yup.object().shape({
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
 
   const handleSubmit = (values) => {
     dispatch(
@@ -158,6 +163,11 @@ export const RegisterForm = () => {
                 </FieldContainer>
 
                 <Button type="submit">Register</Button>
+
+                <LoginParagraph>
+                  Have an account already?{" "}
+                  <LoginLink to="/auth/login">Login</LoginLink>
+                </LoginParagraph>
               </Form>
             );
           }}
@@ -167,6 +177,7 @@ export const RegisterForm = () => {
           alt="A drawing of a man entering the door to another world"
         />
       </Wrapper>
+      {isLoading && <Loader />}
     </Container>
   );
 };

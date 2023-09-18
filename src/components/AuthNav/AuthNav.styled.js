@@ -9,6 +9,11 @@ export const Wrapper = styled.div`
   align-items: end;
   margin-right: 30px;
   gap: 15px;
+
+  @media only screen and (max-width: 468px) {
+    margin-right: 10px;
+    gap: 10px;
+  }
 `;
 
 export const Nav = styled.nav`
@@ -18,6 +23,10 @@ export const Nav = styled.nav`
   align-items: center;
   justify-content: baseline;
   align-items: center;
+
+  @media only screen and (max-width: 468px) {
+    margin-right: 10px;
+  }
 `;
 
 export const StyledNavLink = styled(NavLink)`
@@ -41,5 +50,9 @@ export const StyledNavLink = styled(NavLink)`
     :focus {
       opacity: 0.8;
     }
+  }
+
+  @media only screen and (max-width: 330px) {
+    font-size: 14px;
   }
 `;
