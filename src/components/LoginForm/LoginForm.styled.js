@@ -97,24 +97,18 @@ export const StyledField = styled(Field)`
   margin: 0;
   transition: all 0.2s linear;
 
-  &:focus {
-    border-color: #3b71ca;
+  &.error {
+    border-color: #e74c3c;
   }
-  &::placeholder {
-    opacity: 0;
-    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  &:focus::placeholder {
-    opacity: 1;
-    color: #757575;
+  &.error + label {
+    color: #e74c3c;
   }
 
-  &:focus + label,
-  &:not(:placeholder-shown) + label {
-    transform: translateY(-1rem) scale(0.8);
-    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-    background-color: white;
+  &.success {
+    border-color: #4a934a;
+  }
+  &.success + label {
+    color: #4a934a;
   }
 
   & + label,
@@ -135,18 +129,24 @@ export const StyledField = styled(Field)`
   &:focus + label {
     color: #3b71ca;
   }
+  &:focus + label,
+  &:not(:placeholder-shown) + label {
+    transform: translateY(-1rem) scale(0.8);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    background-color: white;
+  }
 
-  &.error {
-    border-color: #e74c3c;
+  &:focus {
+    border-color: #3b71ca;
   }
-  &.error + label {
-    color: #e74c3c;
+  &::placeholder {
+    opacity: 0;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
-  &.success {
-    border-color: #4a934a;
-  }
-  &.success + label {
-    color: #4a934a;
+  &:focus::placeholder {
+    opacity: 1;
+    color: #757575;
   }
 `;
 

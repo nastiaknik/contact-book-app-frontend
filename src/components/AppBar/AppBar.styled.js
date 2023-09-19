@@ -7,6 +7,7 @@ export const Header = styled.header`
   align-items: center;
   flex-wrap: nowrap;
   flex-direction: row;
+  gap: 5px;
   position: fixed;
   top: 0;
   left: 0;
@@ -27,8 +28,9 @@ export const Nav = styled.nav`
   align-items: center;
   justify-content: baseline;
 
-  @media only screen and (max-width: 468px) {
-    margin-left: 10px;
+  @media only screen and (max-width: 360px) {
+    gap: 5px;
+    margin-left: 5px;
   }
 `;
 
@@ -56,7 +58,7 @@ export const StyledNavLink = styled(NavLink)`
     }
   }
 
-  @media only screen and (max-width: 330px) {
+  @media only screen and (max-width: 360px) {
     font-size: 14px;
   }
 `;
@@ -65,6 +67,9 @@ export const Image = styled.img`
   width: 50px;
   margin-right: 10px;
 
+  @media only screen and (max-width: 360px) {
+    margin-right: 0px;
+  }
   @media only screen and (max-width: 468px) {
     width: 40px;
   }

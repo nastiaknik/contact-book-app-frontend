@@ -97,15 +97,18 @@ export const StyledField = styled(Field)`
   margin: 0;
   transition: all 0.2s linear;
 
-  &:focus + label {
-    color: #3b71ca;
+  &.error {
+    border-color: #e74c3c;
   }
-  &:focus + label,
-  &:not(:placeholder-shown) + label {
-    transform: translateY(-1rem) scale(0.8);
-    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-    background-color: white;
+  &.error + label {
+    color: #e74c3c;
+  }
+
+  &.success {
+    border-color: #4a934a;
+  }
+  &.success + label {
+    color: #4a934a;
   }
 
   & + label,
@@ -123,18 +126,15 @@ export const StyledField = styled(Field)`
     border-radius: 5px;
   }
 
-  &.error {
-    border-color: #e74c3c;
+  &:focus + label {
+    color: #3b71ca;
   }
-  &.error + label {
-    color: #e74c3c;
-  }
-
-  &.success {
-    border-color: #4a934a;
-  }
-  &.success + label {
-    color: #4a934a;
+  &:focus + label,
+  &:not(:placeholder-shown) + label {
+    transform: translateY(-1rem) scale(0.8);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    background-color: white;
   }
 
   &:focus {

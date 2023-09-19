@@ -52,7 +52,7 @@ export const StyledNavLink = styled(NavLink)`
     }
   }
 
-  @media only screen and (max-width: 330px) {
+  @media only screen and (max-width: 360px) {
     font-size: 14px;
   }
 `;

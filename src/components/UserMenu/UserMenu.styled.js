@@ -6,6 +6,13 @@ export const Wrapper = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   margin-right: 30px;
+
+  @media only screen and (max-width: 420px) {
+    margin-right: 0;
+  }
+  @media only screen and (max-width: 720px) {
+    margin-right: 5px;
+  }
 `;
 
 export const Username = styled.p`
@@ -19,6 +26,10 @@ export const Username = styled.p`
 
   span {
     color: teal;
+  }
+
+  @media only screen and (max-width: 720px) {
+    display: none;
   }
 `;
 
@@ -48,5 +59,14 @@ export const Button = styled.button`
   }
   &:active {
     background-color: #fbc02d;
+  }
+
+  @media only screen and (max-width: 420px) {
+    font-size: 14px;
+    padding: 10px;
+
+    span {
+      display: none;
+    }
   }
 `;

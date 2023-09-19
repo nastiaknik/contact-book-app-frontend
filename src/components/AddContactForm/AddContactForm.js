@@ -9,24 +9,25 @@ import {
   InputContainer,
   Button,
   StyledField,
-  LabelContainer,
   Form,
   Error,
+  Title,
+  FieldContainer,
+  IconFieldWrapper,
+  Label,
+  Wrapper,
 } from "./AddContactForm.styled";
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, "Name is too short!")
+    .min(2, "Name is too short!")
     .max(30, "Name is too long!")
     .required("Name is required!")
     .label("Name"),
   number: Yup.string()
-    .required("Phone number is required!")
+    .required("Number is required!")
     .label("Number")
-    .matches(
-      /^(\+?\d{1,3}[- ]?)?\d{10}$/,
-      "Please provide a valid phone number!"
-    ),
+    .matches(/^(\+?\d{1,3}[- ]?)?\d{9}$/, "Please provide a valid number!"),
 });
 
 export const AddContactForm = () => {
@@ -64,9 +65,7 @@ export const AddContactForm = () => {
       );
       return;
     }
-
     dispatch(addContact(contact));
-
     toast.success(
       <p>
         Contact <span style={{ color: "green" }}>{contact.name}</span> added!
@@ -84,30 +83,27 @@ export const AddContactForm = () => {
       {(props) => {
         return (
           <Form>
-            <InputContainer>
-              <LabelContainer>
-                <div
-                  style={{
-                    display: "flex",
-                    wtap: "nowrap",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <label htmlFor="name">Name</label>
-                  <StyledField
-                    id="name"
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="Anastasia Knihnitska"
-                    value={props.values.name}
-                    onChange={props.handleChange}
-                    className={
-                      props.touched.name && props.errors.name ? "error" : ""
-                    }
-                  />
-                </div>
+            <Title>Add contact</Title>
+            <Wrapper>
+              <FieldContainer>
+                <IconFieldWrapper>
+                  <label htmlFor="name"></label>
+                  <InputContainer>
+                    <StyledField
+                      id="name"
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="Anastasia Knihnitska"
+                      value={props.values.name}
+                      onChange={props.handleChange}
+                      className={
+                        props.touched.name && props.errors.name ? "error" : ""
+                      }
+                    />
+                    <Label htmlFor="name">Name</Label>
+                  </InputContainer>
+                </IconFieldWrapper>
                 <ErrorMessage name="name">
                   {(msg) => (
                     <Error>
@@ -115,30 +111,29 @@ export const AddContactForm = () => {
                     </Error>
                   )}
                 </ErrorMessage>
-              </LabelContainer>
-              <LabelContainer>
-                <div
-                  style={{
-                    display: "flex",
-                    wtap: "nowrap",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <label htmlFor="number">Number</label>
-                  <StyledField
-                    id="number"
-                    type="tel"
-                    name="number"
-                    required
-                    placeholder="+38 000 000 00 00"
-                    value={props.values.number}
-                    onChange={props.handleChange}
-                    className={
-                      props.touched.number && props.errors.number ? "error" : ""
-                    }
-                  />
-                </div>
+              </FieldContainer>
+
+              <FieldContainer>
+                <IconFieldWrapper>
+                  <label htmlFor="name"></label>
+                  <InputContainer>
+                    <StyledField
+                      id="number"
+                      type="tel"
+                      name="number"
+                      required
+                      placeholder="123 456 789"
+                      value={props.values.number}
+                      onChange={props.handleChange}
+                      className={
+                        props.touched.number && props.errors.number
+                          ? "error"
+                          : ""
+                      }
+                    />
+                    <Label htmlFor="number">Number</Label>
+                  </InputContainer>
+                </IconFieldWrapper>
                 <ErrorMessage name="number">
                   {(msg) => (
                     <Error>
@@ -146,8 +141,8 @@ export const AddContactForm = () => {
                     </Error>
                   )}
                 </ErrorMessage>
-              </LabelContainer>
-            </InputContainer>
+              </FieldContainer>
+            </Wrapper>
 
             <Button type="submit">Add contact</Button>
           </Form>

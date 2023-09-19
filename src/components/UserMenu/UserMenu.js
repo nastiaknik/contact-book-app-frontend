@@ -14,7 +14,7 @@ export const UserMenu = () => {
         Welcome, <span>{user.name}</span>
       </Username>
       <Button onClick={() => dispatch(logout(user._id))}>
-        Logout
+        <span>Logout</span>
         <FiLogOut size={16} />
       </Button>
     </Wrapper>
