@@ -4,6 +4,7 @@ import {
   deleteContact,
   addContact,
   editContact,
+  toggleFavourite,
 } from "./operations";
 import { logout } from "../auth/operations";
 
@@ -20,41 +21,49 @@ const contactsSlice = createSlice({
     builder
       .addCase(getContacts.fulfilled, (state, action) => {
         state.items = action.payload;
-        state.loading = false;
-        state.error = null;
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
-        state.loading = false;
-        const index = state.items.findIndex(
-          (contact) => contact.id === action.payload
-        );
-        state.items.splice(index, 1);
-        state.error = null;
+        state.items.filter((contact) => contact.id !== action.payload);
       })
       .addCase(addContact.fulfilled, (state, action) => {
-        state.loading = false;
         state.items.push(action.payload);
-        state.error = null;
       })
       .addCase(logout.fulfilled, (state) => {
         state.items = [];
-        state.error = null;
-        state.loading = false;
       })
       .addCase(editContact.fulfilled, (state, action) => {
-        state.loading = false;
         const index = state.items.findIndex(
           (item) => item.id === action.payload.id
         );
         state.items.splice(index, 1, action.payload);
-        state.error = null;
       })
+      .addCase(toggleFavourite.fulfilled, (state, action) => {
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload.id
+        );
+        state.items.splice(index, 1, action.payload);
+      })
+      .addMatcher(
+        isAnyOf(
+          editContact.fulfilled,
+          addContact.fulfilled,
+          deleteContact.fulfilled,
+          getContacts.fulfilled,
+          toggleFavourite.fulfilled,
+          logout.fulfilled
+        ),
+        (state) => {
+          state.loading = true;
+          state.error = null;
+        }
+      )
       .addMatcher(
         isAnyOf(
           editContact.pending,
           addContact.pending,
           deleteContact.pending,
-          getContacts.pending
+          getContacts.pending,
+          toggleFavourite.pending
         ),
         (state) => {
           state.loading = true;
@@ -66,7 +75,8 @@ const contactsSlice = createSlice({
           editContact.rejected,
           addContact.rejected,
           deleteContact.rejected,
-          getContacts.rejected
+          getContacts.rejected,
+          toggleFavourite.rejected
         ),
         (state, { payload }) => {
           state.loading = false;

@@ -47,12 +47,13 @@ export const ContactList = () => {
     <Table>
       <thead>
         <tr>
-          <TableHead>Name</TableHead>
-          <TableHead>Phone number</TableHead>
           <TableHead>
             {contacts.length}
             <span> {contacts.length === 1 ? "contact" : "contacts"}</span>
           </TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Phone number</TableHead>
+          <TableHead />
         </tr>
       </thead>
       <tbody>

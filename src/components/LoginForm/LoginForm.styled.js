@@ -50,7 +50,7 @@ export const Wrapper = styled.div`
 export const Title = styled.h2`
   text-align: center;
   font-weight: 700;
-  font-size: calc(1.375rem + 1.5vw);
+  font-size: calc(1.3rem + 1.5vw);
   line-height: 1.2;
   margin: 5px auto;
 `;

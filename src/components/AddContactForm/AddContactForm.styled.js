@@ -9,7 +9,7 @@ export const Form = styled(FormikForm)`
   gap: 15px;
   width: 100%;
   max-width: 800px;
-  padding: 15px;
+  padding: 15px 15px 40px;
   margin: 0 auto;
 `;
 
@@ -26,7 +26,7 @@ export const Wrapper = styled.div`
 export const Title = styled.h2`
   text-align: center;
   font-weight: 700;
-  font-size: calc(1.375rem + 1.5vw);
+  font-size: calc(1.3rem + 1.5vw);
   line-height: 1.2;
   margin: 5px auto;
 `;
@@ -43,10 +43,10 @@ export const FieldContainer = styled.div`
 export const IconFieldWrapper = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 10px;
-  align-items: center;
 `;
 
 export const Label = styled.label`

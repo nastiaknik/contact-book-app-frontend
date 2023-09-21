@@ -27,7 +27,7 @@ const ContactSchema = Yup.object().shape({
   number: Yup.string()
     .required("Number is required!")
     .label("Number")
-    .matches(/^(\+?\d{1,3}[- ]?)?\d{9}$/, "Please provide a valid number!"),
+    .matches(/^(\+?\d{1,3}[- ]?)?\d{10}$/, "Please provide a valid number!"),
 });
 
 export const AddContactForm = () => {

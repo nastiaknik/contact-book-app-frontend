@@ -1,23 +1,13 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  padding: 10px;
-`;
+export const Table = styled.table``;
 
 export const TableHead = styled.th`
-  padding: 15px;
-  font-size: 16px;
-  color: black;
-  font-weight: 400;
-  width: /* 153px; */ fit-content;
+  width: fit-content;
   max-height: 50px;
-
-  :not(:last-child) {
-    border-right: 2px solid #e5e0ff;
-  }
-
-  border-top: 2px solid #e5e0ff;
+  padding: 15px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
   border-bottom: 2px solid #e5e0ff;
 `;

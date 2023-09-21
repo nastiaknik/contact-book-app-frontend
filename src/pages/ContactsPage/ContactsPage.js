@@ -7,7 +7,7 @@ import { ContactList } from "../../components/ContactList/ContactList";
 import { AddContactForm } from "../../components/AddContactForm/AddContactForm";
 import { ContactFilter } from "../../components/ContactFilter/ContactFilter";
 import { Loader } from "../../components/Loader/Loader";
-import { Title, Container, Wrapper } from "./ContactsPage.styled";
+import { Title, Container, Wrapper, TitleWrapper } from "./ContactsPage.styled";
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
@@ -25,20 +25,10 @@ export default function ContactsPage() {
       <Container>
         <Wrapper>
           <AddContactForm />
-
-          <Title
-            style={{
-              display: "flex",
-              flexWrap: "nowrap",
-              gap: "20px",
-              margin: "0 auto",
-              justifyContent: "end",
-              alignItems: "baseline",
-            }}
-          >
-            Search contacts
+          <TitleWrapper>
+            <Title>Contacts</Title>
             <ContactFilter />
-          </Title>
+          </TitleWrapper>
           <ContactList />
           {isLoading && <Loader />}
         </Wrapper>

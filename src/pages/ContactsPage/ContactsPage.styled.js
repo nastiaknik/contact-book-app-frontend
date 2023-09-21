@@ -20,20 +20,38 @@ export const Container = styled.section`
   }
 `;
 
-export const Title = styled.h2`
-  margin-top: 0;
-  margin: 0 auto;
-  font-size: 30px;
-  border-bottom: 3px solid #cbc3e3;
-  padding: 20px;
-`;
-
 export const Wrapper = styled.div`
-  padding: 10px;
-  background-color: white;
-  border-radius: 25px;
-  margin: 0 auto;
-  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 25px;
+  overflow: hidden;
+`;
+
+export const Title = styled.h2`
+  font-weight: 700;
+  font-size: calc(1.3rem + 1.5vw);
+  text-align: center;
+  line-height: 1.2;
+  padding: 5px 0;
+  margin: 0 auto;
+`;
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  padding: 0 15px;
+  margin: 0 auto;
+  max-width: 800px;
+
+  @media only screen and (max-width: 468px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;

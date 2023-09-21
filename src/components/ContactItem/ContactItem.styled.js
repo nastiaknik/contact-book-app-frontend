@@ -1,14 +1,4 @@
-import styled from 'styled-components';
-
-export const Avatar = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 35px;
-  min-height: 35px;
-  border-radius: 50%;
-  color: white;
-`;
+import styled from "styled-components";
 
 export const Button = styled.button`
   border: none;
@@ -35,39 +25,23 @@ export const Link = styled.a`
   }
 `;
 
-export const TableHead = styled.th`
-  padding: 15px;
-  font-size: 16px;
-  color: black;
-  font-weight: 400;
-`;
-
 export const TableRow = styled.tr`
   background-color: transparent;
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  :hover {
+
+  &:hover {
     background-color: #e5e0ff;
   }
 `;
 
-export const Number = styled.td`
-  padding: 10px;
+export const TableDataCell = styled.td`
+  padding: 10px 20px;
   text-align: left;
 `;
 
-export const ContactName = styled.td`
+export const BtnWrapper = styled(TableDataCell)`
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 10px 15px;
-  text-align: center;
-`;
-
-export const BtnWrapper = styled.td`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 10px;
-  text-align: center;
   justify-content: center;
+  gap: 15px;
 `;

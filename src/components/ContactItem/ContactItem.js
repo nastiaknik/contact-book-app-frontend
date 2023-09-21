@@ -1,18 +1,20 @@
-import { toast } from "react-toastify";
-import PropTypes from "prop-types";
-/* import { useState, useEffect } from 'react';  */
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contacts/operations";
+import { toast } from "react-toastify";
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
+import { Avatar } from "@chakra-ui/react";
+import PropTypes from "prop-types";
+import {
+  deleteContact,
+  toggleFavourite,
+} from "../../redux/contacts/operations";
 import { RiDeleteBinLine } from "react-icons/ri";
-/* import { BsStar, BsStarFill } from 'react-icons/bs';
- */ import { Avatar } from "@chakra-ui/react";
-/* import { ContactEditForm } from ".././ContactEditForm/ContactEditForm";
- */ import {
+import { BsStar, BsStarFill } from "react-icons/bs";
+/* import { ContactEditForm } from ".././ContactEditForm/ContactEditForm"; */
+import {
   TableRow,
-  Number,
+  TableDataCell,
   BtnWrapper,
   Button,
-  ContactName,
 } from "./ContactItem.styled";
 
 export const ContactItem = ({ contacts }) => {
@@ -27,38 +29,50 @@ export const ContactItem = ({ contacts }) => {
         </p>
       );
     }
-    dispatch(deleteContact(contact._id));
-    toast.success(
-      <p>
-        Contact <span style={{ color: "green" }}>{contact.name}</span> deleted!
-      </p>
+    Confirm.show(
+      "Delete the word?",
+      "Are you sure you want to delete the contact?",
+      "Delete",
+      "Cancel",
+      () => {
+        dispatch(deleteContact(contact._id));
+        toast.success(
+          <p>
+            Contact <span style={{ color: "green" }}>{contact.name}</span>{" "}
+            deleted!
+          </p>
+        );
+      },
+      () => {
+        return;
+      }
     );
   };
 
-  /* const onFavorite = contact => {
-    if (favourites.find(fav => fav.id === contact.id)) {
-      setFavourites(favourites.filter(fav => fav.id !== contact.id));
+  const onFavorite = (contact) => {
+    if (contact.favorite) {
+      dispatch(toggleFavourite({ id: contact._id, favorite: false }));
       toast.success(
         <p>
-          Contact <span style={{ color: 'green' }}>{contact.name}</span> removed
+          Contact <span style={{ color: "green" }}>{contact.name}</span> removed
           from favorites!
         </p>
       );
     } else {
-      setFavourites([...favourites, contact]);
+      dispatch(toggleFavourite({ id: contact._id, favorite: true }));
       toast.success(
         <p>
-          Contact <span style={{ color: 'green' }}>{contact.name}</span> added
+          Contact <span style={{ color: "green" }}>{contact.name}</span> added
           to favorites!
         </p>
       );
     }
-  }; */
+  };
 
   return contacts.map((contact) => {
     return (
       <TableRow key={contact._id}>
-        <ContactName>
+        <TableDataCell>
           <Avatar
             src="https://bit.ly/broken-link"
             alt={contact.name}
@@ -71,20 +85,18 @@ export const ContactItem = ({ contacts }) => {
                 .join("")
             }
           />
-          {contact.name}
-        </ContactName>
-        <Number>{contact.phone}</Number>
+        </TableDataCell>
+        <TableDataCell>{contact.name}</TableDataCell>
+        <TableDataCell>{contact.phone}</TableDataCell>
         <BtnWrapper>
-          {/* <Button type="button" onClick={() => onFavorite(contact)}>
-            {favourites.find(fav => fav.id === contact.id) ? (
+          <Button type="button" onClick={() => onFavorite(contact)}>
+            {contact.favorite ? (
               <BsStarFill size={24} color="#ffd800" />
             ) : (
               <BsStar size={24} color="#ffd800" />
             )}
-          </Button> */}
-
+          </Button>
           {/* <ContactEditForm contact={contact} /> */}
-
           <Button type="button" onClick={() => onDelete(contact)}>
             <RiDeleteBinLine size={24} color="red" />
           </Button>
