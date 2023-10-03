@@ -52,7 +52,7 @@ export const logout = createAsyncThunk(
       const result = await axios.post("/users/logout", id);
       clearAuthHeader();
       toast.success("Logout success");
-      return result;
+      return result.data;
     } catch (error) {
       toast.error(error.response.data.message);
       return rejectWithValue(error.message);
@@ -73,7 +73,6 @@ export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
     const response = await axios.get("/users/current");
     return response.data;
   } catch (error) {
-    toast.error(error.response.data.message);
     return thunkAPI.rejectWithValue(error.message);
   }
 });

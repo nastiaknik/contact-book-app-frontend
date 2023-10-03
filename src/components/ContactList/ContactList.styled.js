@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-export const Table = styled.table``;
-
 export const TableHead = styled.th`
   width: fit-content;
   max-height: 50px;

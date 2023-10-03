@@ -5,7 +5,7 @@ import {
 } from "../../redux/contacts/selectors";
 import { toast } from "react-toastify";
 import { ContactItem } from "../ContactItem/ContactItem";
-import { Table, TableHead } from "./ContactList.styled";
+import { TableHead } from "./ContactList.styled";
 
 export const ContactList = () => {
   const filter = useSelector(selectFilterValue);
@@ -44,7 +44,7 @@ export const ContactList = () => {
   };
 
   return (
-    <Table>
+    <table>
       <thead>
         <tr>
           <TableHead>
@@ -59,6 +59,6 @@ export const ContactList = () => {
       <tbody>
         <ContactItem contacts={handleFilterContact()} />
       </tbody>
-    </Table>
+    </table>
   );
 };

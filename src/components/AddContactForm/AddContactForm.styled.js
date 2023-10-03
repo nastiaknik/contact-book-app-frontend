@@ -16,10 +16,10 @@ export const Form = styled(FormikForm)`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 15px;
 
   @media only screen and (max-width: 468px) {
     flex-direction: column;
-    gap: 10px;
   }
 `;
 
@@ -171,5 +171,5 @@ export const Error = styled.span`
   font-size: 16px;
   gap: 5px;
   width: 100%;
-  margin-left: 10px;
+  margin-left: 33px;
 `;

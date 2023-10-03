@@ -3,25 +3,25 @@ import styled from "styled-components";
 export const Button = styled.button`
   border: none;
   background-color: transparent;
-  cursor: pointer;
   opacity: 0.7;
-  :hover,
-  :focus {
-    opacity: 1;
-    /*  color: #7286d3; */
-  }
-`;
+  cursor: pointer;
+  margin-right: 15px;
 
-export const Link = styled.a`
-  background-color: transparent;
-  cursor: pointer;
-  opacity: 0.7;
-  :hover,
-  :focus {
+  &:hover,
+  &:focus {
     opacity: 1;
   }
-  :visited {
-    opacity: 0.7;
+
+  & svg {
+    font-size: 20px;
+  }
+
+  @media only screen and (min-width: 768px) {
+    margin-right: 20px;
+
+    & svg {
+      font-size: 24px;
+    }
   }
 `;
 
@@ -40,8 +40,5 @@ export const TableDataCell = styled.td`
 `;
 
 export const BtnWrapper = styled(TableDataCell)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
+  text-align: right;
 `;

@@ -29,15 +29,6 @@ export const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-export const Title = styled.h2`
-  font-weight: 700;
-  font-size: calc(1.3rem + 1.5vw);
-  text-align: center;
-  line-height: 1.2;
-  padding: 5px 0;
-  margin: 0 auto;
-`;
-
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -54,4 +45,20 @@ export const TitleWrapper = styled.div`
     flex-direction: column;
     gap: 10px;
   }
+`;
+
+export const Title = styled.h2`
+  font-weight: 700;
+  font-size: calc(1.3rem + 1.5vw);
+  text-align: center;
+  line-height: 1.2;
+  padding: 5px 0;
+  margin: 0 auto;
+`;
+
+export const Paragraph = styled.p`
+  font-size: calc(1.3rem);
+  text-align: center;
+  line-height: 1.2;
+  margin: 0 auto 25px;
 `;

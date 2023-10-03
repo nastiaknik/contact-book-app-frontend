@@ -1,15 +1,17 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 import { Avatar } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import {
-  deleteContact,
   toggleFavourite,
+  deleteContact,
 } from "../../redux/contacts/operations";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsStar, BsStarFill } from "react-icons/bs";
-/* import { ContactEditForm } from ".././ContactEditForm/ContactEditForm"; */
+import { MdEdit } from "react-icons/md";
+import { ContactEditForm } from ".././ContactEditForm/ContactEditForm";
+import { ConfirmDeleteModal } from "../Confirm/Confirm";
 import {
   TableRow,
   TableDataCell,
@@ -18,7 +20,17 @@ import {
 } from "./ContactItem.styled";
 
 export const ContactItem = ({ contacts }) => {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const dispatch = useDispatch();
+
+  const toggleEditModal = () => {
+    setIsEditModalOpen((prev) => !prev);
+  };
+
+  const toggleConfirm = () => {
+    setIsConfirmOpen((prev) => !prev);
+  };
 
   const onDelete = (contact) => {
     if (!contact) {
@@ -29,24 +41,7 @@ export const ContactItem = ({ contacts }) => {
         </p>
       );
     }
-    Confirm.show(
-      "Delete the word?",
-      "Are you sure you want to delete the contact?",
-      "Delete",
-      "Cancel",
-      () => {
-        dispatch(deleteContact(contact._id));
-        toast.success(
-          <p>
-            Contact <span style={{ color: "green" }}>{contact.name}</span>{" "}
-            deleted!
-          </p>
-        );
-      },
-      () => {
-        return;
-      }
-    );
+    dispatch(deleteContact(contact._id));
   };
 
   const onFavorite = (contact) => {
@@ -91,15 +86,35 @@ export const ContactItem = ({ contacts }) => {
         <BtnWrapper>
           <Button type="button" onClick={() => onFavorite(contact)}>
             {contact.favorite ? (
-              <BsStarFill size={24} color="#ffd800" />
+              <BsStarFill color="#ffd800" />
             ) : (
-              <BsStar size={24} color="#ffd800" />
+              <BsStar color="#ffd800" />
             )}
           </Button>
-          {/* <ContactEditForm contact={contact} /> */}
-          <Button type="button" onClick={() => onDelete(contact)}>
-            <RiDeleteBinLine size={24} color="red" />
+
+          <Button type="button" onClick={toggleEditModal}>
+            <MdEdit color="#333333" />
           </Button>
+          {isEditModalOpen && (
+            <ContactEditForm
+              contact={contact}
+              isModalOpen={isEditModalOpen}
+              toggleModal={toggleEditModal}
+            />
+          )}
+
+          <Button type="button" onClick={toggleConfirm}>
+            <RiDeleteBinLine color="red" />
+          </Button>
+          {isConfirmOpen && (
+            <ConfirmDeleteModal
+              isOpen={isConfirmOpen}
+              onCancel={toggleConfirm}
+              onConfirm={() => onDelete(contact)}
+              title="Are you sure you want to delete the contact?"
+              confirmBtnTitle="Delete"
+            />
+          )}
         </BtnWrapper>
       </TableRow>
     );

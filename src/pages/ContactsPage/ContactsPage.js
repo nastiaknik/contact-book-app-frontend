@@ -1,17 +1,25 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoading } from "../../redux/auth/selectors";
+import { selectContacts } from "../../redux/contacts/selectors";
 import { getContacts } from "../../redux/contacts/operations";
 import { Helmet } from "react-helmet";
 import { ContactList } from "../../components/ContactList/ContactList";
 import { AddContactForm } from "../../components/AddContactForm/AddContactForm";
 import { ContactFilter } from "../../components/ContactFilter/ContactFilter";
 import { Loader } from "../../components/Loader/Loader";
-import { Title, Container, Wrapper, TitleWrapper } from "./ContactsPage.styled";
+import {
+  Container,
+  Wrapper,
+  TitleWrapper,
+  Title,
+  Paragraph,
+} from "./ContactsPage.styled";
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+  const contacts = useSelector(selectContacts);
 
   useEffect(() => {
     dispatch(getContacts());
@@ -25,11 +33,20 @@ export default function ContactsPage() {
       <Container>
         <Wrapper>
           <AddContactForm />
-          <TitleWrapper>
-            <Title>Contacts</Title>
-            <ContactFilter />
-          </TitleWrapper>
-          <ContactList />
+          {contacts.length > 0 ? (
+            <>
+              <TitleWrapper>
+                <Title>Contacts</Title>
+                <ContactFilter />
+              </TitleWrapper>
+              <ContactList />
+            </>
+          ) : (
+            <Paragraph>
+              There is no contacts yet. When you add contacts, they'll appear
+              here.
+            </Paragraph>
+          )}
           {isLoading && <Loader />}
         </Wrapper>
       </Container>

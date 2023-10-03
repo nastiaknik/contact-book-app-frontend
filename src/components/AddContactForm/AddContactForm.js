@@ -1,9 +1,11 @@
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { transliterate } from "transliteration";
 import { useDispatch, useSelector } from "react-redux";
 import { selectContacts } from "../../redux/contacts/selectors";
 import { addContact } from "../../redux/contacts/operations";
 import { BiErrorCircle } from "react-icons/bi";
+import { BsFillPersonPlusFill, BsFillTelephonePlusFill } from "react-icons/bs";
 import { toast } from "react-toastify";
 import {
   InputContainer,
@@ -38,7 +40,10 @@ export const AddContactForm = () => {
     const contact = {
       name: values.name,
       phone: values.number,
-      email: `${values.name.toLowerCase().replace(/\s/g, ".")}@gmail.com`,
+      email: `${transliterate(values.name.toLowerCase()).replace(
+        /\s/g,
+        "."
+      )}@gmail.com`,
     };
 
     const contactExists = contacts.some((item) => {
@@ -87,7 +92,9 @@ export const AddContactForm = () => {
             <Wrapper>
               <FieldContainer>
                 <IconFieldWrapper>
-                  <label htmlFor="name"></label>
+                  <label htmlFor="name">
+                    <BsFillPersonPlusFill size={24} />
+                  </label>
                   <InputContainer>
                     <StyledField
                       id="name"
@@ -115,7 +122,9 @@ export const AddContactForm = () => {
 
               <FieldContainer>
                 <IconFieldWrapper>
-                  <label htmlFor="name"></label>
+                  <label htmlFor="number">
+                    <BsFillTelephonePlusFill size={20} />
+                  </label>
                   <InputContainer>
                     <StyledField
                       id="number"
