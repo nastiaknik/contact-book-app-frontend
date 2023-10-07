@@ -5,7 +5,7 @@ export const Button = styled.button`
   background-color: transparent;
   opacity: 0.7;
   cursor: pointer;
-  margin-right: 15px;
+  margin: 5px;
 
   &:hover,
   &:focus {
@@ -35,10 +35,30 @@ export const TableRow = styled.tr`
 `;
 
 export const TableDataCell = styled.td`
-  padding: 10px 20px;
+  padding: 15px 10px;
   text-align: left;
+
+  @media only screen and (min-width: 768px) {
+    padding: 10px 20px;
+  }
 `;
 
 export const BtnWrapper = styled(TableDataCell)`
   text-align: right;
+`;
+
+export const Menu = styled.div`
+  position: absolute;
+  right: 15px;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 120px;
+  background-color: rgb(255, 255, 255);
+  padding: 12px;
+  box-shadow: rgba(17, 17, 17, 0.1) 0px 4px 16px 0px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 8px;
 `;

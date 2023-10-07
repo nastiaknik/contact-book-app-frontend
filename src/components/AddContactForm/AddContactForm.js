@@ -1,6 +1,5 @@
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { transliterate } from "transliteration";
 import { useDispatch, useSelector } from "react-redux";
 import { selectContacts } from "../../redux/contacts/selectors";
 import { addContact } from "../../redux/contacts/operations";
@@ -40,10 +39,6 @@ export const AddContactForm = () => {
     const contact = {
       name: values.name,
       phone: values.number,
-      email: `${transliterate(values.name.toLowerCase()).replace(
-        /\s/g,
-        "."
-      )}@gmail.com`,
     };
 
     const contactExists = contacts.some((item) => {
@@ -101,7 +96,7 @@ export const AddContactForm = () => {
                       type="text"
                       name="name"
                       required
-                      placeholder="Anastasia Knihnitska"
+                      placeholder="Anastasia"
                       value={props.values.name}
                       onChange={props.handleChange}
                       className={

@@ -4,12 +4,15 @@ import {
   selectFilterValue,
 } from "../../redux/contacts/selectors";
 import { toast } from "react-toastify";
+import { useMediaQuery } from "@chakra-ui/react";
 import { ContactItem } from "../ContactItem/ContactItem";
 import { TableHead } from "./ContactList.styled";
 
 export const ContactList = () => {
   const filter = useSelector(selectFilterValue);
   const contacts = useSelector(selectContacts);
+
+  const [isWideScreen] = useMediaQuery("(min-width: 558px)");
 
   const handleFilterContact = () => {
     const noFilteredContacts =
@@ -49,10 +52,12 @@ export const ContactList = () => {
         <tr>
           <TableHead>
             {contacts.length}
-            <span> {contacts.length === 1 ? "contact" : "contacts"}</span>
+            {isWideScreen && (
+              <span> {contacts.length === 1 ? "contact" : "contacts"}</span>
+            )}
           </TableHead>
           <TableHead>Name</TableHead>
-          <TableHead>Phone number</TableHead>
+          <TableHead>Number</TableHead>
           <TableHead />
         </tr>
       </thead>

@@ -19,29 +19,27 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(getContacts.fulfilled, (state, action) => {
-        state.items = action.payload;
+      .addCase(getContacts.fulfilled, (state, { payload }) => {
+        state.items = payload;
       })
-      .addCase(deleteContact.fulfilled, (state, action) => {
-        state.items.filter((contact) => contact.id !== action.payload);
+      .addCase(deleteContact.fulfilled, (state, { payload }) => {
+        state.items = state.items.filter(
+          (contact) => contact._id !== payload.id
+        );
       })
-      .addCase(addContact.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+      .addCase(addContact.fulfilled, (state, { payload }) => {
+        state.items.push(payload);
       })
       .addCase(logout.fulfilled, (state) => {
         state.items = [];
       })
-      .addCase(editContact.fulfilled, (state, action) => {
-        const index = state.items.findIndex(
-          (item) => item.id === action.payload.id
-        );
-        state.items.splice(index, 1, action.payload);
+      .addCase(editContact.fulfilled, (state, { payload }) => {
+        const index = state.items.findIndex((item) => item._id === payload._id);
+        state.items.splice(index, 1, payload);
       })
-      .addCase(toggleFavourite.fulfilled, (state, action) => {
-        const index = state.items.findIndex(
-          (item) => item.id === action.payload.id
-        );
-        state.items.splice(index, 1, action.payload);
+      .addCase(toggleFavourite.fulfilled, (state, { payload }) => {
+        const index = state.items.findIndex((item) => item._id === payload._id);
+        state.items.splice(index, 1, payload);
       })
       .addMatcher(
         isAnyOf(

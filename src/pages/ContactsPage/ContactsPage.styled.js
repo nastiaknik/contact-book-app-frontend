@@ -12,8 +12,8 @@ export const Container = styled.section`
   @media only screen and (min-width: 468px) {
     padding: 50px 30px;
   }
-  @media only screen and (min-width: 624px) {
-    padding: 50px 50px;
+  @media only screen and (min-width: 1020px) {
+    padding: 50px;
   }
   @media only screen and (min-width: 1200px) {
     padding: 50px 100px;
@@ -38,7 +38,7 @@ export const TitleWrapper = styled.div`
   width: 100%;
   justify-content: center;
   padding: 0 15px;
-  margin: 0 auto;
+  margin: 0 auto 10px;
   max-width: 800px;
 
   @media only screen and (max-width: 468px) {

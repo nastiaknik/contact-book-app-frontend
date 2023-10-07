@@ -98,7 +98,7 @@ export function ContactEditForm({ contact, isModalOpen, toggleModal }) {
                             type="text"
                             name="name"
                             required
-                            placeholder="Anastasia Knihnitska"
+                            placeholder="Anastasia"
                             value={props.values.name}
                             onChange={props.handleChange}
                             autoFocus

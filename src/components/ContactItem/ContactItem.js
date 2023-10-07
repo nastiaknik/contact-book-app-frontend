@@ -1,25 +1,24 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { Avatar } from "@chakra-ui/react";
+import { Avatar, useMediaQuery } from "@chakra-ui/react";
+import { Popup } from "reactjs-popup";
 import PropTypes from "prop-types";
-import {
-  toggleFavourite,
-  deleteContact,
-} from "../../redux/contacts/operations";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { BsStar, BsStarFill } from "react-icons/bs";
-import { MdEdit } from "react-icons/md";
+import { toast } from "react-toastify";
+import { deleteContact } from "../../redux/contacts/operations";
+import { FiMenu } from "react-icons/fi";
 import { ContactEditForm } from ".././ContactEditForm/ContactEditForm";
 import { ConfirmDeleteModal } from "../Confirm/Confirm";
+import { ActionButtons } from "../ActionButtons/ActionButtons";
 import {
   TableRow,
   TableDataCell,
   BtnWrapper,
   Button,
+  Menu,
 } from "./ContactItem.styled";
 
 export const ContactItem = ({ contacts }) => {
+  const [isWideScreen] = useMediaQuery("(min-width: 515px)");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const dispatch = useDispatch();
@@ -27,7 +26,6 @@ export const ContactItem = ({ contacts }) => {
   const toggleEditModal = () => {
     setIsEditModalOpen((prev) => !prev);
   };
-
   const toggleConfirm = () => {
     setIsConfirmOpen((prev) => !prev);
   };
@@ -42,26 +40,7 @@ export const ContactItem = ({ contacts }) => {
       );
     }
     dispatch(deleteContact(contact._id));
-  };
-
-  const onFavorite = (contact) => {
-    if (contact.favorite) {
-      dispatch(toggleFavourite({ id: contact._id, favorite: false }));
-      toast.success(
-        <p>
-          Contact <span style={{ color: "green" }}>{contact.name}</span> removed
-          from favorites!
-        </p>
-      );
-    } else {
-      dispatch(toggleFavourite({ id: contact._id, favorite: true }));
-      toast.success(
-        <p>
-          Contact <span style={{ color: "green" }}>{contact.name}</span> added
-          to favorites!
-        </p>
-      );
-    }
+    toggleConfirm();
   };
 
   return contacts.map((contact) => {
@@ -69,6 +48,7 @@ export const ContactItem = ({ contacts }) => {
       <TableRow key={contact._id}>
         <TableDataCell>
           <Avatar
+            size={{ base: "sm", md: "md", lg: "md" }}
             src="https://bit.ly/broken-link"
             alt={contact.name}
             name={contact.name}
@@ -83,39 +63,56 @@ export const ContactItem = ({ contacts }) => {
         </TableDataCell>
         <TableDataCell>{contact.name}</TableDataCell>
         <TableDataCell>{contact.phone}</TableDataCell>
-        <BtnWrapper>
-          <Button type="button" onClick={() => onFavorite(contact)}>
-            {contact.favorite ? (
-              <BsStarFill color="#ffd800" />
-            ) : (
-              <BsStar color="#ffd800" />
-            )}
-          </Button>
 
-          <Button type="button" onClick={toggleEditModal}>
-            <MdEdit color="#333333" />
-          </Button>
-          {isEditModalOpen && (
-            <ContactEditForm
+        {isWideScreen ? (
+          <BtnWrapper>
+            <ActionButtons
               contact={contact}
-              isModalOpen={isEditModalOpen}
-              toggleModal={toggleEditModal}
+              toggleConfirm={toggleConfirm}
+              toggleEditModal={toggleEditModal}
             />
-          )}
+          </BtnWrapper>
+        ) : (
+          <TableDataCell>
+            <Popup
+              arrow={false}
+              trigger={
+                <Button type="button">
+                  <FiMenu />
+                </Button>
+              }
+              position="top center"
+              on="click"
+            >
+              {
+                <Menu>
+                  <ActionButtons
+                    contact={contact}
+                    toggleConfirm={toggleConfirm}
+                    toggleEditModal={toggleEditModal}
+                  />
+                </Menu>
+              }
+            </Popup>
+          </TableDataCell>
+        )}
+        {isConfirmOpen && (
+          <ConfirmDeleteModal
+            isOpen={isConfirmOpen}
+            onCancel={toggleConfirm}
+            onConfirm={() => onDelete(contact)}
+            title="Are you sure you want to delete the contact?"
+            confirmBtnTitle="Delete"
+          />
+        )}
 
-          <Button type="button" onClick={toggleConfirm}>
-            <RiDeleteBinLine color="red" />
-          </Button>
-          {isConfirmOpen && (
-            <ConfirmDeleteModal
-              isOpen={isConfirmOpen}
-              onCancel={toggleConfirm}
-              onConfirm={() => onDelete(contact)}
-              title="Are you sure you want to delete the contact?"
-              confirmBtnTitle="Delete"
-            />
-          )}
-        </BtnWrapper>
+        {isEditModalOpen && (
+          <ContactEditForm
+            contact={contact}
+            isModalOpen={isEditModalOpen}
+            toggleModal={toggleEditModal}
+          />
+        )}
       </TableRow>
     );
   });
