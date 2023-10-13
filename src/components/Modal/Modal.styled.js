@@ -29,6 +29,11 @@ export const ModalContent = styled.div`
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
     transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
+  @media screen and (min-width: 468px) {
+    max-width: 420px;
+    padding: 32px;
+  }
+
   @media screen and (min-width: 768px) {
     max-width: 468px;
     padding: 32px;

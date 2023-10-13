@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
 import { Title, ConfirmBtn, CancelBtn, BtnWrapper } from "./Confirm.styled";
 
-export const ConfirmDeleteModal = ({
+export const ConfirmModal = ({
   isOpen,
   onCancel,
   onConfirm,
@@ -26,7 +26,7 @@ export const ConfirmDeleteModal = ({
   );
 };
 
-ConfirmDeleteModal.propTypes = {
+ConfirmModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,

@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
-import {
-  selectContacts,
-  selectFilterValue,
-} from "../../redux/contacts/selectors";
+import { selectContacts } from "../../redux/contacts/selectors";
+import { selectFilterValue } from "../../redux/filter/selectors";
 import { toast } from "react-toastify";
 import { useMediaQuery } from "@chakra-ui/react";
 import { ContactItem } from "../ContactItem/ContactItem";
@@ -62,7 +60,9 @@ export const ContactList = () => {
         </tr>
       </thead>
       <tbody>
-        <ContactItem contacts={handleFilterContact()} />
+        {handleFilterContact().map((contact) => (
+          <ContactItem key={contact._id} contact={contact} />
+        ))}
       </tbody>
     </table>
   );

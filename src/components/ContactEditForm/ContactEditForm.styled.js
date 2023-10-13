@@ -8,12 +8,18 @@ export const Title = styled.p`
 `;
 
 export const Wrapper = styled.div`
-  padding: 10px;
   display: flex;
-  flex-wrap: nowrap;
-  gap: 5px;
+  flex-direction: column;
   justify-content: center;
   align-items: start;
+  gap: 15px;
+  padding: 10px;
+
+  @media only screen and (min-width: 448px) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
 `;
 
 export const Form = styled(FormikForm)`

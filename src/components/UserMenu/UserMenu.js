@@ -4,7 +4,7 @@ import { selectUser } from "../../redux/auth/selectors";
 import { logout } from "../../redux/auth/operations";
 import { FiLogOut } from "react-icons/fi";
 import { Wrapper, Username, Button } from "./UserMenu.styled";
-import { ConfirmDeleteModal } from "../Confirm/Confirm";
+import { ConfirmModal } from "../Confirm/Confirm";
 
 export const UserMenu = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,11 +22,11 @@ export const UserMenu = () => {
       </Username>
       <Button type="button" onClick={toggleModal}>
         <span>Logout</span>
-        <FiLogOut size={16} />
+        <FiLogOut size={15} />
       </Button>
 
       {isModalOpen && (
-        <ConfirmDeleteModal
+        <ConfirmModal
           isOpen={isModalOpen}
           onCancel={toggleModal}
           onConfirm={() => dispatch(logout(user._id))}

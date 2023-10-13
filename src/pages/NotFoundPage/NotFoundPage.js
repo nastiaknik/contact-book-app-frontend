@@ -1,18 +1,26 @@
-import { StyledNavLink } from "./NotFoundPage.styled";
-import Page404 from "../.././assets/404-page.png";
+import astronaut from "../.././assets/astronaut.png";
+import {
+  StyledNavLink,
+  Wrapper,
+  Image,
+  ProblemText,
+  ErrorStatus,
+  ErrorText,
+} from "./NotFoundPage.styled";
 
 const NotFound = () => {
   return (
-    <>
-      <img
-        src={Page404}
-        alt="404 error, you underestimate the power of dark side"
-        width={window.innerWidth > 768 ? "548" : "360"}
-        height="auto"
-        style={{ display: "block", margin: "25px auto" }}
-      />
-      <StyledNavLink to="/">Go home</StyledNavLink>
-    </>
+    <Wrapper>
+      <div>
+        <ProblemText>
+          Houston, <br /> we have a problem.
+        </ProblemText>
+        <ErrorStatus>404</ErrorStatus>
+        <ErrorText>Page not found</ErrorText>
+        <StyledNavLink to="/">Go home</StyledNavLink>
+      </div>
+      <Image src={astronaut} alt="astronaut" />
+    </Wrapper>
   );
 };
 
