@@ -35,6 +35,7 @@ export const TableRow = styled.tr`
 `;
 
 export const TableDataCell = styled.td`
+  position: relative;
   padding: 15px 5px;
   text-align: left;
 

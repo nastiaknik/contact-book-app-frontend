@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { BiErrorCircle } from "react-icons/bi";
+import { BiErrorCircle, BiHide, BiShow } from "react-icons/bi";
 import { BsPersonFill } from "react-icons/bs";
 import { GrMail } from "react-icons/gr";
 import { RiLock2Fill } from "react-icons/ri";
@@ -23,6 +24,7 @@ import {
   Image,
   LoginParagraph,
   LoginLink,
+  PasswordToggle,
 } from "./RegisterForm.styled";
 import { Loader } from "../Loader/Loader";
 
@@ -35,6 +37,7 @@ const registerSchema = Yup.object().shape({
 });
 
 export const RegisterForm = () => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
 
@@ -46,6 +49,10 @@ export const RegisterForm = () => {
         password: values.password,
       })
     );
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -136,7 +143,7 @@ export const RegisterForm = () => {
                     <InputContainer>
                       <StyledField
                         id="password"
-                        type="password"
+                        type={passwordVisible ? "text" : "password"}
                         name="password"
                         required
                         placeholder="******"
@@ -151,6 +158,16 @@ export const RegisterForm = () => {
                         }
                       />
                       <Label htmlFor="password">Password</Label>
+                      <PasswordToggle
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {passwordVisible ? (
+                          <BiHide size={20} />
+                        ) : (
+                          <BiShow size={20} />
+                        )}
+                      </PasswordToggle>
                     </InputContainer>
                   </IconFieldWrapper>
                   <ErrorMessage name="password">

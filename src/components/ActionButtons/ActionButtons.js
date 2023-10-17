@@ -89,7 +89,7 @@ export const ActionButtons = ({ contact, setIsModalOpen }) => {
       {isConfirmOpen && (
         <ConfirmModal
           isOpen={isConfirmOpen}
-          onCancel={toggleConfirm}
+          onClose={toggleConfirm}
           onConfirm={() => {
             onDelete(contact);
           }}

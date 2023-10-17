@@ -45,7 +45,7 @@ export const ContactItem = ({ contact }) => {
           <ActionButtons contact={contact} />
         </BtnWrapper>
       ) : (
-        <TableDataCell style={{ position: "relative" }}>
+        <TableDataCell>
           <Button ref={buttonRef} type="button" onClick={toggleMenu}>
             <FiMenu />
           </Button>

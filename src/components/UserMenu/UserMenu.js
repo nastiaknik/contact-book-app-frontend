@@ -28,7 +28,7 @@ export const UserMenu = () => {
       {isModalOpen && (
         <ConfirmModal
           isOpen={isModalOpen}
-          onCancel={toggleModal}
+          onClose={toggleModal}
           onConfirm={() => dispatch(logout(user._id))}
           title="Are you sure you want to logout?"
           confirmBtnTitle="Logout"

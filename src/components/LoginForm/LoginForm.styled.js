@@ -215,3 +215,10 @@ export const RegisterParagraph = styled.p`
 export const RegisterLink = styled(NavLink)`
   color: #54b4d3;
 `;
+
+export const PasswordToggle = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+`;

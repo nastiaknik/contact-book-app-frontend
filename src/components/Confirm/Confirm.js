@@ -4,20 +4,26 @@ import { Title, ConfirmBtn, CancelBtn, BtnWrapper } from "./Confirm.styled";
 
 export const ConfirmModal = ({
   isOpen,
-  onCancel,
+  onClose,
   onConfirm,
   title,
   confirmBtnTitle,
 }) => {
   return (
-    <Modal onClose={onCancel} isOpen={isOpen}>
+    <Modal onClose={onClose} isOpen={isOpen}>
       <div>
         <Title>{title}</Title>
         <BtnWrapper>
-          <ConfirmBtn type="button" onClick={onConfirm}>
+          <ConfirmBtn
+            type="button"
+            onClick={() => {
+              onConfirm();
+              onClose();
+            }}
+          >
             {confirmBtnTitle}
           </ConfirmBtn>
-          <CancelBtn type="button" onClick={onCancel}>
+          <CancelBtn type="button" onClick={onClose}>
             Cancel
           </CancelBtn>
         </BtnWrapper>
@@ -28,7 +34,7 @@ export const ConfirmModal = ({
 
 ConfirmModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onCancel: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   confirmBtnTitle: PropTypes.string.isRequired,
