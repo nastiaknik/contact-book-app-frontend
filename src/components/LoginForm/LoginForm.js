@@ -8,6 +8,8 @@ import { BiErrorCircle, BiHide, BiShow } from "react-icons/bi";
 import { GrMail } from "react-icons/gr";
 import { RiLock2Fill } from "react-icons/ri";
 import loginImg from "../../assets/login.png";
+import { ForgotPasswordModal } from "../ForgotPasswordModal/ForgotPasswordModal";
+import { Loader } from "../Loader/Loader";
 import {
   Container,
   Title,
@@ -24,8 +26,8 @@ import {
   RegisterLink,
   RegisterParagraph,
   PasswordToggle,
+  ForgotPasswordLink,
 } from "./LoginForm.styled";
-import { Loader } from "../Loader/Loader";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -36,6 +38,7 @@ const loginSchema = Yup.object().shape({
 
 export const LoginForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isForgetModalOpen, setForgetModalOpen] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
 
@@ -45,6 +48,10 @@ export const LoginForm = () => {
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const toggleForgetModal = () => {
+    setForgetModalOpen((prev) => !prev);
   };
 
   return (
@@ -75,7 +82,7 @@ export const LoginForm = () => {
                         name="email"
                         required
                         placeholder="nugget@gmail.com"
-                        value={props.values.number}
+                        value={props.values.email}
                         onChange={props.handleChange}
                         className={
                           props.touched.email && props.errors.email
@@ -139,6 +146,9 @@ export const LoginForm = () => {
                     )}
                   </ErrorMessage>
                 </FieldContainer>
+                <ForgotPasswordLink type="button" onClick={toggleForgetModal}>
+                  Forgot Password?
+                </ForgotPasswordLink>
                 <Button type="submit">Login</Button>
                 <RegisterParagraph>
                   Don't have an account?{" "}
@@ -149,6 +159,12 @@ export const LoginForm = () => {
           }}
         </Formik>
       </Wrapper>
+      {isForgetModalOpen && (
+        <ForgotPasswordModal
+          onClose={toggleForgetModal}
+          isOpen={isForgetModalOpen}
+        />
+      )}
       {isLoading && <Loader />}
     </Container>
   );

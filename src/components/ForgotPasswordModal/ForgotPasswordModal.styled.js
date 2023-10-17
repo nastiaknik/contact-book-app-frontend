@@ -1,25 +1,5 @@
 import styled from "styled-components";
 import { Field, Form as FormikForm } from "formik";
-import { NavLink } from "react-router-dom";
-
-export const Container = styled.div`
-  min-height: calc(100vh - 80px);
-  background-color: #f9f8fb;
-  padding: 40px 20px;
-
-  @media only screen and (min-width: 350px) {
-    padding: 40px 25px;
-  }
-  @media only screen and (min-width: 468px) {
-    padding: 50px 30px;
-  }
-  @media only screen and (min-width: 624px) {
-    padding: 60px 50px;
-  }
-  @media only screen and (min-width: 1200px) {
-    padding: 60px 100px;
-  }
-`;
 
 export const Form = styled(FormikForm)`
   display: flex;
@@ -30,21 +10,6 @@ export const Form = styled(FormikForm)`
   width: 100%;
   max-width: 100%;
   padding: 15px;
-`;
-
-export const Wrapper = styled.div`
-  padding: 10px;
-  background-color: white;
-  border-radius: 25px;
-  margin: 0 auto;
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-
-  @media only screen and (min-width: 768px) {
-    padding: 30px;
-    flex-direction: row;
-  }
 `;
 
 export const Title = styled.h2`
@@ -202,36 +167,4 @@ export const Image = styled.img`
   width: 100%;
   object-fit: contain;
   display: block;
-`;
-
-export const RegisterParagraph = styled.p`
-  text-align: center;
-
-  @media only screen and (min-width: 748px) {
-    margin-bottom: 10px;
-  }
-`;
-
-export const RegisterLink = styled(NavLink)`
-  color: #54b4d3;
-
-  &:hover {
-    color: #3b71ca;
-  }
-`;
-
-export const PasswordToggle = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-`;
-
-export const ForgotPasswordLink = styled.button`
-  color: #3b71ca;
-  margin-left: auto;
-
-  &:hover {
-    color: #386bc0;
-  }
 `;

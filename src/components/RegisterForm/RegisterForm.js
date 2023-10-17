@@ -9,6 +9,8 @@ import { BsPersonFill } from "react-icons/bs";
 import { GrMail } from "react-icons/gr";
 import { RiLock2Fill } from "react-icons/ri";
 import registerImg from "../../assets/register.png";
+import { Loader } from "../Loader/Loader";
+import { CheckEmail } from "../CheckEmailModal/CheckEmail";
 import {
   Container,
   Title,
@@ -26,7 +28,6 @@ import {
   LoginLink,
   PasswordToggle,
 } from "./RegisterForm.styled";
-import { Loader } from "../Loader/Loader";
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().required("First name is required"),
@@ -38,8 +39,17 @@ const registerSchema = Yup.object().shape({
 
 export const RegisterForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isCheckEmailOpen, setIsCheckEmailOpen] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const toggleCheckEmail = () => {
+    setIsCheckEmailOpen((prev) => !prev);
+  };
 
   const handleSubmit = (values) => {
     dispatch(
@@ -49,10 +59,7 @@ export const RegisterForm = () => {
         password: values.password,
       })
     );
-  };
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+    toggleCheckEmail();
   };
 
   return (
@@ -194,6 +201,9 @@ export const RegisterForm = () => {
           alt="A drawing of a man entering the door to another world"
         />
       </Wrapper>
+      {isCheckEmailOpen && (
+        <CheckEmail onClose={toggleCheckEmail} isOpen={isCheckEmailOpen} />
+      )}
       {isLoading && <Loader />}
     </Container>
   );
