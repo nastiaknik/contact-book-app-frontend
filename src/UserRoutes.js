@@ -7,6 +7,7 @@ import { Loader } from "./components/Loader/Loader";
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const RecoveryPage = lazy(() => import("./pages/RecoveryPage/RecoveryPage"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage/ContactsPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 
@@ -27,6 +28,15 @@ const UserRoutes = () => {
             <RestrictedRoute
               redirectTo="/contacts"
               component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/auth/recovery/:token"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RecoveryPage />}
             />
           }
         />

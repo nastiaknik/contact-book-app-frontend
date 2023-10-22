@@ -209,7 +209,11 @@ export const LoginParagraph = styled.p`
 `;
 
 export const LoginLink = styled(NavLink)`
-  color: #54b4d3;
+  color: #3b71ca;
+
+  &:hover {
+    color: #386bc0;
+  }
 `;
 
 export const PasswordToggle = styled.button`

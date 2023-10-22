@@ -141,7 +141,6 @@ export const Button = styled.button`
 
   &:hover,
   &:focus {
-    background-color: #7286d3;
     background-color: #386bc0;
   }
   &:active {

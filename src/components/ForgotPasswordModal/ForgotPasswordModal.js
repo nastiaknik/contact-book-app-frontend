@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { sendRecoveryEmail } from "../../redux/auth/operations";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { BiErrorCircle } from "react-icons/bi";
@@ -19,12 +21,17 @@ const EmailSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
 });
 
-export const ForgotPasswordModal = ({ onClose, isOpen }) => {
-  const sendResetEmail = () => {};
+export const ForgotPasswordModal = ({ onClose, isOpen, toggleCheckEmail }) => {
+  const dispatch = useDispatch();
+
+  const sendResetEmail = (values) => {
+    dispatch(sendRecoveryEmail({ email: values.email }));
+    onClose();
+    toggleCheckEmail();
+  };
 
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
-      <img src="" alt="" />
       <Formik
         initialValues={{ email: "" }}
         onSubmit={sendResetEmail}
@@ -33,6 +40,7 @@ export const ForgotPasswordModal = ({ onClose, isOpen }) => {
         {(props) => {
           return (
             <Form>
+              <img src="" alt="" />
               <Title>Forgot Password</Title>
               <p>
                 Enter your email and we'll send you a link to reset your
@@ -71,7 +79,6 @@ export const ForgotPasswordModal = ({ onClose, isOpen }) => {
                   )}
                 </ErrorMessage>
               </FieldContainer>
-
               <Button type="submit">Request reset link</Button>
             </Form>
           );

@@ -34,7 +34,7 @@ const registerSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must be at least 6 characters long"),
+    .min(6, "Minimum 6 characters"),
 });
 
 export const RegisterForm = () => {
@@ -202,7 +202,11 @@ export const RegisterForm = () => {
         />
       </Wrapper>
       {isCheckEmailOpen && (
-        <CheckEmail onClose={toggleCheckEmail} isOpen={isCheckEmailOpen} />
+        <CheckEmail
+          onClose={toggleCheckEmail}
+          isOpen={isCheckEmailOpen}
+          type="verification"
+        />
       )}
       {isLoading && <Loader />}
     </Container>

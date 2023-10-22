@@ -1,5 +1,12 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { register, login, logout, refreshUser } from "./operations";
+import {
+  register,
+  login,
+  logout,
+  refreshUser,
+  sendRecoveryEmail,
+  changePassword,
+} from "./operations";
 
 const initialState = {
   user: { name: null, email: null },
@@ -15,13 +22,11 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, { payload }) => {
-        state.loading = false;
         state.user = null;
         state.token = payload.token;
         state.isLoggedIn = false;
       })
       .addCase(login.fulfilled, (state, { payload }) => {
-        state.loading = false;
         state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
@@ -30,19 +35,32 @@ const authSlice = createSlice({
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
-        state.loading = false;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
-        state.loading = false;
       })
+      .addMatcher(
+        isAnyOf(
+          register.fulfilled,
+          login.fulfilled,
+          logout.fulfilled,
+          refreshUser.fulfilled,
+          sendRecoveryEmail.fulfilled,
+          changePassword.fulfilled
+        ),
+        (state) => {
+          state.loading = false;
+          state.error = null;
+        }
+      )
       .addMatcher(
         isAnyOf(
           register.pending,
           login.pending,
-          logout.pending
-          /* refreshUser.pending */
+          logout.pending,
+          sendRecoveryEmail.pending,
+          changePassword.pending
         ),
         (state) => {
           state.loading = true;
@@ -53,8 +71,9 @@ const authSlice = createSlice({
         isAnyOf(
           register.rejected,
           login.rejected,
-          logout.rejected
-          /* refreshUser.rejected */
+          logout.rejected,
+          sendRecoveryEmail.rejected,
+          changePassword.rejected
         ),
         (state, { payload }) => {
           state.loading = false;

@@ -213,10 +213,10 @@ export const RegisterParagraph = styled.p`
 `;
 
 export const RegisterLink = styled(NavLink)`
-  color: #54b4d3;
+  color: #3b71ca;
 
   &:hover {
-    color: #3b71ca;
+    color: #386bc0;
   }
 `;
 

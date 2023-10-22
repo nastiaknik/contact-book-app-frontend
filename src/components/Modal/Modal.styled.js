@@ -47,18 +47,19 @@ export const Button = styled.button`
   padding: 0;
   display: flex;
   justify-content: center;
-  background-color: "#FFFFFF";
+  background-color: #ffffff;
+  cursor: pointer;
 `;
 
 export const CloseSvg = styled(IoMdClose)`
   width: 24px;
   height: 24px;
-  fill: "#111111";
+  fill: #111111;
   transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  background-color: "#FFFFFF";
+  background-color: #ffffff;
 
   &:hover,
   &:focus {
-    fill: #888888;
+    fill: #3b71ca;
   }
 `;

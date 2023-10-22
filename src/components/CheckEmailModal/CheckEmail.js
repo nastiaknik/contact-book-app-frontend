@@ -1,20 +1,21 @@
 import envelope from "../../assets/envelope.png";
 import { Modal } from "../Modal/Modal";
-import { Title } from "./CheckEmail.styled";
+import { Title, Image } from "./CheckEmail.styled";
 
-export const CheckEmail = ({ onClose, isOpen }) => {
+export const CheckEmail = ({ onClose, isOpen, type = "verification" }) => {
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
-      <img src={envelope} alt="Open envelope" width="250" />
-      <Title>Check Email</Title>
-      <p>
-        Please check your email inbox and click on the provided link to reset
-        your password / verify your email. If you don't receive email, click
-        here to resend.
-      </p>
-      <button type="button" onClick={onClose}>
-        Back
-      </button>
+      <div>
+        <Image src={envelope} alt="Open envelope" />
+        <Title>Check Email</Title>
+        <p>
+          Please check your email inbox and click on the provided link to
+          {type === "verification"
+            ? " verify your account"
+            : " reset your password"}
+          .
+        </p>
+      </div>
     </Modal>
   );
 };

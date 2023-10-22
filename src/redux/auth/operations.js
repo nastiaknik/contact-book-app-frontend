@@ -98,3 +98,34 @@ export const current = createAsyncThunk(
     },
   }
 );
+
+export const sendRecoveryEmail = createAsyncThunk(
+  "recovery",
+  async (email, { rejectWithValue }) => {
+    try {
+      const result = await axios.post("/users/recovery", email);
+      clearAuthHeader();
+      toast.success("Recovery email is sent");
+      return result.data;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const changePassword = createAsyncThunk(
+  "changePassword",
+  async ({ resetToken, newPassword }, { rejectWithValue }) => {
+    try {
+      const result = await axios.patch(`/users/recovery/${resetToken}`, {
+        password: newPassword,
+      });
+      toast.success("Password has been successfully changed");
+      return result.data;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);

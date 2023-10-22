@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoading } from "../../redux/auth/selectors";
+import { selectIsLoading, selectError } from "../../redux/auth/selectors";
 import { login } from "../../redux/auth/operations";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -10,6 +10,7 @@ import { RiLock2Fill } from "react-icons/ri";
 import loginImg from "../../assets/login.png";
 import { ForgotPasswordModal } from "../ForgotPasswordModal/ForgotPasswordModal";
 import { Loader } from "../Loader/Loader";
+import { CheckEmail } from "../CheckEmailModal/CheckEmail";
 import {
   Container,
   Title,
@@ -39,8 +40,10 @@ const loginSchema = Yup.object().shape({
 export const LoginForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isForgetModalOpen, setForgetModalOpen] = useState(false);
+  const [isCheckEmailOpen, setIsCheckEmailOpen] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   const handleSubmit = (values) => {
     dispatch(login({ email: values.email, password: values.password }));
@@ -52,6 +55,10 @@ export const LoginForm = () => {
 
   const toggleForgetModal = () => {
     setForgetModalOpen((prev) => !prev);
+  };
+
+  const toggleCheckEmail = () => {
+    setIsCheckEmailOpen((prev) => !prev);
   };
 
   return (
@@ -163,6 +170,14 @@ export const LoginForm = () => {
         <ForgotPasswordModal
           onClose={toggleForgetModal}
           isOpen={isForgetModalOpen}
+          toggleCheckEmail={toggleCheckEmail}
+        />
+      )}
+      {isCheckEmailOpen && !isLoading && !error && (
+        <CheckEmail
+          onClose={toggleCheckEmail}
+          isOpen={isCheckEmailOpen}
+          type="recovery"
         />
       )}
       {isLoading && <Loader />}

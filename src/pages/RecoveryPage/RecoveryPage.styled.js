@@ -1,26 +1,43 @@
 import styled from "styled-components";
 import { Field, Form as FormikForm } from "formik";
+import { NavLink } from "react-router-dom";
+
+export const Container = styled.div`
+  min-height: calc(100vh - 80px);
+  background-color: #f9f8fb;
+  padding: 20px;
+
+  @media only screen and (min-width: 350px) {
+    padding: 40px 25px;
+  }
+  @media only screen and (min-width: 468px) {
+    padding: 50px 30px;
+  }
+  @media only screen and (min-width: 624px) {
+    padding: 50px 50px;
+  }
+  @media only screen and (min-width: 1200px) {
+    padding: 50px 100px;
+  }
+`;
 
 export const Form = styled(FormikForm)`
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
   width: 100%;
   max-width: 800px;
-  padding: 15px 15px 40px;
+  padding: 15px;
   margin: 0 auto;
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-
-  @media only screen and (max-width: 468px) {
-    flex-direction: column;
-  }
+  margin: 0 auto;
+  padding: 10px;
+  background-color: white;
+  border-radius: 25px;
 `;
 
 export const Title = styled.h2`
@@ -29,6 +46,16 @@ export const Title = styled.h2`
   font-size: calc(1.3rem + 1.5vw);
   line-height: 1.2;
   margin: 5px auto;
+`;
+
+export const FieldWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  @media only screen and (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 export const FieldContainer = styled.div`
@@ -43,18 +70,10 @@ export const FieldContainer = styled.div`
 export const IconFieldWrapper = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 10px;
-`;
-
-export const Label = styled.label`
-  display: inline-block;
-  padding: 0 5px;
-  margin-left: 10px;
-  transform: translate(0);
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  align-items: center;
 `;
 
 export const InputContainer = styled.div`
@@ -134,11 +153,19 @@ export const StyledField = styled(Field)`
   }
 `;
 
+export const Label = styled.label`
+  display: inline-block;
+  padding: 0 5px;
+  margin-left: 10px;
+  transform: translate(0);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+`;
+
 export const Button = styled.button`
   display: flex;
   align-items: center;
   padding: 10px 30px;
-  margin: 0 auto;
+  margin: 10px auto;
   font-size: 16px;
   font-family: inherit;
   font-weight: 500;
@@ -152,6 +179,7 @@ export const Button = styled.button`
 
   &:hover,
   &:focus {
+    background-color: #7286d3;
     background-color: #386bc0;
   }
   &:active {
@@ -171,4 +199,32 @@ export const Error = styled.span`
   gap: 5px;
   width: 100%;
   margin-left: 33px;
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  object-fit: contain;
+  display: block;
+  max-width: 300px;
+  margin: 0 auto;
+`;
+
+export const LoginLink = styled(NavLink)`
+  color: #3b71ca;
+  text-align: center;
+
+  &:hover {
+    color: #386bc0;
+  }
+`;
+
+export const PasswordToggle = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+`;
+
+export const Paragraph = styled.p`
+  text-align: center;
 `;
