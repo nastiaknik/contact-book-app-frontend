@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 export const Container = styled.div`
   min-height: calc(100vh - 80px);
   background-color: #f9f8fb;
-  padding: 40px 20px;
 
   @media only screen and (min-width: 350px) {
     padding: 40px 25px;
@@ -14,10 +13,10 @@ export const Container = styled.div`
     padding: 50px 30px;
   }
   @media only screen and (min-width: 624px) {
-    padding: 60px 50px;
+    padding: 40px 50px;
   }
   @media only screen and (min-width: 1200px) {
-    padding: 60px 100px;
+    padding: 50px 100px;
   }
 `;
 
@@ -162,7 +161,7 @@ export const Button = styled.button`
   display: flex;
   align-items: center;
   padding: 10px 30px;
-  margin: 10px auto;
+  margin: 0 auto;
   font-size: 16px;
   font-family: inherit;
   font-weight: 500;
@@ -206,10 +205,6 @@ export const Image = styled.img`
 
 export const RegisterParagraph = styled.p`
   text-align: center;
-
-  @media only screen and (min-width: 748px) {
-    margin-bottom: 10px;
-  }
 `;
 
 export const RegisterLink = styled(NavLink)`
@@ -234,4 +229,9 @@ export const ForgotPasswordLink = styled.button`
   &:hover {
     color: #386bc0;
   }
+`;
+
+export const GoogleButton = styled.div`
+  width: fit-content;
+  margin: 0 auto;
 `;

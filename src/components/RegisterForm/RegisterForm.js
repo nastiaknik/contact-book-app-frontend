@@ -29,6 +29,7 @@ import {
   LoginParagraph,
   LoginLink,
   PasswordToggle,
+  GoogleButton,
 } from "./RegisterForm.styled";
 
 const registerSchema = Yup.object().shape({
@@ -67,6 +68,10 @@ export const RegisterForm = () => {
   return (
     <Container>
       <Wrapper>
+        <Image
+          src={registerImg}
+          alt="A drawing of a man entering the door to another world"
+        />
         <Formik
           initialValues={{ name: "", email: "", password: "" }}
           onSubmit={handleSubmit}
@@ -198,18 +203,16 @@ export const RegisterForm = () => {
                   <LoginLink to="/auth/login">Login</LoginLink>
                 </LoginParagraph>
 
-                <GoogleLogin
-                  onSuccess={(response) => dispatch(googleAuth(response))}
-                  onError={(error) => toast.error(error)}
-                />
+                <GoogleButton>
+                  <GoogleLogin
+                    onSuccess={(response) => dispatch(googleAuth(response))}
+                    onError={(error) => toast.error(error)}
+                  />
+                </GoogleButton>
               </Form>
             );
           }}
         </Formik>
-        <Image
-          src={registerImg}
-          alt="A drawing of a man entering the door to another world"
-        />
       </Wrapper>
       {isCheckEmailOpen && (
         <CheckEmail

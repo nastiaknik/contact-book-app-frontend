@@ -5,8 +5,7 @@ import { NavLink } from "react-router-dom";
 export const Container = styled.div`
   min-height: calc(100vh - 80px);
   background-color: #f9f8fb;
-  padding: 40px 20px;
-
+  
   @media only screen and (min-width: 350px) {
     padding: 40px 25px;
   }
@@ -14,7 +13,7 @@ export const Container = styled.div`
     padding: 50px 30px;
   }
   @media only screen and (min-width: 624px) {
-    padding: 50px 50px;
+    padding: 40px 50px;
   }
   @media only screen and (min-width: 1200px) {
     padding: 50px 100px;
@@ -162,7 +161,7 @@ export const Button = styled.button`
   display: flex;
   align-items: center;
   padding: 10px 30px;
-  margin: 10px auto;
+  margin: 0 auto;
   font-size: 16px;
   font-family: inherit;
   font-weight: 500;
@@ -221,4 +220,9 @@ export const PasswordToggle = styled.button`
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
+`;
+
+export const GoogleButton = styled.div`
+  width: fit-content;
+  margin: 0 auto;
 `;

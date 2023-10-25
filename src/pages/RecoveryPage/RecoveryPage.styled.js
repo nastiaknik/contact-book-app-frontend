@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 export const Container = styled.div`
   min-height: calc(100vh - 80px);
   background-color: #f9f8fb;
-  padding: 20px;
+  padding: 20px 0;
 
   @media only screen and (min-width: 350px) {
     padding: 40px 25px;
@@ -197,7 +197,6 @@ export const Error = styled.span`
   width: 230px;
   font-size: 16px;
   gap: 5px;
-  width: 100%;
   margin-left: 33px;
 `;
 

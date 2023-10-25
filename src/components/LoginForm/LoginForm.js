@@ -30,6 +30,7 @@ import {
   RegisterParagraph,
   PasswordToggle,
   ForgotPasswordLink,
+  GoogleButton,
 } from "./LoginForm.styled";
 
 const loginSchema = Yup.object().shape({
@@ -169,10 +170,12 @@ export const LoginForm = () => {
                   <RegisterLink to="/auth/register">Register</RegisterLink>
                 </RegisterParagraph>
 
-                <GoogleLogin
-                  onSuccess={(response) => dispatch(googleAuth(response))}
-                  onError={(error) => toast.error(error)}
-                />
+                <GoogleButton>
+                  <GoogleLogin
+                    onSuccess={(response) => dispatch(googleAuth(response))}
+                    onError={(error) => toast.error(error)}
+                  />
+                </GoogleButton>
               </Form>
             );
           }}

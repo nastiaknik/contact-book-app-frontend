@@ -36,7 +36,7 @@ const resetPasswordSchema = Yup.object().shape({
     .min(6, "Minimum 6 characters"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
-    .required("Confirm Password is required"),
+    .required("Confirm is required"),
 });
 
 const RecoveryPage = () => {

@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 81px);
   background-color: #f9f8fb;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 15px;
 
   @media only screen and (min-width: 350px) {
     padding: 40px 25px;
