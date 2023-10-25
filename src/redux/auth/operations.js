@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "https://goit-nodejs-homework-bnfs.onrender.com/api";
+/* axios.defaults.baseURL = "http://localhost:3001/api"; */
 
 const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -17,8 +18,7 @@ export const register = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post("/users/register", credentials);
-      const { token } = response.data;
-      setAuthHeader(token);
+      setAuthHeader(response.data.token);
       toast.success(
         "Registration Successful! Please check your email and verify your account."
       );
@@ -122,6 +122,23 @@ export const changePassword = createAsyncThunk(
         password: newPassword,
       });
       toast.success("Password has been successfully changed");
+      return result.data;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const googleAuth = createAsyncThunk(
+  "google",
+  async (response, { rejectWithValue }) => {
+    try {
+      const result = await axios.post(`/users/google`, {
+        googleToken: response.credential,
+      });
+      setAuthHeader(result.data.token);
+      toast.success(result.data.message);
       return result.data;
     } catch (error) {
       toast.error(error.response.data.message);

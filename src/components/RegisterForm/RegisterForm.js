@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../redux/auth/operations";
+import { register, googleAuth } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
+import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { BiErrorCircle, BiHide, BiShow } from "react-icons/bi";
@@ -88,6 +90,7 @@ export const RegisterForm = () => {
                         required
                         value={props.values.name}
                         onChange={props.handleChange}
+                        autoComplete="off"
                         className={
                           props.touched.name && props.errors.name
                             ? "error"
@@ -122,6 +125,7 @@ export const RegisterForm = () => {
                         placeholder="nugget@gmail.com"
                         value={props.values.number}
                         onChange={props.handleChange}
+                        autoComplete="off"
                         className={
                           props.touched.email && props.errors.email
                             ? "error"
@@ -156,6 +160,7 @@ export const RegisterForm = () => {
                         placeholder="******"
                         value={props.values.password}
                         onChange={props.handleChange}
+                        autoComplete="off"
                         className={
                           props.touched.password && props.errors.password
                             ? "error"
@@ -192,6 +197,11 @@ export const RegisterForm = () => {
                   Have an account already?{" "}
                   <LoginLink to="/auth/login">Login</LoginLink>
                 </LoginParagraph>
+
+                <GoogleLogin
+                  onSuccess={(response) => dispatch(googleAuth(response))}
+                  onError={(error) => toast.error(error)}
+                />
               </Form>
             );
           }}

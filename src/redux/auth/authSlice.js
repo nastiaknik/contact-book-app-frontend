@@ -6,6 +6,7 @@ import {
   refreshUser,
   sendRecoveryEmail,
   changePassword,
+  googleAuth,
 } from "./operations";
 
 const initialState = {
@@ -31,13 +32,18 @@ const authSlice = createSlice({
         state.token = payload.token;
         state.isLoggedIn = true;
       })
+      .addCase(googleAuth.fulfilled, (state, { payload }) => {
+        state.user = payload.user;
+        state.token = payload.token;
+        state.isLoggedIn = true;
+      })
       .addCase(logout.fulfilled, (state) => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+      .addCase(refreshUser.fulfilled, (state, { payload }) => {
+        state.user = payload;
         state.isLoggedIn = true;
       })
       .addMatcher(
@@ -47,7 +53,8 @@ const authSlice = createSlice({
           logout.fulfilled,
           refreshUser.fulfilled,
           sendRecoveryEmail.fulfilled,
-          changePassword.fulfilled
+          changePassword.fulfilled,
+          googleAuth.fulfilled
         ),
         (state) => {
           state.loading = false;
@@ -60,7 +67,8 @@ const authSlice = createSlice({
           login.pending,
           logout.pending,
           sendRecoveryEmail.pending,
-          changePassword.pending
+          changePassword.pending,
+          googleAuth.pending
         ),
         (state) => {
           state.loading = true;
@@ -73,7 +81,8 @@ const authSlice = createSlice({
           login.rejected,
           logout.rejected,
           sendRecoveryEmail.rejected,
-          changePassword.rejected
+          changePassword.rejected,
+          googleAuth.rejected
         ),
         (state, { payload }) => {
           state.loading = false;

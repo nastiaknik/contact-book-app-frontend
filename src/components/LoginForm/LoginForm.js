@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoading, selectError } from "../../redux/auth/selectors";
-import { login } from "../../redux/auth/operations";
+import { googleAuth, login } from "../../redux/auth/operations";
+import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { BiErrorCircle, BiHide, BiShow } from "react-icons/bi";
@@ -91,6 +93,7 @@ export const LoginForm = () => {
                         placeholder="nugget@gmail.com"
                         value={props.values.email}
                         onChange={props.handleChange}
+                        autoComplete="on"
                         className={
                           props.touched.email && props.errors.email
                             ? "error"
@@ -124,6 +127,7 @@ export const LoginForm = () => {
                         placeholder="******"
                         value={props.values.password}
                         onChange={props.handleChange}
+                        autoComplete="on"
                         className={
                           props.touched.password && props.errors.password
                             ? "error"
@@ -153,14 +157,22 @@ export const LoginForm = () => {
                     )}
                   </ErrorMessage>
                 </FieldContainer>
+
                 <ForgotPasswordLink type="button" onClick={toggleForgetModal}>
                   Forgot Password?
                 </ForgotPasswordLink>
+
                 <Button type="submit">Login</Button>
+
                 <RegisterParagraph>
                   Don't have an account?{" "}
                   <RegisterLink to="/auth/register">Register</RegisterLink>
                 </RegisterParagraph>
+
+                <GoogleLogin
+                  onSuccess={(response) => dispatch(googleAuth(response))}
+                  onError={(error) => toast.error(error)}
+                />
               </Form>
             );
           }}

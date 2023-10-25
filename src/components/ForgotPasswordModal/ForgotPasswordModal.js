@@ -60,6 +60,7 @@ export const ForgotPasswordModal = ({ onClose, isOpen, toggleCheckEmail }) => {
                       placeholder="nugget@gmail.com"
                       value={props.values.email}
                       onChange={props.handleChange}
+                      autoFocus
                       className={
                         props.touched.email && props.errors.email
                           ? "error"
