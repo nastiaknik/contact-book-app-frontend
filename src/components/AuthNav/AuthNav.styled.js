@@ -7,47 +7,35 @@ export const Wrapper = styled.div`
   flex-wrap: nowrap;
   justify-content: center;
   align-items: end;
-  margin-right: 30px;
   gap: 15px;
+  margin-right: 30px;
 
   @media only screen and (max-width: 468px) {
-    margin-right: 10px;
     gap: 10px;
-  }
-`;
-
-export const Nav = styled.nav`
-  display: flex;
-  gap: 10px;
-  margin-left: 20px;
-  align-items: center;
-  justify-content: baseline;
-  align-items: center;
-
-  @media only screen and (max-width: 468px) {
     margin-right: 10px;
   }
 `;
 
 export const StyledNavLink = styled(NavLink)`
   text-align: center;
-  text-decoration: none;
   padding: 5px 10px;
-  color: white;
+  color: #ffffff;
+  text-decoration: none;
   font-size: 16px;
   font-weight: 550;
+  opacity: 1;
   border-radius: 20px;
   transition: background-color color opacity cubic-bezier(0.4, 0, 0.2, 1) 200ms;
 
   &:hover,
-  :focus {
+  &:focus {
     color: teal;
   }
   &.active {
-    color: white;
+    color: #ffffff;
     background-color: teal;
     &:hover,
-    :focus {
+    &:focus {
       opacity: 0.8;
     }
   }

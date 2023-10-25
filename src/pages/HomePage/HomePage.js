@@ -1,6 +1,9 @@
+import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import { selectIsLoading } from "../../redux/auth/selectors";
-import { Helmet } from "react-helmet";
+import messageImage from "../../assets/message.jpg";
+import heartImage from "../../assets/heart.jpg";
+import { Loader } from "../../components/Loader/Loader";
 import {
   Section,
   Hero,
@@ -28,9 +31,6 @@ import {
   TwitterIcon,
   StyledNavLink,
 } from "./HomePage.styled";
-import messageImage from "../../assets/message.jpg";
-import heartImage from "../../assets/heart.jpg";
-import { Loader } from "../../components/Loader/Loader";
 
 export default function HomePage() {
   const isLoading = useSelector(selectIsLoading);

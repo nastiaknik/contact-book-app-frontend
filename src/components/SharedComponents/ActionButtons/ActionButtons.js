@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { deleteContact } from "../../redux/contacts/operations";
-import { ContactEditForm } from ".././ContactEditForm/ContactEditForm";
-import { ConfirmModal } from "../Confirm/Confirm";
-import { toggleFavourite } from "../../redux/contacts/operations";
+import { deleteContact } from "../../../redux/contacts/operations";
+import { ContactEditForm } from "../../ContactEditForm/ContactEditForm";
+import { ConfirmModal } from "../../Confirm/Confirm";
+import { toggleFavourite } from "../../../redux/contacts/operations";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";

@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 export const Title = styled.h2`
-  font-size: 32px;
   text-align: center;
+  font-size: 32px;
   margin-bottom: 15px;
 `;
 
 export const Image = styled.img`
   display: block;
-  max-width: 100%;
-  width: 200px;
   object-fit: contain;
+  width: 200px;
+  max-width: 100%;
   margin: 0 auto;
 `;

@@ -9,19 +9,17 @@ import { TableHead } from "./ContactList.styled";
 export const ContactList = () => {
   const filter = useSelector(selectFilterValue);
   const contacts = useSelector(selectContacts);
-
   const [isWideScreen] = useMediaQuery("(min-width: 558px)");
 
   const handleFilterContact = () => {
     const noFilteredContacts =
-      contacts.filter((contact) => {
-        return (
+      contacts.filter(
+        (contact) =>
           contact.name.toLowerCase().includes(filter.toLowerCase().trim()) ||
           contact.phone.includes(filter.trim())
-        );
-      }).length === 0;
+      ).length === 0;
     if (filter && noFilteredContacts) {
-      toast.error(
+      return toast.error(
         <p>
           Sorry, there are no contact matching
           <span style={{ color: "red" }}> {filter}</span>!
@@ -33,12 +31,11 @@ export const ContactList = () => {
     }
 
     return contacts
-      .filter((contact) => {
-        return (
+      .filter(
+        (contact) =>
           contact.name.toLowerCase().includes(filter.toLowerCase().trim()) ||
           contact.phone.includes(filter.trim())
-        );
-      })
+      )
       .sort((firstContact, secondContact) =>
         firstContact.name.localeCompare(secondContact.name)
       );

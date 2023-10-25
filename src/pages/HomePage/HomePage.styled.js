@@ -1,27 +1,26 @@
 import styled from "styled-components";
-import image from "../../assets/typing.jpg";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import image from "../../assets/typing.jpg";
 
 export const Section = styled.section`
   min-width: 100%;
   max-width: 100vw;
   padding: 0 20px;
   margin: 30px auto;
-  background-color: #fff;
+  background-color: #ffffff;
 
   @media only screen and (min-width: 768px) {
     padding: 0 32px;
   }
   @media only screen and (min-width: 1280px) {
     max-width: 1280px;
-    padding: 0 32px;
     margin: 45px auto;
   }
 
   & *::selection {
     background-color: #162731;
-    color: #fff;
+    color: #ffffff;
   }
 `;
 
@@ -39,7 +38,7 @@ export const Hero = styled(Section)`
   background-repeat: no-repeat;
 
   & *::selection {
-    background-color: #fff;
+    background-color: #ffffff;
     color: #162731;
   }
 `;
@@ -69,8 +68,8 @@ export const Title = styled.h2`
   font-weight: 700;
   margin: 0;
   padding: 0 5px;
+  color: #ffffff;
   border-radius: 5px;
-  color: white;
 
   @media only screen and (min-width: 468px) {
     font-size: 60px;
@@ -81,8 +80,8 @@ export const Title = styled.h2`
 export const SubTitle = styled.h3`
   font-size: 18px;
   margin: 10px 0;
+  color: #ffffff;
   border-radius: 5px;
-  color: white;
 
   @media only screen and (min-width: 448px) {
     font-size: 24px;
@@ -125,9 +124,9 @@ export const Image = styled.img`
 `;
 
 export const ListTitle = styled.h3`
-  text-align: center;
   font-size: 28px;
   font-weight: 700;
+  text-align: center;
   margin-bottom: 20px;
 
   @media only screen and (min-width: 468px) {
@@ -167,10 +166,10 @@ export const Footer = styled.footer`
   gap: 15px;
   padding: 20px;
   background-color: #162731;
-  color: #fff;
+  color: #ffffff;
 
   & *::selection {
-    background-color: #fff;
+    background-color: #ffffff;
     color: #162731;
   }
 

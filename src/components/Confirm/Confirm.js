@@ -1,26 +1,25 @@
 import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
-import { Title, ConfirmBtn, CancelBtn, BtnWrapper } from "./Confirm.styled";
+import { Title, BtnWrapper, ConfirmBtn, CancelBtn } from "./Confirm.styled";
 
 export const ConfirmModal = ({
-  isOpen,
+  isOpen = false,
   onClose,
   onConfirm,
   title,
   confirmBtnTitle,
 }) => {
+  const handleConfirm = () => {
+    onConfirm();
+    onClose();
+  };
+
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <div>
         <Title>{title}</Title>
         <BtnWrapper>
-          <ConfirmBtn
-            type="button"
-            onClick={() => {
-              onConfirm();
-              onClose();
-            }}
-          >
+          <ConfirmBtn type="button" onClick={handleConfirm}>
             {confirmBtnTitle}
           </ConfirmBtn>
           <CancelBtn type="button" onClick={onClose}>

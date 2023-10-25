@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  border: none;
   background-color: transparent;
+  margin: 5px;
   opacity: 0.7;
   cursor: pointer;
-  margin: 5px;
+  border: none;
 
   &:hover,
   &:focus {
@@ -18,7 +18,6 @@ export const Button = styled.button`
 
   @media only screen and (min-width: 768px) {
     margin-right: 20px;
-
     & svg {
       font-size: 24px;
     }
@@ -27,7 +26,7 @@ export const Button = styled.button`
 
 export const TableRow = styled.tr`
   background-color: transparent;
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     background-color: #e5e0ff;

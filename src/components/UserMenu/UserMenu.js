@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../redux/auth/selectors";
 import { logout } from "../../redux/auth/operations";
 import { FiLogOut } from "react-icons/fi";
-import { Wrapper, Username, Button } from "./UserMenu.styled";
 import { ConfirmModal } from "../Confirm/Confirm";
+import { Wrapper, Username, Button } from "./UserMenu.styled";
 
 export const UserMenu = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

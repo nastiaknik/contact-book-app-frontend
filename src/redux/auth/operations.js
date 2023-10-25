@@ -3,7 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "https://goit-nodejs-homework-bnfs.onrender.com/api";
-/* axios.defaults.baseURL = "http://localhost:3001/api"; */
 
 const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;

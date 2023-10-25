@@ -1,9 +1,9 @@
+import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { selectContacts } from "../../redux/contacts/selectors";
 import { getContacts } from "../../redux/contacts/operations";
-import { Helmet } from "react-helmet";
 import { ContactList } from "../../components/ContactList/ContactList";
 import { AddContactForm } from "../../components/AddContactForm/AddContactForm";
 import { ContactFilter } from "../../components/ContactFilter/ContactFilter";
@@ -33,7 +33,7 @@ export default function ContactsPage() {
       <Container>
         <Wrapper>
           <AddContactForm />
-          {contacts.length > 0 ? (
+          {contacts.length > 0 && !isLoading ? (
             <>
               <TitleWrapper>
                 <Title>Contacts</Title>

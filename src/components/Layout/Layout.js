@@ -1,15 +1,15 @@
-import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Loader } from "../Loader/Loader";
-import { Container, Main } from "./Layout.styled";
-import { AppBar } from "../AppBar/AppBar";
 import UserRoutes from "../../UserRoutes";
+import { AppBar } from "../AppBar/AppBar";
+import { Loader } from "../Loader/Loader";
+import { Main } from "./Layout.styled";
 
 export const Layout = () => {
   return (
-    <Container>
+    <>
       <AppBar />
       <Main>
         <UserRoutes />
@@ -24,6 +24,6 @@ export const Layout = () => {
         newestOnTop={true}
         theme="colored"
       />
-    </Container>
+    </>
   );
 };

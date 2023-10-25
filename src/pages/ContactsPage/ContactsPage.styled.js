@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.section`
   min-height: calc(100vh - 81px);
-  background-color: #f9f8fb;
   margin: 0 auto;
   padding: 15px;
+  background-color: #f9f8fb;
 
   @media only screen and (min-width: 350px) {
     padding: 40px 25px;
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 25px;
   overflow: hidden;
 `;
@@ -33,10 +33,10 @@ export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  gap: 20px;
   align-items: center;
-  width: 100%;
   justify-content: center;
+  gap: 20px;
+  width: 100%;
   padding: 0 15px;
   margin: 0 auto 10px;
   max-width: 800px;

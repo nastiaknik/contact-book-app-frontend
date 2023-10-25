@@ -15,9 +15,9 @@ export const Spinner = styled(TbLoader)`
   position: absolute;
   top: 50%;
   left: 50%;
+  font-size: 40px;
   overflow: auto;
   transform: translate(-50%, -50%) scale(1);
-  font-size: 40px;
   animation: spin 1500ms linear infinite;
 
   @keyframes spin {

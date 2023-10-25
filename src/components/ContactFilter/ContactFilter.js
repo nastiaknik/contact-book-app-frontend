@@ -1,7 +1,7 @@
-import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilterValue } from "../../redux/filter/filterSlice";
 import { selectFilterValue } from "../../redux/filter/selectors";
+import { FiSearch } from "react-icons/fi";
 import { FilterContainer, FilterInput } from "./ContactFilter.styled";
 
 export const ContactFilter = () => {

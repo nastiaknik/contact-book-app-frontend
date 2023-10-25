@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
 export const Username = styled.p`
   font-size: 1.2rem;
   font-weight: bold;
-  color: white;
+  color: #ffffff;
   padding: 0;
   margin: 0;
   margin-right: 10px;
@@ -35,23 +35,23 @@ export const Username = styled.p`
 
 export const Button = styled.button`
   display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 12px;
   text-align: center;
   font-family: inherit;
   font-size: 16px;
   font-weight: 600;
-  white-space: nowrap;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
   line-height: 1.2;
   border: none;
   border-radius: 0.375rem;
   background-color: #fbc02d;
   color: #000000;
+  white-space: nowrap;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   cursor: pointer;
   transition: background-color cubic-bezier(0.4, 0, 1, 1) 200ms;
-  gap: 4px;
-  align-items: center;
-  padding: 10px 12px;
 
   &:hover,
   &:focus {

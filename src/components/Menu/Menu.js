@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ActionButtons } from "../ActionButtons/ActionButtons";
+import { ActionButtons } from "../SharedComponents/ActionButtons/ActionButtons";
 import { PopMenu } from "./Menu.styled";
 
 export const Menu = ({

@@ -1,8 +1,12 @@
-import envelope from "../../assets/envelope.png";
 import { Modal } from "../Modal/Modal";
+import envelope from "../../assets/envelope.png";
 import { Title, Image } from "./CheckEmail.styled";
 
-export const CheckEmail = ({ onClose, isOpen, type = "verification" }) => {
+export const CheckEmail = ({
+  onClose,
+  isOpen = false,
+  type = "verification",
+}) => {
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <div>

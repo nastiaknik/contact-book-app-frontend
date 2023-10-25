@@ -13,18 +13,21 @@ export const BtnWrapper = styled.div`
   gap: 15px;
 `;
 
-export const ConfirmBtn = styled.button`
+export const Button = styled.button`
   padding: 10px 30px;
-  font-size: 16px;
   font-family: inherit;
+  font-size: 16px;
   font-weight: 500;
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
-  background-color: #32c682;
-  box-shadow: 0 4px 9px -4px #3b71ca;
   transition: background-color 200ms ease-in-out;
   cursor: pointer;
+`;
+
+export const ConfirmBtn = styled(Button)`
+  background-color: #32c682;
+  box-shadow: 0 4px 9px -4px #3b71ca;
 
   &:hover,
   &:focus {
@@ -35,7 +38,7 @@ export const ConfirmBtn = styled.button`
   }
 `;
 
-export const CancelBtn = styled(ConfirmBtn)`
+export const CancelBtn = styled(Button)`
   background-color: #8c8c8c;
   box-shadow: 0 4px 9px -4px #8c8c8c;
 

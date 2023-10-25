@@ -16,7 +16,6 @@ export const ModalContent = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   max-width: 335px;
   width: 100%;
   padding: 20px;
@@ -44,9 +43,9 @@ export const Button = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
-  padding: 0;
   display: flex;
   justify-content: center;
+  padding: 0;
   background-color: #ffffff;
   cursor: pointer;
 `;
@@ -55,8 +54,8 @@ export const CloseSvg = styled(IoMdClose)`
   width: 24px;
   height: 24px;
   fill: #111111;
-  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
   background-color: #ffffff;
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover,
   &:focus {

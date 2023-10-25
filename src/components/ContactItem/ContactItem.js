@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Avatar, useMediaQuery } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { FiMenu } from "react-icons/fi";
-import { ActionButtons } from "../ActionButtons/ActionButtons";
+import { ActionButtons } from "../SharedComponents/ActionButtons/ActionButtons";
 import { Menu } from "../Menu/Menu";
 import {
   TableRow,

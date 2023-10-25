@@ -32,19 +32,18 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
   height: calc(100vh - 80px);
   width: 100vw;
   background-image: url(${background});
   background-size: cover;
   background-repeat: no-repeat;
   background-color: black;
-  padding: 30px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: center;
-  align-items: center;
 
   @media only screen and (min-width: 686px) {
     padding: 40px;
@@ -75,10 +74,10 @@ export const ProblemText = styled.p`
 `;
 
 export const ErrorStatus = styled.p`
+  margin: -40px auto;
   color: #ffffff;
   text-align: center;
   font-size: 120px;
-  margin: -40px auto;
   font-family: "Fira Sans", sans-serif;
 
   @media only screen and (min-width: 686px) {
@@ -88,10 +87,10 @@ export const ErrorStatus = styled.p`
 `;
 
 export const ErrorText = styled.h2`
+  margin-bottom: 15px;
   color: #fbaa1d;
   text-align: center;
   font-size: 32px;
-  margin-bottom: 15px;
   font-family: "Nunito Sans", sans-serif;
 
   @media only screen and (min-width: 686px) {
