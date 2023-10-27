@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { Field } from "formik";
 
+type ErrorProps = {
+  icon?: boolean;
+};
+
 export const FieldContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -104,7 +108,7 @@ export const StyledField = styled(Field)`
   }
 `;
 
-export const Error = styled.span`
+export const Error = styled.span<ErrorProps>`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -114,7 +118,7 @@ export const Error = styled.span`
   width: 230px;
   font-size: 16px;
   gap: 5px;
-  margin-left: ${(props) => (props.icon ? "33px" : "0")};
+  margin-left: ${({ icon }) => (icon ? "33px" : "0")};
   width: 100%;
 `;
 
