@@ -61,7 +61,10 @@ export const LoginForm = () => {
             <Form>
               <Title>Login</Title>
               <Input
-                props={props}
+                values={props.values}
+                handleChange={props.handleChange}
+                touched={props.touched}
+                errors={props.errors}
                 name="email"
                 id="email"
                 type="email"
@@ -71,7 +74,10 @@ export const LoginForm = () => {
                 autoComplete="on"
               />
               <Input
-                props={props}
+                values={props.values}
+                handleChange={props.handleChange}
+                touched={props.touched}
+                errors={props.errors}
                 name="password"
                 id="password"
                 type={passwordVisible ? "text" : "password"}

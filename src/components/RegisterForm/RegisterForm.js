@@ -64,7 +64,10 @@ export const RegisterForm = () => {
               <Form>
                 <Title>Sign up</Title>
                 <Input
-                  props={props}
+                  values={props.values}
+                  handleChange={props.handleChange}
+                  touched={props.touched}
+                  errors={props.errors}
                   name="name"
                   id="name"
                   type="text"
@@ -74,7 +77,10 @@ export const RegisterForm = () => {
                   autoComplete="off"
                 />
                 <Input
-                  props={props}
+                  values={props.values}
+                  handleChange={props.handleChange}
+                  touched={props.touched}
+                  errors={props.errors}
                   name="email"
                   id="email"
                   type="email"
@@ -84,7 +90,10 @@ export const RegisterForm = () => {
                   autoComplete="off"
                 />
                 <Input
-                  props={props}
+                  values={props.values}
+                  handleChange={props.handleChange}
+                  touched={props.touched}
+                  errors={props.errors}
                   name="password"
                   id="password"
                   type={passwordVisible ? "text" : "password"}

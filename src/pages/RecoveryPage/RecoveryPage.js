@@ -64,7 +64,10 @@ const RecoveryPage = () => {
                   <Title>Reset Password</Title>
                   <FieldWrapper>
                     <Input
-                      props={props}
+                      values={props.values}
+                      handleChange={props.handleChange}
+                      touched={props.touched}
+                      errors={props.errors}
                       name="newPassword"
                       id="newPassword"
                       type={newPasswordVisible ? "text" : "password"}
@@ -75,7 +78,10 @@ const RecoveryPage = () => {
                       icon={<FaKey size={20} />}
                     />
                     <Input
-                      props={props}
+                      values={props.values}
+                      handleChange={props.handleChange}
+                      touched={props.touched}
+                      errors={props.errors}
                       name="confirmPassword"
                       id="confirmPassword"
                       type={confirmPasswordVisible ? "text" : "password"}

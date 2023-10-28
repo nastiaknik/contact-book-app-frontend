@@ -1,31 +1,47 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+import { AppDispatch } from "redux/store";
 import { deleteContact } from "../../../redux/contacts/operations";
 import { ContactEditForm } from "../../ContactEditForm/ContactEditForm";
 import { ConfirmModal } from "../../Confirm/Confirm";
 import { toggleFavourite } from "../../../redux/contacts/operations";
+import { toast } from "react-toastify";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 import { Button } from "./ActionButtons.styled";
 
-export const ActionButtons = ({ contact, setIsModalOpen }) => {
-  const dispatch = useDispatch();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+interface Contact {
+  _id: string;
+  phone: string;
+  name: string;
+  favorite: boolean;
+}
 
-  const toggleEditModal = () => {
+interface ActionButtonsProps {
+  contact: Contact;
+  setIsModalOpen?: () => void;
+}
+
+export const ActionButtons: React.FC<ActionButtonsProps> = ({
+  contact,
+  setIsModalOpen,
+}) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false);
+
+  const toggleEditModal = (): void => {
     setIsEditModalOpen((prev) => !prev);
     setIsModalOpen && setIsModalOpen((prev) => !prev);
   };
 
-  const toggleConfirm = () => {
+  const toggleConfirm = (): void => {
     setIsConfirmOpen((prev) => !prev);
     setIsModalOpen && setIsModalOpen((prev) => !prev);
   };
 
-  const onFavorite = (contact) => {
+  const onFavorite = (contact: Contact): void => {
     if (contact.favorite) {
       dispatch(toggleFavourite({ id: contact._id, favorite: false }));
       toast.success(
@@ -45,7 +61,7 @@ export const ActionButtons = ({ contact, setIsModalOpen }) => {
     }
   };
 
-  const onDelete = (contact) => {
+  const onDelete = (contact: Contact): void => {
     if (!contact) {
       toast.error(
         <p>

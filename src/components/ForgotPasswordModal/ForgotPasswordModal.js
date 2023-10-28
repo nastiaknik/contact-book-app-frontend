@@ -31,7 +31,10 @@ export const ForgotPasswordModal = ({ onClose, isOpen, toggleCheckEmail }) => {
             </p>
 
             <Input
-              props={props}
+              values={props.values}
+              handleChange={props.handleChange}
+              touched={props.touched}
+              errors={props.errors}
               id="forgotPasswordEmail"
               name="email"
               type="email"

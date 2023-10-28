@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
 import {
   register,
   login,
@@ -9,7 +9,20 @@ import {
   googleAuth,
 } from "./operations";
 
-const initialState = {
+export interface User {
+  name: string | null;
+  email: string | null;
+}
+
+export interface AuthState {
+  user: User | null;
+  token: string | null;
+  isLoggedIn: boolean;
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: AuthState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
@@ -20,32 +33,45 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(register.fulfilled, (state, { payload }) => {
-        state.user = null;
-        state.token = payload.token;
-        state.isLoggedIn = false;
-      })
-      .addCase(login.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
-        state.token = payload.token;
-        state.isLoggedIn = true;
-      })
-      .addCase(googleAuth.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
-        state.token = payload.token;
-        state.isLoggedIn = true;
-      })
+      .addCase(
+        register.fulfilled,
+        (state, { payload }: PayloadAction<{ token: string }>) => {
+          state.user = null;
+          state.token = payload.token;
+          state.isLoggedIn = false;
+        }
+      )
+      .addCase(
+        login.fulfilled,
+        (state, { payload }: PayloadAction<{ user: User; token: string }>) => {
+          state.user = payload.user;
+          state.token = payload.token;
+          state.isLoggedIn = true;
+        }
+      )
+      .addCase(
+        googleAuth.fulfilled,
+        (state, { payload }: PayloadAction<{ user: User; token: string }>) => {
+          state.user = payload.user;
+          state.token = payload.token;
+          state.isLoggedIn = true;
+        }
+      )
       .addCase(logout.fulfilled, (state) => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
       })
-      .addCase(refreshUser.fulfilled, (state, { payload }) => {
-        state.user = payload;
-        state.isLoggedIn = true;
-      })
+      .addCase(
+        refreshUser.fulfilled,
+        (state, { payload }: PayloadAction<User>) => {
+          state.user = payload;
+          state.isLoggedIn = true;
+        }
+      )
       .addMatcher(
         isAnyOf(
           register.fulfilled,
@@ -84,7 +110,7 @@ const authSlice = createSlice({
           changePassword.rejected,
           googleAuth.rejected
         ),
-        (state, { payload }) => {
+        (state, { payload }: PayloadAction<any>) => {
           state.loading = false;
           state.error = payload;
         }

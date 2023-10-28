@@ -13,20 +13,18 @@ import {
 } from "./Input.styled";
 
 interface InputProps {
-  props: {
-    values: {
-      [key: string]: any;
-    };
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    touched: {
-      [key: string]: boolean;
-    };
-    errors: {
-      [key: string]: string | undefined;
-    };
+  values: {
+    [key: string]: any;
+  };
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  touched: {
+    [key: string]: boolean;
+  };
+  errors: {
+    [key: string]: string | undefined;
   };
   name: string;
-  id?: string;
+  id: string;
   type?: string;
   placeholder?: string;
   label?: string;
@@ -36,16 +34,18 @@ interface InputProps {
 }
 
 export const Input: React.FC<InputProps> = ({
-  props,
+  values,
+  handleChange,
+  touched,
+  errors,
   name,
-  id = name,
+  id,
   type = "text",
-  placeholder,
+  placeholder = "",
   icon,
   label,
   onToggle,
   visible = false,
-  ...restProps
 }) => (
   <FieldContainer>
     <IconFieldWrapper>
@@ -57,16 +57,15 @@ export const Input: React.FC<InputProps> = ({
           name={name}
           required
           placeholder={placeholder}
-          value={props.values[name]}
-          onChange={props.handleChange}
+          value={values[name]}
+          onChange={handleChange}
           className={
-            props.touched[name] && props.errors[name]
+            touched[name] && errors[name]
               ? "error"
-              : props.touched[name] && !props.errors[name]
+              : touched[name] && !errors[name]
               ? "success"
               : ""
           }
-          {...restProps}
         />
         <Label htmlFor={id}>{label}</Label>
         {onToggle && (

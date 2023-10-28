@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editContact } from "../../redux/contacts/operations";
 import { selectContacts } from "../../redux/contacts/selectors";
@@ -30,7 +31,7 @@ export function ContactEditForm({ contact, isModalOpen, toggleModal }) {
       (contact) => contact.name === name || contact.phone === phone
     );
     if (contactExist) {
-     return toast.error(
+      return toast.error(
         <p>
           <span style={{ color: "red" }}>{name}</span> is already in the list!
         </p>
@@ -57,52 +58,56 @@ export function ContactEditForm({ contact, isModalOpen, toggleModal }) {
   };
 
   return (
-      <Modal onClose={toggleModal} isOpen={isModalOpen}>
-        <div>
-          <Title>Edit the contact</Title>
-          <Formik
-            initialValues={{
-              name: contact.name,
-              number: contact.phone,
-            }}
-            validationSchema={ContactSchema}
-            onSubmit={handleEditContact}
-          >
-            {(props) => {
-              return (
-                <Form>
-                  <Wrapper>
-                    <Input
-                      props={props}
-                      name="name"
-                      id="editName"
-                      type="text"
-                      placeholder="Anastasia"
-                      label="Name"
-                    />
+    <Modal onClose={toggleModal} isOpen={isModalOpen}>
+      <div>
+        <Title>Edit the contact</Title>
+        <Formik
+          initialValues={{
+            name: contact.name,
+            number: contact.phone,
+          }}
+          validationSchema={ContactSchema}
+          onSubmit={handleEditContact}
+        >
+          {(props) => (
+            <Form>
+              <Wrapper>
+                <Input
+                  values={props.values}
+                  handleChange={props.handleChange}
+                  touched={props.touched}
+                  errors={props.errors}
+                  name="name"
+                  id="editName"
+                  type="text"
+                  placeholder="Anastasia"
+                  label="Name"
+                />
 
-                    <Input
-                      props={props}
-                      name="number"
-                      id="editNumber"
-                      type="tel"
-                      placeholder="123 456 789"
-                      label="Number"
-                    />
-                  </Wrapper>
+                <Input
+                  values={props.values}
+                  handleChange={props.handleChange}
+                  touched={props.touched}
+                  errors={props.errors}
+                  name="number"
+                  id="editNumber"
+                  type="tel"
+                  placeholder="123 456 789"
+                  label="Number"
+                />
+              </Wrapper>
 
-                  <BtnWrapper>
-                    <CancelBtn type="button" onClick={toggleModal}>
-                      Close
-                    </CancelBtn>
-                    <Button type="submit">Save</Button>
-                  </BtnWrapper>
-                </Form>
-              );
-            }}
-          </Formik>
-        </div>
-      </Modal>
+              <BtnWrapper>
+                <CancelBtn type="button" onClick={toggleModal}>
+                  Close
+                </CancelBtn>
+                <Button type="submit">Save</Button>
+              </BtnWrapper>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </Modal>
   );
 }
 

@@ -66,7 +66,10 @@ export const AddContactForm = () => {
 
             <Wrapper>
               <Input
-                props={props}
+                values={props.values}
+                handleChange={props.handleChange}
+                touched={props.touched}
+                errors={props.errors}
                 id="name"
                 name="name"
                 type="text"
@@ -76,7 +79,10 @@ export const AddContactForm = () => {
               />
 
               <Input
-                props={props}
+                values={props.values}
+                handleChange={props.handleChange}
+                touched={props.touched}
+                errors={props.errors}
                 id="number"
                 name="number"
                 type="tel"
