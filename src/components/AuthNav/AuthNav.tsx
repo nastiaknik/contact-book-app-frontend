@@ -1,3 +1,4 @@
+import React from "react";
 import { Wrapper, StyledNavLink } from "./AuthNav.styled";
 
 export const AuthNav = () => {

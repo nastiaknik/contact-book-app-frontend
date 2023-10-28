@@ -20,12 +20,14 @@ interface Contact {
 
 interface ActionButtonsProps {
   contact: Contact;
-  setIsModalOpen?: () => void;
+  setIsModalOpen?: (prev: boolean) => void;
+  isModalOpen?: boolean;
 }
 
 export const ActionButtons: React.FC<ActionButtonsProps> = ({
   contact,
   setIsModalOpen,
+  isModalOpen,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
@@ -33,12 +35,12 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
 
   const toggleEditModal = (): void => {
     setIsEditModalOpen((prev) => !prev);
-    setIsModalOpen && setIsModalOpen((prev) => !prev);
+    setIsModalOpen && setIsModalOpen(!isModalOpen);
   };
 
   const toggleConfirm = (): void => {
     setIsConfirmOpen((prev) => !prev);
-    setIsModalOpen && setIsModalOpen((prev) => !prev);
+    setIsModalOpen && setIsModalOpen(!isModalOpen);
   };
 
   const onFavorite = (contact: Contact): void => {
@@ -63,12 +65,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
 
   const onDelete = (contact: Contact): void => {
     if (!contact) {
-      toast.error(
-        <p>
-          Contact <span style={{ color: "red" }}>{contact.name}</span> was not
-          found!
-        </p>
-      );
+      toast.error("Contact was not found!");
     }
     dispatch(deleteContact(contact._id));
     toggleConfirm();

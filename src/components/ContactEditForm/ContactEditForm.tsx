@@ -1,10 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "redux/store";
 import { editContact } from "../../redux/contacts/operations";
 import { selectContacts } from "../../redux/contacts/selectors";
-import { Formik } from "formik";
+import { Contact } from "redux/contacts/contactsSlice";
+import { Formik, FormikHelpers, FormikProps } from "formik";
 import { toast } from "react-toastify";
-import PropTypes from "prop-types";
 import { ContactSchema } from "../../schemas/ContactSchemas";
 import { Modal } from "../Modal/Modal";
 import { Input } from "../SharedComponents/Input/Input";
@@ -17,11 +18,29 @@ import {
   CancelBtn,
 } from "./ContactEditForm.styled";
 
-export function ContactEditForm({ contact, isModalOpen, toggleModal }) {
-  const dispatch = useDispatch();
+interface ContactEditFormProps {
+  contact: Contact;
+  isModalOpen: boolean;
+  toggleModal: () => void;
+}
+
+interface FormValues {
+  name: string;
+  number: string;
+}
+
+export const ContactEditForm: React.FC<ContactEditFormProps> = ({
+  contact,
+  isModalOpen,
+  toggleModal,
+}) => {
+  const dispatch = useDispatch<AppDispatch>();
   const items = useSelector(selectContacts);
 
-  const handleEditContact = (values, action) => {
+  const handleEditContact = (
+    values: FormValues,
+    action: FormikHelpers<FormValues>
+  ): void => {
     const name = values.name;
     const phone = values.number;
 
@@ -31,20 +50,22 @@ export function ContactEditForm({ contact, isModalOpen, toggleModal }) {
       (contact) => contact.name === name || contact.phone === phone
     );
     if (contactExist) {
-      return toast.error(
+      toast.error(
         <p>
           <span style={{ color: "red" }}>{name}</span> is already in the list!
         </p>
       );
+      return;
     }
 
     if (contact.name === name && contact.phone === phone) {
-      return toast.warning(
+      toast.warning(
         <p>
           You did not change contact{" "}
           <span style={{ color: "orange" }}>{contact.name}</span>!
         </p>
       );
+      return;
     }
 
     dispatch(editContact({ id: contact._id, contact: { name, phone } }));
@@ -69,7 +90,7 @@ export function ContactEditForm({ contact, isModalOpen, toggleModal }) {
           validationSchema={ContactSchema}
           onSubmit={handleEditContact}
         >
-          {(props) => (
+          {(props: FormikProps<FormValues>) => (
             <Form>
               <Wrapper>
                 <Input
@@ -109,14 +130,4 @@ export function ContactEditForm({ contact, isModalOpen, toggleModal }) {
       </div>
     </Modal>
   );
-}
-
-ContactEditForm.propTypes = {
-  contact: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
-  isModalOpen: PropTypes.bool.isRequired,
-  toggleModal: PropTypes.func.isRequired,
 };

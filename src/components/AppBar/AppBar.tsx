@@ -1,3 +1,4 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
@@ -15,14 +16,11 @@ export const AppBar = () => {
         <NavLink to="/">
           <Image src={logo} alt="Contact Book logo" />
         </NavLink>
-
         <StyledNavLink to="/">Home</StyledNavLink>
-
         {isLoggedIn && (
           <StyledNavLink to="/contacts">My Contacts</StyledNavLink>
         )}
       </Nav>
-
       {isLoggedIn ? <UserMenu /> : <AuthNav />}
     </Header>
   );

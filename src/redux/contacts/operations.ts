@@ -24,21 +24,21 @@ export const getContacts = createAsyncThunk<Contact[]>(
   }
 );
 
-export const addContact = createAsyncThunk<Contact>(
-  "addContact",
-  async (contact, { rejectWithValue }) => {
-    try {
-      const response = await axios.post<Contact>("/contacts", contact);
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue({ message: error.message });
-      } else {
-        return rejectWithValue({ message: "An error occurred" });
-      }
+export const addContact = createAsyncThunk<
+  Contact,
+  { name: string; phone: string }
+>("addContact", async (contact, { rejectWithValue }) => {
+  try {
+    const response = await axios.post<Contact>("/contacts", contact);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return rejectWithValue({ message: error.message });
+    } else {
+      return rejectWithValue({ message: "An error occurred" });
     }
   }
-);
+});
 
 export const deleteContact = createAsyncThunk<
   { message: string; id: string },
@@ -59,7 +59,7 @@ export const deleteContact = createAsyncThunk<
 
 export const editContact = createAsyncThunk<
   Contact,
-  { id: string; contact: Contact }
+  { id: string; contact: { name: string; phone: string } }
 >("editContact", async ({ id, contact }, { rejectWithValue }) => {
   try {
     const response = await axios.put<Contact>(`/contacts/${id}`, contact);

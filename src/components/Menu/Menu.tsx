@@ -1,31 +1,39 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Contact } from "redux/contacts/contactsSlice";
 import { ActionButtons } from "../SharedComponents/ActionButtons/ActionButtons";
 import { PopMenu } from "./Menu.styled";
 
-export const Menu = ({
+interface MenuProps {
+  toggleMenu: () => void;
+  isMenuOpen: boolean;
+  buttonRef: React.RefObject<HTMLButtonElement>;
+  contact: Contact;
+}
+
+export const Menu: React.FC<MenuProps> = ({
   toggleMenu,
   isMenuOpen,
-  position,
   buttonRef,
   contact,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const menuRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         menuRef.current &&
-        !menuRef.current.contains(event.target) &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
         event.target !== buttonRef.current &&
-        !buttonRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target as Node) &&
         !isModalOpen
       ) {
         toggleMenu();
       }
     };
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Escape") {
         toggleMenu();
       }
@@ -46,11 +54,11 @@ export const Menu = ({
   }, [isMenuOpen, toggleMenu, buttonRef, isModalOpen]);
 
   return (
-    <PopMenu ref={menuRef} isOpen={isMenuOpen} position={position}>
+    <PopMenu ref={menuRef}>
       <ActionButtons
         contact={contact}
-        isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
       />
     </PopMenu>
   );

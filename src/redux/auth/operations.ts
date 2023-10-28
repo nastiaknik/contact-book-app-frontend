@@ -1,21 +1,25 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AuthState } from "redux/auth/authSlice";
 import { CredentialResponse } from "@react-oauth/google";
 import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "https://goit-nodejs-homework-bnfs.onrender.com/api";
 
-const setAuthHeader = (token: string | null) => {
+const setAuthHeader = (token: string | null): void => {
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
     axios.defaults.headers.common.Authorization = "";
   }
 };
-
-const clearAuthHeader = () => {
+const clearAuthHeader = (): void => {
   axios.defaults.headers.common.Authorization = "";
 };
+
+interface Auth {
+  auth: AuthState;
+}
 
 export const register = createAsyncThunk(
   "register",
@@ -24,15 +28,23 @@ export const register = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axios.post("/users/register", credentials);
-      setAuthHeader(response.data.token);
+      const response: AxiosResponse<{
+        verificationToken: string;
+        name: string;
+        email: string;
+      }> = await axios.post("/users/register", credentials);
       toast.success(
         "Registration Successful! Please check your email and verify your account."
       );
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message);
-      return rejectWithValue(error.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.message);
+        return rejectWithValue(error.message);
+      } else {
+        toast.error("An error occurred");
+        return rejectWithValue({ message: "An error occurred" });
+      }
     }
   }
 );
@@ -44,68 +56,65 @@ export const login = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axios.post("/users/login", credentials);
+      const response: AxiosResponse<{
+        token: string;
+        user: { name: string; email: string };
+      }> = await axios.post("/users/login", credentials);
       setAuthHeader(response.data.token);
       toast.success("Login success");
       return response.data;
     } catch (error) {
-      toast.error(error.response.data.message);
-      return rejectWithValue(error.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.message);
+        return rejectWithValue(error.message);
+      } else {
+        toast.error("An error occurred");
+        return rejectWithValue({ message: "An error occurred" });
+      }
     }
   }
 );
 
 export const logout = createAsyncThunk(
   "logout",
-  async (id: string, { rejectWithValue }) => {
+  async (id: string | null, { rejectWithValue }) => {
     try {
       const result = await axios.post("/users/logout", id);
       clearAuthHeader();
       toast.success("Logout success");
       return result.data;
     } catch (error) {
-      toast.error(error.response.data.message);
-      return rejectWithValue(error.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.message);
+        return rejectWithValue(error.message);
+      } else {
+        toast.error("An error occurred");
+        return rejectWithValue({ message: "An error occurred" });
+      }
     }
   }
 );
 
 export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
-  const persistedToken: string | null = state.auth.token;
+  const { auth } = state;
+  const persistedToken: string | null = auth.token;
 
   if (persistedToken === null) {
     return thunkAPI.rejectWithValue("Unable to fetch user");
   }
-
   try {
     setAuthHeader(persistedToken);
     const response = await axios.get("/users/current");
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    if (axios.isAxiosError(error)) {
+      return thunkAPI.rejectWithValue(error.message);
+    } else {
+      return thunkAPI.rejectWithValue({ message: "An error occurred" });
+    }
   }
 });
-
-export const current = createAsyncThunk(
-  "current",
-  async (_, { rejectWithValue, getState }) => {
-    try {
-      const { auth } = getState();
-      const result = await axios.get("users/current", auth.token);
-      return result; // result.data
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return rejectWithValue(error.message);
-    }
-  },
-  {
-    condition: (_, { getState }) => {
-      const { auth } = getState();
-      return !!auth.token;
-    },
-  }
-);
 
 export const sendRecoveryEmail = createAsyncThunk(
   "recovery",
@@ -116,9 +125,13 @@ export const sendRecoveryEmail = createAsyncThunk(
       toast.success("Recovery email is sent");
       return result.data;
     } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
-      return rejectWithValue(error.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.message);
+        return rejectWithValue(error.message);
+      } else {
+        toast.error("An error occurred");
+        return rejectWithValue({ message: "An error occurred" });
+      }
     }
   }
 );
@@ -136,12 +149,17 @@ export const changePassword = createAsyncThunk(
       toast.success("Password has been successfully changed");
       return result.data;
     } catch (error) {
-      toast.error(error.response.data.message);
-      return rejectWithValue(error.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.message);
+        return rejectWithValue(error.message);
+      } else {
+        toast.error("An error occurred");
+        return rejectWithValue({ message: "An error occurred" });
+      }
     }
   }
-)      
-    
+);
+
 export const googleAuth = createAsyncThunk(
   "google",
   async (response: CredentialResponse, { rejectWithValue }) => {
@@ -153,8 +171,13 @@ export const googleAuth = createAsyncThunk(
       toast.success(result.data.message);
       return result.data;
     } catch (error) {
-      toast.error(error.response.data.message);
-      return rejectWithValue(error.message);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.message);
+        return rejectWithValue(error.message);
+      } else {
+        toast.error("An error occurred");
+        return rejectWithValue({ message: "An error occurred" });
+      }
     }
   }
 );

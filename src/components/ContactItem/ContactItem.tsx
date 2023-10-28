@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
+import { Contact } from "redux/contacts/contactsSlice";
 import { Avatar, useMediaQuery } from "@chakra-ui/react";
-import PropTypes from "prop-types";
 import { FiMenu } from "react-icons/fi";
 import { ActionButtons } from "../SharedComponents/ActionButtons/ActionButtons";
 import { Menu } from "../Menu/Menu";
@@ -11,10 +11,14 @@ import {
   Button,
 } from "./ContactItem.styled";
 
-export const ContactItem = ({ contact }) => {
+interface ContactItemProps {
+  contact: Contact;
+}
+
+export const ContactItem: React.FC<ContactItemProps> = ({ contact }) => {
   const [isWideScreen] = useMediaQuery("(min-width: 515px)");
-  const [isMenuOpen, setMenuOpen] = useState(false);
-  const buttonRef = useRef(null);
+  const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -26,9 +30,8 @@ export const ContactItem = ({ contact }) => {
         <Avatar
           size={{ base: "sm", md: "md", lg: "md" }}
           src="https://bit.ly/broken-link"
-          alt={contact.name}
           name={contact.name}
-          getInitials={(name) =>
+          getInitials={(name: string) =>
             name
               .split(" ")
               .map((name) => name.slice(0, 1).toUpperCase())
@@ -62,12 +65,4 @@ export const ContactItem = ({ contact }) => {
       )}
     </TableRow>
   );
-};
-
-ContactItem.propTypes = {
-  contact: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
 };

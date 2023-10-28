@@ -1,4 +1,6 @@
+import React from "react";
 import { useSelector } from "react-redux";
+import { Contact } from "redux/contacts/contactsSlice";
 import { selectContacts } from "../../redux/contacts/selectors";
 import { selectFilterValue } from "../../redux/filter/selectors";
 import { toast } from "react-toastify";
@@ -6,20 +8,24 @@ import { useMediaQuery } from "@chakra-ui/react";
 import { ContactItem } from "../ContactItem/ContactItem";
 import { TableHead } from "./ContactList.styled";
 
-export const ContactList = () => {
+export const ContactList: React.FC = () => {
   const filter = useSelector(selectFilterValue);
-  const contacts = useSelector(selectContacts);
+  const contacts: Contact[] = useSelector(selectContacts);
   const [isWideScreen] = useMediaQuery("(min-width: 558px)");
 
-  const handleFilterContact = () => {
-    const noFilteredContacts =
-      contacts.filter(
-        (contact) =>
+  const handleFilterContact = (): Contact[] => {
+    const filteredContacts: Contact[] = contacts
+      .filter(
+        (contact: Contact) =>
           contact.name.toLowerCase().includes(filter.toLowerCase().trim()) ||
           contact.phone.includes(filter.trim())
-      ).length === 0;
-    if (filter && noFilteredContacts) {
-      return toast.error(
+      )
+      .sort((firstContact, secondContact) =>
+        firstContact.name.localeCompare(secondContact.name)
+      );
+
+    if (filter && filteredContacts.length === 0) {
+      toast.error(
         <p>
           Sorry, there are no contact matching
           <span style={{ color: "red" }}> {filter}</span>!
@@ -30,15 +36,7 @@ export const ContactList = () => {
       );
     }
 
-    return contacts
-      .filter(
-        (contact) =>
-          contact.name.toLowerCase().includes(filter.toLowerCase().trim()) ||
-          contact.phone.includes(filter.trim())
-      )
-      .sort((firstContact, secondContact) =>
-        firstContact.name.localeCompare(secondContact.name)
-      );
+    return filteredContacts;
   };
 
   return (
@@ -57,7 +55,7 @@ export const ContactList = () => {
         </tr>
       </thead>
       <tbody>
-        {handleFilterContact().map((contact) => (
+        {handleFilterContact().map((contact: Contact) => (
           <ContactItem key={contact._id} contact={contact} />
         ))}
       </tbody>

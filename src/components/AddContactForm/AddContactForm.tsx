@@ -1,47 +1,60 @@
-import { Formik } from "formik";
+import React from "react";
+import { Formik, FormikHelpers, FormikProps } from "formik";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "redux/store";
 import { selectContacts } from "../../redux/contacts/selectors";
 import { addContact } from "../../redux/contacts/operations";
+import { Contact } from "redux/contacts/contactsSlice";
 import { BsFillPersonPlusFill, BsFillTelephonePlusFill } from "react-icons/bs";
 import { ContactSchema } from "../../schemas/ContactSchemas";
 import { Input } from "../SharedComponents/Input/Input";
 import { Button, Form, Title, Wrapper } from "./AddContactForm.styled";
 
-export const AddContactForm = () => {
-  const dispatch = useDispatch();
+interface FormValues {
+  name: string;
+  number: string;
+}
+
+export const AddContactForm: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const contacts = useSelector(selectContacts);
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = (
+    values: FormValues,
+    actions: FormikHelpers<FormValues>
+  ): void => {
     const contact = {
       name: values.name,
       phone: values.number,
     };
 
-    const contactExists = contacts.some((item) => {
+    const contactExists = contacts.some((item: Contact) => {
       return item.name === contact.name;
     });
 
     if (contactExists) {
-      return toast.warning(
+      toast.warning(
         <p>
           Contact <span style={{ color: "orange" }}>{contact.name}</span>{" "}
           already exist!
         </p>
       );
+      return;
     }
 
-    const numberExists = contacts.some((item) => {
+    const numberExists = contacts.some((item: Contact): boolean => {
       return item.phone === contact.phone;
     });
 
     if (numberExists) {
-      return toast.warning(
+      toast.warning(
         <p>
           Number <span style={{ color: "orange" }}>{contact.phone}</span> is
           already in base!
         </p>
       );
+      return;
     }
 
     dispatch(addContact(contact));
@@ -59,7 +72,7 @@ export const AddContactForm = () => {
       onSubmit={handleSubmit}
       validationSchema={ContactSchema}
     >
-      {(props) => {
+      {(props: FormikProps<FormValues>) => {
         return (
           <Form>
             <Title>Add contact</Title>

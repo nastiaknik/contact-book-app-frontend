@@ -1,14 +1,16 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "redux/store";
 import { setFilterValue } from "../../redux/filter/filterSlice";
 import { selectFilterValue } from "../../redux/filter/selectors";
 import { FiSearch } from "react-icons/fi";
 import { FilterContainer, FilterInput } from "./ContactFilter.styled";
 
-export const ContactFilter = () => {
-  const dispatch = useDispatch();
+export const ContactFilter: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const filter = useSelector(selectFilterValue);
 
-  const onFilterChange = (event) => {
+  const onFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setFilterValue(event.target.value));
   };
 

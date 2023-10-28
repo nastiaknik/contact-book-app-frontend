@@ -24,6 +24,6 @@ export const ResetPasswordSchema = Yup.object().shape({
     .required("Password is required")
     .min(6, "Minimum 6 characters"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
+    .oneOf([Yup.ref("newPassword"), undefined], "Passwords must match")
     .required("Confirm is required"),
 });

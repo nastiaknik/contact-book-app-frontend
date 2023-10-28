@@ -12,6 +12,7 @@ import {
 export interface User {
   name: string | null;
   email: string | null;
+  _id: string | null;
 }
 
 export interface AuthState {
@@ -23,7 +24,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: { name: null, email: null },
+  user: { name: null, email: null, _id: null },
   token: null,
   isLoggedIn: false,
   loading: false,
@@ -61,7 +62,7 @@ const authSlice = createSlice({
         }
       )
       .addCase(logout.fulfilled, (state) => {
-        state.user = { name: null, email: null };
+        state.user = { name: null, email: null, _id: null };
         state.token = null;
         state.isLoggedIn = false;
       })
