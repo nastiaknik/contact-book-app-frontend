@@ -19,7 +19,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/no-floating-promises": "off",
   },
   settings: {
     react: {

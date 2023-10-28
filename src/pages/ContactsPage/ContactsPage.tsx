@@ -1,6 +1,7 @@
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch } from "redux/store";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { selectContacts } from "../../redux/contacts/selectors";
 import { getContacts } from "../../redux/contacts/operations";
@@ -16,10 +17,17 @@ import {
   Paragraph,
 } from "./ContactsPage.styled";
 
+interface Contact {
+  _id: string;
+  phone: string;
+  name: string;
+  favorite: boolean;
+}
+
 export default function ContactsPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(selectIsLoading);
-  const contacts = useSelector(selectContacts);
+  const contacts: Contact[] = useSelector(selectContacts);
 
   useEffect(() => {
     dispatch(getContacts());
@@ -43,8 +51,8 @@ export default function ContactsPage() {
             </>
           ) : (
             <Paragraph>
-              There is no contacts yet. When you add contacts, they'll appear
-              here.
+              There is no contacts yet. When you add contacts, they&apos;ll
+              appear here.
             </Paragraph>
           )}
           {isLoading && <Loader />}
