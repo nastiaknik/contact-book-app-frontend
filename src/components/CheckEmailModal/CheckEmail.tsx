@@ -1,8 +1,15 @@
+import React from "react";
 import { Modal } from "../Modal/Modal";
 import envelope from "../../assets/envelope.png";
 import { Title, Image } from "./CheckEmail.styled";
 
-export const CheckEmail = ({
+interface CheckEmailProps {
+  onClose: () => void;
+  isOpen?: boolean;
+  type?: "verification" | "recovery";
+}
+
+export const CheckEmail: React.FC<CheckEmailProps> = ({
   onClose,
   isOpen = false,
   type = "verification",

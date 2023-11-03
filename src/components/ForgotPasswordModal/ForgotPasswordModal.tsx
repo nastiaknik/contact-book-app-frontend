@@ -1,4 +1,6 @@
+import React from "react";
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "redux/store";
 import { sendRecoveryEmail } from "../../redux/auth/operations";
 import { Formik } from "formik";
 import { GrMail } from "react-icons/gr";
@@ -7,11 +9,21 @@ import { Input } from "../SharedComponents/Input/Input";
 import { EmailSchema } from "../../schemas/UserSchemas";
 import { Form, Title, Button } from "./ForgotPasswordModal.styled";
 
-export const ForgotPasswordModal = ({ onClose, isOpen, toggleCheckEmail }) => {
-  const dispatch = useDispatch();
+interface ForgotPasswordModalProps {
+  onClose: () => void;
+  isOpen: boolean;
+  toggleCheckEmail: () => void;
+}
 
-  const sendResetEmail = (values) => {
-    dispatch(sendRecoveryEmail({ email: values.email }));
+export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
+  onClose,
+  isOpen,
+  toggleCheckEmail,
+}) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const sendResetEmail = (values: { email: string }) => {
+    dispatch(sendRecoveryEmail(values.email));
     onClose();
     toggleCheckEmail();
   };
@@ -23,18 +35,19 @@ export const ForgotPasswordModal = ({ onClose, isOpen, toggleCheckEmail }) => {
         onSubmit={sendResetEmail}
         validationSchema={EmailSchema}
       >
-        {(props) => (
+        {({ values, handleChange, touched, errors }) => (
           <Form>
             <Title>Forgot Password</Title>
             <p>
-              Enter your email and we'll send you a link to reset your password
+              Enter your email, and we&apos;ll send you a link to reset your
+              password
             </p>
 
             <Input
-              values={props.values}
-              handleChange={props.handleChange}
-              touched={props.touched}
-              errors={props.errors}
+              values={values}
+              handleChange={handleChange}
+              touched={touched}
+              errors={errors}
               id="forgotPasswordEmail"
               name="email"
               type="email"

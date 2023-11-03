@@ -1,3 +1,4 @@
+import React from "react";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import { selectIsLoading } from "../../redux/auth/selectors";
@@ -124,7 +125,7 @@ export default function HomePage() {
       <Footer>
         <FooterWrapper>
           <FooterTitle>Contact Us</FooterTitle>
-          <Paragraph>We're here to assist you</Paragraph>
+          <Paragraph>We&apos;re here to assist you</Paragraph>
         </FooterWrapper>
         <ContactInfo>
           <ContactItem>

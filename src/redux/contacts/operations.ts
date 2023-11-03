@@ -1,18 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-interface Contact {
-  _id: string;
-  name: string;
-  phone: string;
-  favorite: boolean;
-}
+import { Contact } from "types/ContactTypes";
 
 export const getContacts = createAsyncThunk<Contact[]>(
   "getContacts",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<Contact[]>("/contacts");
+      const response: AxiosResponse<Contact[]> = await axios.get("/contacts");
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

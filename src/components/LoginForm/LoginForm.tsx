@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "redux/store";
 import { selectIsLoading, selectError } from "../../redux/auth/selectors";
 import { login } from "../../redux/auth/operations";
 import { Formik } from "formik";
@@ -24,15 +25,15 @@ import {
   ForgotPasswordLink,
 } from "./LoginForm.styled";
 
-export const LoginForm = () => {
-  const [isForgetModalOpen, setForgetModalOpen] = useState(false);
-  const [isCheckEmailOpen, setIsCheckEmailOpen] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+export const LoginForm: React.FC = () => {
+  const [isForgetModalOpen, setForgetModalOpen] = useState<boolean>(false);
+  const [isCheckEmailOpen, setIsCheckEmailOpen] = useState<boolean>(false);
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading: boolean = useSelector(selectIsLoading);
+  const error: string | null = useSelector(selectError);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: { email: string; password: string }) => {
     dispatch(login({ email: values.email, password: values.password }));
   };
   const togglePasswordVisibility = () => {
@@ -53,31 +54,30 @@ export const LoginForm = () => {
           alt="A drawing of man and woman giving each other a high five"
         />
         <Formik
-          initialValues={{ name: "", email: "", password: "" }}
+          initialValues={{ email: "", password: "" }}
           onSubmit={handleSubmit}
           validationSchema={LoginSchema}
         >
-          {(props) => (
+          {({ values, handleChange, touched, errors }) => (
             <Form>
               <Title>Login</Title>
               <Input
-                values={props.values}
-                handleChange={props.handleChange}
-                touched={props.touched}
-                errors={props.errors}
+                values={values}
+                handleChange={handleChange}
+                touched={touched}
+                errors={errors}
                 name="email"
                 id="email"
                 type="email"
                 placeholder="nugget@gmail.com"
                 label="Email"
                 icon={<GrMail size={25} />}
-                autoComplete="on"
               />
               <Input
-                values={props.values}
-                handleChange={props.handleChange}
-                touched={props.touched}
-                errors={props.errors}
+                values={values}
+                handleChange={handleChange}
+                touched={touched}
+                errors={errors}
                 name="password"
                 id="password"
                 type={passwordVisible ? "text" : "password"}
@@ -86,14 +86,13 @@ export const LoginForm = () => {
                 onToggle={togglePasswordVisibility}
                 visible={passwordVisible}
                 icon={<RiLock2Fill size={25} />}
-                autoComplete="on"
               />
               <ForgotPasswordLink type="button" onClick={toggleForgetModal}>
                 Forgot Password?
               </ForgotPasswordLink>
               <Button type="submit">Login</Button>
               <RegisterParagraph>
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <RegisterLink to="/auth/register">Register</RegisterLink>
               </RegisterParagraph>
               <GoogleBtn />

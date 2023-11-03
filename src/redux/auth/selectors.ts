@@ -1,4 +1,5 @@
-import { User, AuthState } from "./authSlice";
+import { AuthState } from "./authSlice";
+import { User } from "../../types/UserTypes";
 
 export const selectIsLoggedIn = ({ auth }: { auth: AuthState }): boolean =>
   auth.isLoggedIn;

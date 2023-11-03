@@ -7,13 +7,7 @@ import {
   toggleFavourite,
 } from "./operations";
 import { logout } from "../auth/operations";
-
-export interface Contact {
-  _id: string;
-  name: string;
-  phone: string;
-  favorite: boolean;
-}
+import { Contact } from "types/ContactTypes";
 
 export interface ContactsState {
   items: Contact[];
@@ -46,7 +40,7 @@ const contactsSlice = createSlice({
           { payload }: PayloadAction<{ message: string; id: string }>
         ) => {
           state.items = state.items.filter(
-            (contact) => contact._id !== payload.id
+            (contact: Contact) => contact._id !== payload.id
           );
         }
       )

@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { RestrictedRoute } from "./components/RestrictedRoute";
@@ -11,7 +11,7 @@ const RecoveryPage = lazy(() => import("./pages/RecoveryPage/RecoveryPage"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage/ContactsPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 
-const UserRoutes = () => {
+const UserRoutes: React.FC = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>

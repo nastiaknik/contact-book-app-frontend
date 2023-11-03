@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Contact } from "redux/contacts/contactsSlice";
+import { Contact } from "types/ContactTypes";
 import { selectContacts } from "../../redux/contacts/selectors";
 import { selectFilterValue } from "../../redux/filter/selectors";
 import { toast } from "react-toastify";
@@ -9,7 +9,7 @@ import { ContactItem } from "../ContactItem/ContactItem";
 import { TableHead } from "./ContactList.styled";
 
 export const ContactList: React.FC = () => {
-  const filter = useSelector(selectFilterValue);
+  const filter: string = useSelector(selectFilterValue);
   const contacts: Contact[] = useSelector(selectContacts);
   const [isWideScreen] = useMediaQuery("(min-width: 558px)");
 

@@ -1,11 +1,11 @@
 import React from "react";
-import { Formik, FormikHelpers, FormikProps } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "redux/store";
 import { selectContacts } from "../../redux/contacts/selectors";
 import { addContact } from "../../redux/contacts/operations";
-import { Contact } from "redux/contacts/contactsSlice";
+import { Contact } from "types/ContactTypes";
 import { BsFillPersonPlusFill, BsFillTelephonePlusFill } from "react-icons/bs";
 import { ContactSchema } from "../../schemas/ContactSchemas";
 import { Input } from "../SharedComponents/Input/Input";
@@ -18,13 +18,13 @@ interface FormValues {
 
 export const AddContactForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const contacts = useSelector(selectContacts);
+  const contacts: Contact[] = useSelector(selectContacts);
 
   const handleSubmit = (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ): void => {
-    const contact = {
+    const contact: { name: string; phone: string } = {
       name: values.name,
       phone: values.number,
     };
@@ -72,17 +72,17 @@ export const AddContactForm: React.FC = () => {
       onSubmit={handleSubmit}
       validationSchema={ContactSchema}
     >
-      {(props: FormikProps<FormValues>) => {
+      {({ values, handleChange, touched, errors }) => {
         return (
           <Form>
             <Title>Add contact</Title>
 
             <Wrapper>
               <Input
-                values={props.values}
-                handleChange={props.handleChange}
-                touched={props.touched}
-                errors={props.errors}
+                values={values}
+                handleChange={handleChange}
+                touched={touched}
+                errors={errors}
                 id="name"
                 name="name"
                 type="text"
@@ -92,10 +92,10 @@ export const AddContactForm: React.FC = () => {
               />
 
               <Input
-                values={props.values}
-                handleChange={props.handleChange}
-                touched={props.touched}
-                errors={props.errors}
+                values={values}
+                handleChange={handleChange}
+                touched={touched}
+                errors={errors}
                 id="number"
                 name="number"
                 type="tel"

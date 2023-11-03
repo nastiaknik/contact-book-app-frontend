@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "redux/store";
 import { editContact } from "../../redux/contacts/operations";
 import { selectContacts } from "../../redux/contacts/selectors";
-import { Contact } from "redux/contacts/contactsSlice";
-import { Formik, FormikHelpers, FormikProps } from "formik";
+import { Contact } from "types/ContactTypes";
+import { Formik } from "formik";
 import { toast } from "react-toastify";
 import { ContactSchema } from "../../schemas/ContactSchemas";
 import { Modal } from "../Modal/Modal";
@@ -37,17 +37,16 @@ export const ContactEditForm: React.FC<ContactEditFormProps> = ({
   const dispatch = useDispatch<AppDispatch>();
   const items = useSelector(selectContacts);
 
-  const handleEditContact = (
-    values: FormValues,
-    action: FormikHelpers<FormValues>
-  ): void => {
+  const handleEditContact = (values: FormValues): void => {
     const name = values.name;
     const phone = values.number;
 
-    const itemsWithoutContact = items.filter((item) => item !== contact);
+    const itemsWithoutContact = items.filter(
+      (item: Contact) => item !== contact
+    );
 
     const contactExist = itemsWithoutContact.some(
-      (contact) => contact.name === name || contact.phone === phone
+      (contact: Contact) => contact.name === name || contact.phone === phone
     );
     if (contactExist) {
       toast.error(
@@ -74,7 +73,6 @@ export const ContactEditForm: React.FC<ContactEditFormProps> = ({
         Contact <span style={{ color: "green" }}>{contact.name}</span> saved!
       </p>
     );
-    action.resetForm();
     toggleModal();
   };
 
@@ -90,14 +88,14 @@ export const ContactEditForm: React.FC<ContactEditFormProps> = ({
           validationSchema={ContactSchema}
           onSubmit={handleEditContact}
         >
-          {(props: FormikProps<FormValues>) => (
+          {({ values, handleChange, touched, errors }) => (
             <Form>
               <Wrapper>
                 <Input
-                  values={props.values}
-                  handleChange={props.handleChange}
-                  touched={props.touched}
-                  errors={props.errors}
+                  values={values}
+                  handleChange={handleChange}
+                  touched={touched}
+                  errors={errors}
                   name="name"
                   id="editName"
                   type="text"
@@ -106,10 +104,10 @@ export const ContactEditForm: React.FC<ContactEditFormProps> = ({
                 />
 
                 <Input
-                  values={props.values}
-                  handleChange={props.handleChange}
-                  touched={props.touched}
-                  errors={props.errors}
+                  values={values}
+                  handleChange={handleChange}
+                  touched={touched}
+                  errors={errors}
                   name="number"
                   id="editNumber"
                   type="tel"

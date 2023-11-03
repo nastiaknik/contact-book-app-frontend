@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 
+type ModalProps = {
+  isOpen?: boolean;
+};
+
 export const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -12,7 +16,7 @@ export const Overlay = styled.div`
   z-index: 1000;
 `;
 
-export const ModalContent = styled.div`
+export const ModalContent = styled.div<ModalProps>`
   position: absolute;
   top: 50%;
   left: 50%;

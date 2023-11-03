@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthState } from "redux/auth/authSlice";
 import { CredentialResponse } from "@react-oauth/google";
 import { toast } from "react-toastify";
+import { User } from "types/UserTypes";
 
 axios.defaults.baseURL = "https://goit-nodejs-homework-bnfs.onrender.com/api";
 
@@ -17,22 +18,22 @@ const clearAuthHeader = (): void => {
   axios.defaults.headers.common.Authorization = "";
 };
 
-interface Auth {
-  auth: AuthState;
+interface RegisterCredentials {
+  name: string;
+  email: string;
+  password: string;
+}
+interface LoginCredentials {
+  email: string;
+  password: string;
 }
 
 export const register = createAsyncThunk(
   "register",
-  async (
-    credentials: { name: string; email: string; password: string },
-    { rejectWithValue }
-  ) => {
+  async (credentials: RegisterCredentials, { rejectWithValue }) => {
     try {
-      const response: AxiosResponse<{
-        verificationToken: string;
-        name: string;
-        email: string;
-      }> = await axios.post("/users/register", credentials);
+      const response: AxiosResponse<{ verificationToken: string; user: User }> =
+        await axios.post("/users/register", credentials);
       toast.success(
         "Registration Successful! Please check your email and verify your account."
       );
@@ -51,14 +52,11 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "login",
-  async (
-    credentials: { email: string; password: string },
-    { rejectWithValue }
-  ) => {
+  async (credentials: LoginCredentials, { rejectWithValue }) => {
     try {
       const response: AxiosResponse<{
         token: string;
-        user: { name: string; email: string };
+        user: User;
       }> = await axios.post("/users/login", credentials);
       setAuthHeader(response.data.token);
       toast.success("Login success");
@@ -79,7 +77,10 @@ export const logout = createAsyncThunk(
   "logout",
   async (id: string | null, { rejectWithValue }) => {
     try {
-      const result = await axios.post("/users/logout", id);
+      const result: AxiosResponse<{ message: string }> = await axios.post(
+        "/users/logout",
+        id
+      );
       clearAuthHeader();
       toast.success("Logout success");
       return result.data;
@@ -96,7 +97,7 @@ export const logout = createAsyncThunk(
 );
 
 export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
+  const state = thunkAPI.getState() as { auth: AuthState };
   const { auth } = state;
   const persistedToken: string | null = auth.token;
 
@@ -105,7 +106,7 @@ export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
   }
   try {
     setAuthHeader(persistedToken);
-    const response = await axios.get("/users/current");
+    const response: AxiosResponse<User> = await axios.get("/users/current");
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -120,7 +121,10 @@ export const sendRecoveryEmail = createAsyncThunk(
   "recovery",
   async (email: string, { rejectWithValue }) => {
     try {
-      const result = await axios.post("/users/recovery", email);
+      const result: AxiosResponse<{ message: string }> = await axios.post(
+        "/users/recovery",
+        email
+      );
       clearAuthHeader();
       toast.success("Recovery email is sent");
       return result.data;
@@ -143,9 +147,10 @@ export const changePassword = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const result = await axios.patch(`/users/recovery/${resetToken}`, {
-        password: newPassword,
-      });
+      const result: AxiosResponse<{ message: string; user: User }> =
+        await axios.patch(`/users/recovery/${resetToken}`, {
+          password: newPassword,
+        });
       toast.success("Password has been successfully changed");
       return result.data;
     } catch (error) {
@@ -164,7 +169,11 @@ export const googleAuth = createAsyncThunk(
   "google",
   async (response: CredentialResponse, { rejectWithValue }) => {
     try {
-      const result = await axios.post("/users/google", {
+      const result: AxiosResponse<{
+        user: User;
+        message: string;
+        token: string;
+      }> = await axios.post("/users/google", {
         googleToken: response.credential,
       });
       setAuthHeader(result.data.token);

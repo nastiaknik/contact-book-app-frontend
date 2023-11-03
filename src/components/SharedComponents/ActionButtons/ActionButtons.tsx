@@ -9,14 +9,8 @@ import { toast } from "react-toastify";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
+import { Contact } from "types/ContactTypes";
 import { Button } from "./ActionButtons.styled";
-
-interface Contact {
-  _id: string;
-  phone: string;
-  name: string;
-  favorite: boolean;
-}
 
 interface ActionButtonsProps {
   contact: Contact;

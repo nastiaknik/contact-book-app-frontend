@@ -9,9 +9,12 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import App from "./App";
 import "./index.css";
 
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const clientId: string = process.env.REACT_APP_GOOGLE_CLIENT_ID || "";
+const rootElement = document.getElementById("root") as
+  | Element
+  | DocumentFragment;
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(rootElement).render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

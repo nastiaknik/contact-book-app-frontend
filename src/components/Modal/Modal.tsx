@@ -1,13 +1,18 @@
-import { useEffect } from "react";
+import React, { useEffect, MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { Overlay, ModalContent, Button, CloseSvg } from "./Modal.styled";
-import PropTypes from "prop-types";
 
 const modalRoot = document.querySelector("#modal-root");
 
+interface ModalProps {
+  onClose: () => void;
+  isOpen: boolean;
+  children: React.ReactNode;
+}
+
 export const scrollController = {
   scrollPosition: 0,
-  disabledScroll() {
+  disabledScroll: () => {
     scrollController.scrollPosition = window.scrollY;
 
     document.body.style.cssText = `
@@ -21,15 +26,21 @@ export const scrollController = {
     `;
     document.documentElement.style.scrollBehavior = "unset";
   },
-  enabledScroll() {
+  enabledScroll: () => {
     document.body.style.cssText = "";
     window.scroll({ top: scrollController.scrollPosition });
     document.documentElement.style.scrollBehavior = "";
   },
 };
 
-export const Modal = ({ children, onClose, isOpen }) => {
+export const Modal: React.FC<ModalProps> = ({ onClose, isOpen, children }) => {
   useEffect(() => {
+    const handleKeyDown = (evt: KeyboardEvent) => {
+      if (evt.code === "Escape") {
+        onClose();
+      }
+    };
+
     window.addEventListener("keydown", handleKeyDown);
     scrollController.disabledScroll();
 
@@ -37,15 +48,9 @@ export const Modal = ({ children, onClose, isOpen }) => {
       window.removeEventListener("keydown", handleKeyDown);
       scrollController.enabledScroll();
     };
-  });
+  }, [onClose]);
 
-  const handleKeyDown = (evt) => {
-    if (evt.code === "Escape") {
-      onClose();
-    }
-  };
-
-  const handleBackdropClick = (evt) => {
+  const handleBackdropClick = (evt: MouseEvent<HTMLDivElement>) => {
     if (evt.currentTarget === evt.target) {
       onClose();
     }
@@ -60,12 +65,6 @@ export const Modal = ({ children, onClose, isOpen }) => {
         {children}
       </ModalContent>
     </Overlay>,
-    modalRoot
+    modalRoot as Element
   );
-};
-
-Modal.propTypes = {
-  children: PropTypes.element.isRequired,
-  onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
 };

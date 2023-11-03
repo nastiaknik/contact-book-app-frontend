@@ -9,6 +9,7 @@ import { ContactList } from "../../components/ContactList/ContactList";
 import { AddContactForm } from "../../components/AddContactForm/AddContactForm";
 import { ContactFilter } from "../../components/ContactFilter/ContactFilter";
 import { Loader } from "../../components/Loader/Loader";
+import { Contact } from "types/ContactTypes";
 import {
   Container,
   Wrapper,
@@ -16,13 +17,6 @@ import {
   Title,
   Paragraph,
 } from "./ContactsPage.styled";
-
-interface Contact {
-  _id: string;
-  phone: string;
-  name: string;
-  favorite: boolean;
-}
 
 export default function ContactsPage() {
   const dispatch = useDispatch<AppDispatch>();

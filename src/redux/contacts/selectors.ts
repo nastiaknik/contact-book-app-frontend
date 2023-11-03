@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { selectFilterValue } from "../filter/selectors";
-import { Contact, ContactsState } from "./contactsSlice";
+import { ContactsState } from "./contactsSlice";
+import { Contact } from "types/ContactTypes";
 
 export const selectContacts = ({ contacts }: { contacts: ContactsState }) =>
   contacts.items;
@@ -22,4 +23,4 @@ export const selectFavoriteContacts = ({
   contacts,
 }: {
   contacts: ContactsState;
-}) => contacts.items.filter(({ favorite }) => favorite);
+}): Contact[] => contacts.items.filter(({ favorite }) => favorite);

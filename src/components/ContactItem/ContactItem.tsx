@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Contact } from "redux/contacts/contactsSlice";
+import { Contact } from "types/ContactTypes";
 import { Avatar, useMediaQuery } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { ActionButtons } from "../SharedComponents/ActionButtons/ActionButtons";

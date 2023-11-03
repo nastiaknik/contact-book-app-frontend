@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Contact } from "redux/contacts/contactsSlice";
+import { Contact } from "types/ContactTypes";
 import { ActionButtons } from "../SharedComponents/ActionButtons/ActionButtons";
 import { PopMenu } from "./Menu.styled";
 

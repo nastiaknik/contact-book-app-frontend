@@ -1,12 +1,14 @@
 import { Helmet } from "react-helmet";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "redux/store";
 import { changePassword } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { Formik } from "formik";
 import { FaKey } from "react-icons/fa";
 import { RiLock2Fill } from "react-icons/ri";
+import { toast } from "react-toastify";
 import { Loader } from "../../components/Loader/Loader";
 import { Input } from "../../components/SharedComponents/Input/Input";
 import { ResetPasswordSchema } from "../../schemas/UserSchemas";
@@ -23,21 +25,31 @@ import {
   Paragraph,
 } from "./RecoveryPage.styled";
 
-const RecoveryPage = () => {
-  const [newPasswordVisible, setNewPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const { token } = useParams();
+const RecoveryPage: React.FC = () => {
+  const [newPasswordVisible, setNewPasswordVisible] = useState<boolean>(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] =
+    useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading: boolean = useSelector(selectIsLoading);
+  const { token } = useParams<string>();
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: {
+    newPassword: string;
+    confirmPassword: string;
+  }): void => {
+    if (!token) {
+      toast.error("Token is missing. Unable to change the password.");
+      return;
+    }
     dispatch(
       changePassword({ resetToken: token, newPassword: values.newPassword })
     );
   };
+
   const toggleNewPasswordVisibility = () => {
     setNewPasswordVisible(!newPasswordVisible);
   };
+
   const toggleConfirmPasswordVisibility = () => {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
@@ -58,16 +70,16 @@ const RecoveryPage = () => {
             onSubmit={handleSubmit}
             validationSchema={ResetPasswordSchema}
           >
-            {(props) => {
+            {({ values, handleChange, touched, errors }) => {
               return (
                 <Form>
                   <Title>Reset Password</Title>
                   <FieldWrapper>
                     <Input
-                      values={props.values}
-                      handleChange={props.handleChange}
-                      touched={props.touched}
-                      errors={props.errors}
+                      values={values}
+                      handleChange={handleChange}
+                      touched={touched}
+                      errors={errors}
                       name="newPassword"
                       id="newPassword"
                       type={newPasswordVisible ? "text" : "password"}
@@ -78,10 +90,10 @@ const RecoveryPage = () => {
                       icon={<FaKey size={20} />}
                     />
                     <Input
-                      values={props.values}
-                      handleChange={props.handleChange}
-                      touched={props.touched}
-                      errors={props.errors}
+                      values={values}
+                      handleChange={handleChange}
+                      touched={touched}
+                      errors={errors}
                       name="confirmPassword"
                       id="confirmPassword"
                       type={confirmPasswordVisible ? "text" : "password"}

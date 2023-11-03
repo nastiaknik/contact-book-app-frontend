@@ -1,11 +1,14 @@
+import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  selectIsRefreshing,
-  selectIsLoggedIn,
-} from ".././redux/auth/selectors";
+import { selectIsRefreshing, selectIsLoggedIn } from "../redux/auth/selectors";
 
-export const PrivateRoute = ({
+interface PrivateRouteProps {
+  component: React.ReactElement;
+  redirectTo?: string;
+}
+
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   component: Component,
   redirectTo = "/auth/login",
 }) => {

@@ -1,3 +1,4 @@
+import React from "react";
 import astronaut from "../.././assets/astronaut.png";
 import {
   StyledNavLink,

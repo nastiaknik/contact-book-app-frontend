@@ -8,12 +8,7 @@ import {
   changePassword,
   googleAuth,
 } from "./operations";
-
-export interface User {
-  name: string | null;
-  email: string | null;
-  _id: string | null;
-}
+import { User } from "types/UserTypes";
 
 export interface AuthState {
   user: User | null;
@@ -39,9 +34,9 @@ const authSlice = createSlice({
     builder
       .addCase(
         register.fulfilled,
-        (state, { payload }: PayloadAction<{ token: string }>) => {
+        (state, { payload }: PayloadAction<{ verificationToken: string }>) => {
           state.user = null;
-          state.token = payload.token;
+          state.token = payload.verificationToken;
           state.isLoggedIn = false;
         }
       )

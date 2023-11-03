@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "redux/store";
 import { register } from "../../redux/auth/operations";
 import { selectIsLoading, selectError } from "../../redux/auth/selectors";
 import { Formik } from "formik";
@@ -23,10 +24,16 @@ import {
   LoginLink,
 } from "./RegisterForm.styled";
 
-export const RegisterForm = () => {
+interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export const RegisterForm: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isCheckEmailOpen, setIsCheckEmailOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
@@ -36,7 +43,8 @@ export const RegisterForm = () => {
   const toggleCheckEmail = () => {
     setIsCheckEmailOpen((prev) => !prev);
   };
-  const handleSubmit = (values) => {
+
+  const handleSubmit = (values: FormValues) => {
     dispatch(
       register({
         name: values.name,
@@ -59,41 +67,39 @@ export const RegisterForm = () => {
           onSubmit={handleSubmit}
           validationSchema={RegisterSchema}
         >
-          {(props) => {
+          {({ values, handleChange, touched, errors }) => {
             return (
               <Form>
                 <Title>Sign up</Title>
                 <Input
-                  values={props.values}
-                  handleChange={props.handleChange}
-                  touched={props.touched}
-                  errors={props.errors}
+                  values={values}
+                  handleChange={handleChange}
+                  touched={touched}
+                  errors={errors}
                   name="name"
                   id="name"
                   type="text"
                   placeholder="nugget"
                   label="Username"
                   icon={<BsPersonFill size={25} />}
-                  autoComplete="off"
                 />
                 <Input
-                  values={props.values}
-                  handleChange={props.handleChange}
-                  touched={props.touched}
-                  errors={props.errors}
+                  values={values}
+                  handleChange={handleChange}
+                  touched={touched}
+                  errors={errors}
                   name="email"
                   id="email"
                   type="email"
                   placeholder="nugget@gmail.com"
                   label="Email"
                   icon={<GrMail size={25} />}
-                  autoComplete="off"
                 />
                 <Input
-                  values={props.values}
-                  handleChange={props.handleChange}
-                  touched={props.touched}
-                  errors={props.errors}
+                  values={values}
+                  handleChange={handleChange}
+                  touched={touched}
+                  errors={errors}
                   name="password"
                   id="password"
                   type={passwordVisible ? "text" : "password"}
@@ -102,7 +108,6 @@ export const RegisterForm = () => {
                   onToggle={togglePasswordVisibility}
                   visible={passwordVisible}
                   icon={<RiLock2Fill size={25} />}
-                  autoComplete="off"
                 />
                 <Button type="submit">Register</Button>
                 <LoginParagraph>

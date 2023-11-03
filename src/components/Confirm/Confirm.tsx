@@ -1,8 +1,16 @@
-import PropTypes from "prop-types";
+import React from "react";
 import { Modal } from "../Modal/Modal";
 import { Title, BtnWrapper, ConfirmBtn, CancelBtn } from "./Confirm.styled";
 
-export const ConfirmModal = ({
+interface ConfirmModalProps {
+  isOpen?: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title: string;
+  confirmBtnTitle: string;
+}
+
+export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   isOpen = false,
   onClose,
   onConfirm,
@@ -29,12 +37,4 @@ export const ConfirmModal = ({
       </div>
     </Modal>
   );
-};
-
-ConfirmModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  confirmBtnTitle: PropTypes.string.isRequired,
 };
