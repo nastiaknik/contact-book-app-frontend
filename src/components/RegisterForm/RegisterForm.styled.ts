@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Form as FormikForm } from "formik";
 import { NavLink } from "react-router-dom";
+import { Form as FormikForm } from "formik";
 
 export const Container = styled.div`
   min-height: calc(100vh - 80px);
@@ -28,11 +28,14 @@ export const Form = styled(FormikForm)`
   width: 100%;
   max-width: 100%;
   padding: 15px;
+
+  @media only screen and (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 export const Wrapper = styled.div`
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
   padding: 10px;
   margin: 0 auto;
@@ -82,6 +85,11 @@ export const Image = styled.img`
   width: 100%;
   object-fit: contain;
   display: block;
+  max-width: 640px;
+
+  @media only screen and (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 export const LoginParagraph = styled.p`

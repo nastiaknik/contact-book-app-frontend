@@ -28,12 +28,15 @@ export const Form = styled(FormikForm)`
   width: 100%;
   max-width: 100%;
   padding: 15px;
+
+  @media only screen and (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
   padding: 10px;
   margin: 0 auto;
   background-color: #ffffff;
@@ -71,7 +74,6 @@ export const Button = styled.button`
 
   &:hover,
   &:focus {
-    background-color: #7286d3;
     background-color: #386bc0;
   }
   &:active {
@@ -83,6 +85,11 @@ export const Image = styled.img`
   width: 100%;
   object-fit: contain;
   display: block;
+  max-width: 640px;
+
+  @media only screen and (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 export const RegisterParagraph = styled.p`

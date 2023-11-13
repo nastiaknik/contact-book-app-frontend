@@ -79,7 +79,7 @@ export const logout = createAsyncThunk(
     try {
       const result: AxiosResponse<{ message: string }> = await axios.post(
         "/users/logout",
-        id
+        { id }
       );
       clearAuthHeader();
       toast.success("Logout success");

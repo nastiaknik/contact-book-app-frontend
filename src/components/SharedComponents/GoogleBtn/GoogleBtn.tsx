@@ -18,6 +18,9 @@ export const GoogleBtn: React.FC = () => {
       <GoogleLogin
         onSuccess={onSuccess}
         onError={() => toast.error("An error occurred during Google login.")}
+        locale="en"
+        width="175"
+        ux_mode="popup"
       />
     </GoogleButton>
   );
