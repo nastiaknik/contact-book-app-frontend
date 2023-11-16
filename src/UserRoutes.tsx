@@ -17,7 +17,7 @@ const UserRoutes: React.FC = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
-          path="/auth/login"
+          path="/auth/login/:token?/:message?"
           element={
             <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
           }

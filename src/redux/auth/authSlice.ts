@@ -29,7 +29,11 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
@@ -66,6 +70,11 @@ const authSlice = createSlice({
         (state, { payload }: PayloadAction<User>) => {
           state.user = payload;
           state.isLoggedIn = true;
+
+          if (payload.token) {
+            state.token = payload.token;
+            console.log(payload.token);
+          }
         }
       )
       .addMatcher(
@@ -113,5 +122,7 @@ const authSlice = createSlice({
       );
   },
 });
+
+export const { setToken } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

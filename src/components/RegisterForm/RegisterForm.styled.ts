@@ -7,16 +7,16 @@ export const Container = styled.div`
   background-color: #f9f8fb;
 
   @media only screen and (min-width: 350px) {
-    padding: 40px 25px;
+    padding: 40px 25px 30px;
   }
   @media only screen and (min-width: 468px) {
-    padding: 50px 30px;
+    padding: 50px 30px 35px;
   }
   @media only screen and (min-width: 624px) {
-    padding: 40px 50px;
+    padding: 40px 50px 30px;
   }
   @media only screen and (min-width: 1200px) {
-    padding: 50px 100px;
+    padding: 50px 100px 30px;
   }
 `;
 

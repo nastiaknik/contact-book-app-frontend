@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthState } from "redux/auth/authSlice";
+import { store } from "redux/store";
 import { CredentialResponse } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { User } from "types/UserTypes";
@@ -17,6 +18,14 @@ const setAuthHeader = (token: string | null): void => {
 const clearAuthHeader = (): void => {
   axios.defaults.headers.common.Authorization = "";
 };
+
+axios.interceptors.request.use((config) => {
+  const token: string | null = store.getState().auth.token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 interface RegisterCredentials {
   name: string;
@@ -110,8 +119,10 @@ export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      toast.error(error.message);
       return thunkAPI.rejectWithValue(error.message);
     } else {
+      toast.error("An error occurred");
       return thunkAPI.rejectWithValue({ message: "An error occurred" });
     }
   }
@@ -123,7 +134,7 @@ export const sendRecoveryEmail = createAsyncThunk(
     try {
       const result: AxiosResponse<{ message: string }> = await axios.post(
         "/users/recovery",
-        email
+        { email }
       );
       clearAuthHeader();
       toast.success("Recovery email is sent");
