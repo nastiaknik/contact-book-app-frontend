@@ -12,7 +12,7 @@ import { CheckEmail } from "../CheckEmailModal/CheckEmail";
 import { GoogleBtn } from "../SharedComponents/GoogleBtn/GoogleBtn";
 import { Input } from "../SharedComponents/Input/Input";
 import { RegisterSchema } from "../../schemas/UserSchemas";
-import registerImg from "../../assets/register.png";
+import registerImg from "../../assets/register.jpg";
 import {
   Container,
   Form,

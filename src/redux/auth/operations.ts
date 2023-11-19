@@ -111,7 +111,8 @@ export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
   const persistedToken: string | null = auth.token;
 
   if (persistedToken === null) {
-    return thunkAPI.rejectWithValue("Unable to fetch user");
+    toast.error("Unable to fetch user");
+    throw new Error("Unable to fetch user");
   }
   try {
     setAuthHeader(persistedToken);
@@ -119,10 +120,8 @@ export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      toast.error(error.message);
       return thunkAPI.rejectWithValue(error.message);
     } else {
-      toast.error("An error occurred");
       return thunkAPI.rejectWithValue({ message: "An error occurred" });
     }
   }

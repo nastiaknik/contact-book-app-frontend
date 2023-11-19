@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "../Modal/Modal";
-import envelope from "../../assets/envelope.png";
+import envelope from "../../assets/envelope.jpg";
 import { Title, Image } from "./CheckEmail.styled";
 
 interface CheckEmailProps {
