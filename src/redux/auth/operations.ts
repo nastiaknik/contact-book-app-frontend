@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthState } from "redux/auth/authSlice";
 import { store } from "redux/store";
@@ -47,14 +47,21 @@ export const register = createAsyncThunk(
         "Registration Successful! Please check your email and verify your account."
       );
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.message);
-        return rejectWithValue(error.message);
-      } else {
-        toast.error("An error occurred");
-        return rejectWithValue({ message: "An error occurred" });
+        const axiosError = error as AxiosError<{
+          message: string;
+          status: number;
+        }>;
+        if (axiosError.response && axiosError.response.data) {
+          const errorMessage: string = axiosError.response.data.message;
+          toast.error(errorMessage);
+          return rejectWithValue(errorMessage);
+        }
       }
+      const errorMessage = "An unexpected error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -70,14 +77,21 @@ export const login = createAsyncThunk(
       setAuthHeader(response.data.token);
       toast.success("Login success");
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.message);
-        return rejectWithValue(error.message);
-      } else {
-        toast.error("An error occurred");
-        return rejectWithValue({ message: "An error occurred" });
+        const axiosError = error as AxiosError<{
+          message: string;
+          status: number;
+        }>;
+        if (axiosError.response && axiosError.response.data) {
+          const errorMessage: string = axiosError.response.data.message;
+          toast.error(errorMessage);
+          return rejectWithValue(errorMessage);
+        }
       }
+      const errorMessage = "An unexpected error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -93,14 +107,21 @@ export const logout = createAsyncThunk(
       clearAuthHeader();
       toast.success("Logout success");
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.message);
-        return rejectWithValue(error.message);
-      } else {
-        toast.error("An error occurred");
-        return rejectWithValue({ message: "An error occurred" });
+        const axiosError = error as AxiosError<{
+          message: string;
+          status: number;
+        }>;
+        if (axiosError.response && axiosError.response.data) {
+          const errorMessage: string = axiosError.response.data.message;
+          toast.error(errorMessage);
+          return rejectWithValue(errorMessage);
+        }
       }
+      const errorMessage = "An unexpected error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -111,19 +132,27 @@ export const refreshUser = createAsyncThunk("refresh", async (_, thunkAPI) => {
   const persistedToken: string | null = auth.token;
 
   if (persistedToken === null) {
-    toast.error("Unable to fetch user");
     throw new Error("Unable to fetch user");
   }
   try {
     setAuthHeader(persistedToken);
     const response: AxiosResponse<User> = await axios.get("/users/current");
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      return thunkAPI.rejectWithValue(error.message);
-    } else {
-      return thunkAPI.rejectWithValue({ message: "An error occurred" });
+      const axiosError = error as AxiosError<{
+        message: string;
+        status: number;
+      }>;
+      if (axiosError.response && axiosError.response.data) {
+        const errorMessage: string = axiosError.response.data.message;
+        toast.error(errorMessage);
+        return thunkAPI.rejectWithValue(errorMessage);
+      }
     }
+    const errorMessage = "An unexpected error occurred.";
+    toast.error(errorMessage);
+    return thunkAPI.rejectWithValue(errorMessage);
   }
 });
 
@@ -138,14 +167,21 @@ export const sendRecoveryEmail = createAsyncThunk(
       clearAuthHeader();
       toast.success("Recovery email is sent");
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.message);
-        return rejectWithValue(error.message);
-      } else {
-        toast.error("An error occurred");
-        return rejectWithValue({ message: "An error occurred" });
+        const axiosError = error as AxiosError<{
+          message: string;
+          status: number;
+        }>;
+        if (axiosError.response && axiosError.response.data) {
+          const errorMessage: string = axiosError.response.data.message;
+          toast.error(errorMessage);
+          return rejectWithValue(errorMessage);
+        }
       }
+      const errorMessage = "An unexpected error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -163,14 +199,21 @@ export const changePassword = createAsyncThunk(
         });
       toast.success("Password has been successfully changed");
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.message);
-        return rejectWithValue(error.message);
-      } else {
-        toast.error("An error occurred");
-        return rejectWithValue({ message: "An error occurred" });
+        const axiosError = error as AxiosError<{
+          message: string;
+          status: number;
+        }>;
+        if (axiosError.response && axiosError.response.data) {
+          const errorMessage: string = axiosError.response.data.message;
+          toast.error(errorMessage);
+          return rejectWithValue(errorMessage);
+        }
       }
+      const errorMessage = "An unexpected error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -189,14 +232,20 @@ export const googleAuth = createAsyncThunk(
       setAuthHeader(result.data.token);
       toast.success(result.data.message);
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.message);
-        return rejectWithValue(error.message);
-      } else {
-        toast.error("An error occurred");
-        return rejectWithValue({ message: "An error occurred" });
+        const axiosError = error as AxiosError<{
+          message: string;
+          status: number;
+        }>;
+        if (axiosError.response && axiosError.response.data) {
+          const errorMessage: string = axiosError.response.data.message;
+          toast.error(errorMessage);
+          return rejectWithValue(errorMessage);
+        }
       }
+      toast.error("An unexpected error occurred.");
+      return rejectWithValue("An unexpected error occurred.");
     }
   }
 );

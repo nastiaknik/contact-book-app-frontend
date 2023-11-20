@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Contact } from "types/ContactTypes";
+import { toast } from "react-toastify";
 
 export const getContacts = createAsyncThunk<Contact[]>(
   "getContacts",
@@ -8,12 +9,20 @@ export const getContacts = createAsyncThunk<Contact[]>(
     try {
       const response: AxiosResponse<Contact[]> = await axios.get("/contacts");
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        return rejectWithValue({ message: error.message });
-      } else {
-        return rejectWithValue({ message: "An error occurred" });
+        const axiosError = error as AxiosError<{
+          message: string;
+          status: number;
+        }>;
+        if (axiosError.response && axiosError.response.data) {
+          const errorMessage: string = axiosError.response.data.message;
+          toast.error(errorMessage);
+          return rejectWithValue(errorMessage);
+        }
       }
+      toast.error("An unexpected error occurred.");
+      return rejectWithValue("An unexpected error occurred.");
     }
   }
 );
@@ -25,12 +34,20 @@ export const addContact = createAsyncThunk<
   try {
     const response = await axios.post<Contact>("/contacts", contact);
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      return rejectWithValue({ message: error.message });
-    } else {
-      return rejectWithValue({ message: "An error occurred" });
+      const axiosError = error as AxiosError<{
+        message: string;
+        status: number;
+      }>;
+      if (axiosError.response && axiosError.response.data) {
+        const errorMessage: string = axiosError.response.data.message;
+        toast.error(errorMessage);
+        return rejectWithValue(errorMessage);
+      }
     }
+    toast.error("An unexpected error occurred.");
+    return rejectWithValue("An unexpected error occurred.");
   }
 });
 
@@ -42,12 +59,20 @@ export const deleteContact = createAsyncThunk<
     const response: AxiosResponse<{ message: string; id: string }> =
       await axios.delete(`/contacts/${id}`);
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      return rejectWithValue({ message: error.message });
-    } else {
-      return rejectWithValue({ message: "An error occurred" });
+      const axiosError = error as AxiosError<{
+        message: string;
+        status: number;
+      }>;
+      if (axiosError.response && axiosError.response.data) {
+        const errorMessage: string = axiosError.response.data.message;
+        toast.error(errorMessage);
+        return rejectWithValue(errorMessage);
+      }
     }
+    toast.error("An unexpected error occurred.");
+    return rejectWithValue("An unexpected error occurred.");
   }
 });
 
@@ -58,12 +83,20 @@ export const editContact = createAsyncThunk<
   try {
     const response = await axios.put<Contact>(`/contacts/${id}`, contact);
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      return rejectWithValue({ message: error.message });
-    } else {
-      return rejectWithValue({ message: "An error occurred" });
+      const axiosError = error as AxiosError<{
+        message: string;
+        status: number;
+      }>;
+      if (axiosError.response && axiosError.response.data) {
+        const errorMessage: string = axiosError.response.data.message;
+        toast.error(errorMessage);
+        return rejectWithValue(errorMessage);
+      }
     }
+    toast.error("An unexpected error occurred.");
+    return rejectWithValue("An unexpected error occurred.");
   }
 });
 
@@ -76,11 +109,19 @@ export const toggleFavourite = createAsyncThunk<
       favorite,
     });
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      return rejectWithValue({ message: error.message });
-    } else {
-      return rejectWithValue({ message: "An error occurred" });
+      const axiosError = error as AxiosError<{
+        message: string;
+        status: number;
+      }>;
+      if (axiosError.response && axiosError.response.data) {
+        const errorMessage: string = axiosError.response.data.message;
+        toast.error(errorMessage);
+        return rejectWithValue(errorMessage);
+      }
     }
+    toast.error("An unexpected error occurred.");
+    return rejectWithValue("An unexpected error occurred.");
   }
 });
